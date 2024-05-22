@@ -10,7 +10,7 @@ const NavLink = ({path,children}) => {
     <Link
       href={path}
       className={`${
-        path === pathName && "text-white bg-green-400 md:text-green-500 md:bg-transparent"
+        path === pathName && "text-white bg-green-400 lg:text-green-500 lg:bg-transparent"
       } transition-all hover:text-green-500`}
     >
       {children}

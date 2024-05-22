@@ -12,14 +12,14 @@ const Nav = () => {
       onClick={() => setIsMenuOpened((prev) => !prev)}
       className={`${styles.nav} ${
         isMenuOpened && styles.navActive
-      } flex gap-0.5 md:gap-4 shadow md:shadow-none dark:bg-slate-800`}
+      } flex gap-0.5 lg:gap-4 shadow lg:shadow-none dark:bg-slate-800 lg:dark:bg-transparent`}
     >
       <NavLink path="/">Home</NavLink>
       <NavLink path="/about-us">About Us</NavLink>
       <NavLink path="/services">Services</NavLink>
       <NavLink path="/amenities">Amenities</NavLink>
       <NavLink path="/cost-and-payment">Cost & Payment</NavLink>
-      <div className="md:hidden mt-10">
+      <div className="lg:hidden mt-10">
         <PrimaryButton>Contact Us</PrimaryButton>
       </div>
     </nav>
