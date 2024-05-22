@@ -1,0 +1,47 @@
+.menuBtn {
+    width: 1.5rem;
+    height: 1.25rem;
+    position: relative;
+}
+
+.menuBtn>span {
+    width: 100%;
+    height: .15rem;
+    border-radius: 3px;
+    background-color: #4ADE80;
+    display: block;
+    position: absolute;
+    left: 0;
+    transition: all .3s ease;
+}
+
+.menuBtn>span:nth-child(1) {
+    top: 0;
+}
+
+.menuBtn>span:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.menuBtn>span:nth-child(3) {
+    bottom: 0;
+}
+
+.activeMenuBtn>span:nth-child(1), .activeMenuBtn>span:nth-child(2), .activeMenuBtn>span:nth-child(3) {
+    top: 50%;
+    /* transform: translateY(-50%); */
+    transform-origin: center;
+}
+
+.activeMenuBtn>span:nth-child(1) {
+    transform: rotate(225deg);
+}
+
+.activeMenuBtn>span:nth-child(2) {
+    opacity: 0;
+}
+
+.activeMenuBtn>span:nth-child(3) {
+    transform: rotate(-225deg);
+}
