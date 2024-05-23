@@ -4,7 +4,7 @@ import PrimaryButton from "../primaryButton/PrimaryButton";
 import CareImg from "../../../public/care.png"
 const CareCenter = () => {
   return (
-    <section className="pb-20 dark:bg-slate-600 dark:text-slate-100">
+    <section className="py-20 dark:bg-slate-600 dark:text-slate-100">
       <div className="container mx-auto px-3 flex flex-col gap-10 lg:flex-row lg:items-center">
         <div className="left flex-1">
           <h2 className="text-3xl sm:text-4xl font-medium mb-5 text-center sm:text-start">

@@ -10,7 +10,7 @@ const GreenBanner = () => {
         <h2 className="text-3xl sm:text-4xl font-medium mb-5 text-center sm:text-start">
           The Best Eldery Care Center For You
         </h2>
-        <p className="font-light mb-8 md:w-4/5">
+        <p className="font-light mb-8 text-justify lg:w-4/5">
           Lorem ipsum dolor sit amet consectetur. Augue non malesuada placerat
           faucibus nam purus sem. Urna pulvinar porttitor dignissim congue
           pellentesque ac hac. Viverra donec nulla id enim posuere donec morbi
