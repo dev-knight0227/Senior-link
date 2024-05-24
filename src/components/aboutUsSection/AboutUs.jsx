@@ -10,7 +10,7 @@ const AboutUs = () => {
         <div className="left flex-1 z-[1] mb-16 flex justify-center lg:justify-start">
           <div className="img-box max-w-[250px] sm:max-w-[450px] relative">
             <div className="hidden sm:block border border-green-400 absolute w-full h-full top-10 left-10 z-[-1]"></div>
-            <Image src={AboutUsImg} alt="" />
+            <Image src={AboutUsImg} alt="About Us Image" />
           </div>
         </div>
         <div className="right flex-1 font-light">
