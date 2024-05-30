@@ -4,6 +4,11 @@ import ServicesPageMainSection from '@/components/servicesPageMainSection/Servic
 import SocialActivities from '@/components/socialActivitiesSection/SocialActivities';
 import React from 'react'
 
+export const metadata = {
+  title: "Senior Care | Services",
+  description: "It is Senior Care Website. It is Created by using Modern Technology Next JS",
+};
+
 const Services = () => {
   return (
     <>

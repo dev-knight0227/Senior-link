@@ -3,7 +3,11 @@ import History from '@/components/history/History';
 import Mission from '@/components/mission/Mission';
 import PageHeader from '@/components/pageHeader/PageHeader'
 import React from 'react'
-
+export const metadata = {
+  title: "Senior Care | About Us",
+  description:
+    "It is Senior Care Website. It is Created by using Modern Technology Next JS",
+};
 const AboutUs = () => {
   return (
     <>

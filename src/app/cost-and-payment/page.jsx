@@ -4,7 +4,10 @@ import InsuranceAndMedicareSection from "@/components/insuranceAndMedicareSectio
 import PageHeader from "@/components/pageHeader/PageHeader";
 import PaymentPlansSection from "@/components/paymentPlansSection/PaymentPlansSection";
 import React from "react";
-
+export const metadata = {
+  title: "Senior Care | Cost & Payment",
+  description: "It is Senior Care Website. It is Created by using Modern Technology Next JS",
+};
 const CostAndPayment = () => {
   return (
     <>
