@@ -4,7 +4,7 @@ import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 const ReviewCard = ({ review }) => {
   const { comment, user } = review;
   return (
-    <div className="card flex flex-col items-center gap-8">
+    <div className="card flex flex-col items-center gap-16">
       <div className="comment mx-8 text-center relative mt-20">
         <div className="comma">
           <FaQuoteLeft className="text-green-400 text-3xl absolute -top-8 -left-6 z-10" />
@@ -12,7 +12,7 @@ const ReviewCard = ({ review }) => {
         </div>
         <p>{comment}</p>
       </div>
-      <div className="user-info flex gap-4 items-center">
+      <div className="user-info mt-8 flex gap-4 justify-center items-center">
         <div className="img w-16 h-16 rounded-full overflow-hidden border-2 border-green-400 cursor-pointer">
           <Image
             src={user.image}

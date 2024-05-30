@@ -112,7 +112,7 @@ const Footer = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ amount: 0.5 }}
-                transition={{ duration: 0.5, staggerChildren: 0.75 }}
+                transition={{ duration: 0.5, staggerChildren: 0.5 }}
               >
                 <motion.div variants={bottomVariants}>
                   <Link
