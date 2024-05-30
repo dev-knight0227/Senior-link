@@ -1,11 +1,8 @@
-
 import ReviewCard from "./reviewCard/ReviewCard";
 import { reviews } from "./clientReviesData";
-import SliderProvider from './sliderProvider/SliderProvider';
-
+import SliderProvider from "./sliderProvider/SliderProvider";
 
 const ClientReviews = () => {
-
   return (
     <section className="py-20 bg-slate-200 dark:bg-slate-700 dark:text-slate-100">
       <div className="container mx-auto px-3">
@@ -13,15 +10,11 @@ const ClientReviews = () => {
           Client Reviews
         </h2>
         <div className="reviews slider-container">
-       <SliderProvider>
+          <SliderProvider>
             {reviews.map((review) => (
-             
-                <div>
-                  <ReviewCard key={review.id} review={review} />
-                </div>
-             
+              <ReviewCard key={review.id} review={review} />
             ))}
-         </SliderProvider>
+          </SliderProvider>
         </div>
       </div>
     </section>

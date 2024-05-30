@@ -18,7 +18,7 @@ const Mission = () => {
         </div>
         <div className="right flex-1 flex justify-center lg:justify-end">
           <div className="img max-w-[450px] md:max-w-md">
-            <Image src={MissionImg} />
+            <Image src={MissionImg} alt="Mission" />
           </div>
         </div>
       </div>

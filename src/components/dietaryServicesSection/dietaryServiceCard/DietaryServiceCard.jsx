@@ -7,6 +7,7 @@ const DietaryServiceCard = ({dietaryData}) => {
       <div className="img flex justify-center max-h-[300px] overflow-hidden">
         <Image
           src={dietaryData.image}
+          alt="Dietary Image"
           width={600}
           height={250}
           className="rounded rounded-b-none object-cover group-hover:scale-125 transition-all"

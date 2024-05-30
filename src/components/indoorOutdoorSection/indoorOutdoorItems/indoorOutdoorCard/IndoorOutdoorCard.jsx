@@ -7,6 +7,7 @@ const IndoorOutdoorCard = ({cardData}) => {
       <div className="img flex justify-center max-h-[300px] overflow-hidden">
         <Image
           src={cardData.image}
+          alt="Indoor Outdoor"
           width={800}
           height={250}
           className="rounded rounded-b-none object-cover group-hover:scale-125 transition-all"

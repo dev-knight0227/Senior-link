@@ -22,9 +22,9 @@ const Services = () => {
               initial="hidden"
               whileInView="visible"
               transition={{ duration: 0.5, delay: 0.05 }}
-              viewport={{ amount: 0.5 }}
+              viewport={{ amount: 0.5 }} key={service.id} 
             >
-              <ServiceCard key={service.id} service={service} />
+              <ServiceCard service={service} />
             </motion.div>
           ))}
         </div>
