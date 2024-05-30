@@ -9,13 +9,13 @@ const Amenities = () => {
     <>
       <PageHeader
         bgImg={
-          "https://images.pexels.com/photos/7089401/pexels-photo-7089401.jpeg?auto=compress&cs=tinysrgb&w=600"
+          "https://images.pexels.com/photos/8292823/pexels-photo-8292823.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         }
         pageTitle="Amenities"
       />
-      <IndoorOutdoorSection/>
-      <CommonAreaSection/>
-      <AccessibilityFeaturesSection/>
+      <IndoorOutdoorSection />
+      <CommonAreaSection />
+      <AccessibilityFeaturesSection />
     </>
   );
 }

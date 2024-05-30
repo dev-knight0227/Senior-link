@@ -20,7 +20,8 @@
 
     }
 
-    .nav>a {
+    .nav >a {
+        display:block;
         padding: .3rem .5rem;
         border-radius: 3px;
         transition: all .3s ease;

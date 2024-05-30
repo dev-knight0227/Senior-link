@@ -4,7 +4,13 @@
 
 *{
     transition: background-color .3s ease;
-} 
+}
+/* body{
+    scroll-snap-type: y mandatory;
+}
+section{
+    scroll-snap-align: start;
+}  */
 .bgLinearGreen {
     background: linear-gradient(to bottom right, #4ADE80, #4ADE80, #02a815);
 }

@@ -9,13 +9,13 @@ const Services = () => {
     <>
       <PageHeader
         bgImg={
-          "https://images.pexels.com/photos/7089401/pexels-photo-7089401.jpeg?auto=compress&cs=tinysrgb&w=600"
+          "https://images.pexels.com/photos/6129242/pexels-photo-6129242.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         }
         pageTitle="Services"
       />
-      <ServicesPageMainSection/>
-      <DietaryServicesSection/>
-      <SocialActivities/>
+      <ServicesPageMainSection />
+      <DietaryServicesSection />
+      <SocialActivities />
     </>
   );
 }

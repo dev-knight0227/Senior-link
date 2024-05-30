@@ -1,5 +1,5 @@
 import React from "react";
-import {  servicesMainData } from "./servicesPageData";
+import { servicesMainData } from "./servicesPageData";
 import ServicesPageItem from "./servicesPageItem/ServicesPageItem";
 
 const ServicesPageMainSection = () => {
