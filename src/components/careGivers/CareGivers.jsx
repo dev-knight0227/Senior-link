@@ -11,7 +11,7 @@ const CareGivers = () => {
         </h2>
         <div
           className="care-givers mt-10 grid gap-8 justify-center"
-          style={{ gridTemplateColumns: "repeat(auto-fit,minmax(15rem,1fr))" }}
+          style={{ gridTemplateColumns: "repeat(auto-fit,minmax(20rem,1fr))" }}
         >
           {careGivers.map((careGiver) => (
             <CareGiverCard key={careGiver.id} careGiver={careGiver} />

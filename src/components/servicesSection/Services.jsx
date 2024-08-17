@@ -7,7 +7,6 @@ import {
   rightVariants,
 } from "@/utils/framerMotionVariants/variants";
 
-
 const Services = () => {
   return (
     <section className="pb-20 dark:bg-slate-600 dark:text-slate-100 overflow-hidden">
@@ -17,15 +16,7 @@ const Services = () => {
         </h2>
         <div className="services grid md:grid-cols-2 gap-6">
           {services.map((service, i) => (
-            <motion.div
-              variants={i % 2 === 0 ? leftVariants : rightVariants}
-              initial="hidden"
-              whileInView="visible"
-              transition={{ duration: 0.5, delay: 0.05 }}
-              viewport={{ amount: 0.5 }} key={service.id} 
-            >
-              <ServiceCard service={service} />
-            </motion.div>
+            <ServiceCard key={service.id} service={service} />
           ))}
         </div>
       </div>

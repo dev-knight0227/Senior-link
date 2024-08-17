@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useRef } from "react";
+import React, { useContext } from "react";
 import NavLink from "./navLink/NavLink";
 import styles from "./nav.module.css";
 import PrimaryButton from "@/components/primaryButton/PrimaryButton";

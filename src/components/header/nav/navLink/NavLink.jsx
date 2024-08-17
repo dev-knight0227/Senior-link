@@ -1,5 +1,4 @@
 "use client"
-
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 
@@ -12,6 +11,7 @@ const NavLink = ({path,children}) => {
       className={`${
         path === pathName && "text-white bg-green-400 lg:text-green-500 lg:bg-transparent"
       } transition-all hover:text-green-500`}
+      data-abc={true}
     >
       {children}
     </Link>
