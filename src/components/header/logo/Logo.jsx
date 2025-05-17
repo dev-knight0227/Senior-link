@@ -8,7 +8,7 @@ const Logo = () => {
   return (
     <div className="logo">
       <Link href="/" data-abc={true}>
-        <Image src={LogoImg} width={60} alt="Senior Link Home" />
+        <Image src={LogoImg} width={60} alt="SeniorLink Home" />
       </Link>
     </div>
   );

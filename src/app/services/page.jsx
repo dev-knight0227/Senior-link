@@ -5,8 +5,8 @@ import SocialActivities from '@/components/socialActivitiesSection/SocialActivit
 import React from 'react'
 
 export const metadata = {
-  title: "Senior Link | Services",
-  description: "It is Senior Link Website. It is Created by using Modern Technology Next JS",
+  title: "SeniorLink | Services",
+  description: "It is SeniorLink Website. It is Created by using Modern Technology Next JS",
 };
 
 const Services = () => {
@@ -14,7 +14,7 @@ const Services = () => {
     <>
       <PageHeader
         bgImg={
-          "https://images.pexels.com/photos/6129242/pexels-photo-6129242.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          "/images/painting.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
         }
         pageTitle="Services"
       />

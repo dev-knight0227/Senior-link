@@ -4,7 +4,7 @@ import { Mail, Phone, Clock, MapPin, MessageSquare, Users, HelpCircle } from 'lu
 import Image from 'next/image';
 
 export const metadata = {
-  title: "Senior Link | Contact Us",
+  title: "SeniorLink | Contact Us",
   description: "Get in touch with our senior care specialists. We're here to help you and your loved ones.",
 };
 
@@ -15,7 +15,7 @@ export default function ContactPage() {
       <div className="relative bg-[#0077C8] text-white">
         <div className="absolute inset-0 opacity-20">
           <Image 
-            src="/contactus.jpg?height=600&width=1920" 
+            src="/images/asdaught.jpeg?height=600&width=1920" 
             alt="Senior care background" 
             fill
             className="object-cover"
@@ -99,7 +99,7 @@ export default function ContactPage() {
             <div className="bg-gray-50 dark:bg-gray-800 rounded-xl overflow-hidden shadow-sm border border-gray-100 dark:border-gray-700">
               <div className="aspect-video bg-gray-200 dark:bg-gray-700 relative">
                 <Image 
-                  src="/map.PNG?height=300&width=500&text=Location+Map" 
+                  src="/images/map.PNG?height=300&width=500&text=Location+Map" 
                   alt="Office location map" 
                   fill
                   className="object-cover"
@@ -340,7 +340,7 @@ export default function ContactPage() {
             </div>
             <div className="hidden md:block relative">
               <Image 
-                src="/hahaha.jpg?height=400&width=500" 
+                src="/images/knitting.jpeg?height=400&width=500" 
                 alt="Senior care specialist" 
                 fill
                 className="object-cover"

@@ -120,7 +120,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="bottom text-center text-sm">
-          <p>Copyright {currentYear} Senior Link</p>
+          <p>Copyright {currentYear} SeniorLink</p>
         </div>
       </div>
     </footer>

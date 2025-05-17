@@ -10,12 +10,12 @@ const Hero = () => {
           className="content text-center md:text-start md:w-9/12 lg:w-1/2"
         >
           <h1 className="text-4xl mb-5 md:mb-8 text-slate-100 font-semibold md:text-5xl lg:text-6xl">
-            Stay Comfortably Like Your Home
+            SeniorLink – connecting those who care, with those in need of care.
           </h1>
-          <p className="mb-8 font-light md:md-8 text-slate-300">
+          {/* <p className="mb-8 font-light md:md-8 text-slate-300">
             Lorem ipsum dolor sit amet consectetur. Mattis aenean quis cursus
             consectetur tortor facilisis vulputate.
-          </p>
+          </p> */}
           <div>
             <PrimaryButton>Get In Touch</PrimaryButton>
           </div>

@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React from "react";
 import PrimaryButton from "../primaryButton/PrimaryButton";
-import CareImg from "../../../public/care.png";
+import CareImg from "../../../public/images/333.jpeg";
 
 const CareCenter = () => {
   return (

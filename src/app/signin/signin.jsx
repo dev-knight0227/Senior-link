@@ -105,7 +105,7 @@ const SignIn = () => {
                 className="flex items-center justify-center gap-3 w-full p-3 border border-gray-300 dark:border-gray-600 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors duration-200"
               >
                 <Image
-                  src="/google.png"
+                  src="/icons/google.png"
                   alt="Google"
                   width={24}
                   height={24}

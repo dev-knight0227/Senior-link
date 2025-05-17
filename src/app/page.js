@@ -13,8 +13,8 @@ export default function Home() {
       <AboutUs/>
       <Services/>
       {/* <ClientReviews/> */}
-      <CareCenter/>
-      <GreenBanner data={homePageGBData}/>
+      {/* <CareCenter/> */}
+      {/* <GreenBanner data={homePageGBData}/> */}
     </>
   );
 }
