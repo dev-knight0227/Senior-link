@@ -1,14 +1,14 @@
 "use client"
 import Image from "next/image";
 import Link from "next/link";
-import LogoImg from "../../../../public/logo-no-background.svg";
+import LogoImg from "../../../../public/logo.png";
 
 const Logo = () => {
   
   return (
     <div className="logo">
       <Link href="/" data-abc={true}>
-        <Image src={LogoImg} width={180} alt="Senior Care Home" />
+        <Image src={LogoImg} width={60} alt="Senior Link Home" />
       </Link>
     </div>
   );

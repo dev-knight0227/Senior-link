@@ -17,9 +17,9 @@ const Nav = () => {
     >
       <NavLink path="/">Home</NavLink>
       <NavLink path="/about-us">About Us</NavLink>
-      <NavLink path="/services">Services</NavLink>
-      <NavLink path="/amenities">Amenities</NavLink>
-      <NavLink path="/cost-and-payment">Cost & Payment</NavLink>
+      <NavLink path="/services">Terms of Use</NavLink>
+      {/* <NavLink path="/amenities">Amenities</NavLink> */}
+      {/* <NavLink path="/cost-and-payment">Cost & Payment</NavLink> */}
 
       <div className="lg:hidden mt-10">
         <PrimaryButton>Contact Us</PrimaryButton>

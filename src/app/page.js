@@ -12,7 +12,7 @@ export default function Home() {
       <Hero />
       <AboutUs/>
       <Services/>
-      <ClientReviews/>
+      {/* <ClientReviews/> */}
       <CareCenter/>
       <GreenBanner data={homePageGBData}/>
     </>

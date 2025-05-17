@@ -8,8 +8,8 @@ import ThemeProvider from "@/contexts/Theme";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Senior Care | Home",
-  description: "It is Senior Care Website. It is Created by using Modern Technology Next JS",
+  title: "Senior Link | Home",
+  description: "It is Senior Link Website. It is Created by using Modern Technology Next JS",
 };
 
 export default function RootLayout({ children }) {

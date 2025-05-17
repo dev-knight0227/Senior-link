@@ -10,6 +10,7 @@ import Link from "next/link";
 import { FaTwitterSquare } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { bottomVariants } from "@/utils/framerMotionVariants/variants";
+const currentYear = new Date().getFullYear();
 
 const Footer = () => {
   return (
@@ -119,7 +120,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="bottom text-center text-sm">
-          <p>Copyright 2023 United Software Solutions, All Rights Reserved</p>
+          <p>Copyright {currentYear} Senior Link</p>
         </div>
       </div>
     </footer>

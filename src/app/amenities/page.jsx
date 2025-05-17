@@ -5,8 +5,8 @@ import PageHeader from '@/components/pageHeader/PageHeader';
 import React from 'react'
 
 export const metadata = {
-  title: "Senior Care | Amenities",
-  description: "It is Senior Care Website. It is Created by using Modern Technology Next JS",
+  title: "Senior Link | Amenities",
+  description: "It is Senior Link Website. It is Created by using Modern Technology Next JS",
 };
 const Amenities = () => {
   return (
