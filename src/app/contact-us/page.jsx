@@ -340,7 +340,7 @@ export default function ContactPage() {
             </div>
             <div className="hidden md:block relative">
               <Image 
-                src="/placeholder.svg?height=400&width=500" 
+                src="/hahaha.jpg?height=400&width=500" 
                 alt="Senior care specialist" 
                 fill
                 className="object-cover"
