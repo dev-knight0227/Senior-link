@@ -75,23 +75,6 @@ export default function ContactPage() {
                     </p>
                   </div>
                 </div>
-                
-                <div className="flex items-start">
-                  <div className="bg-[#0077C8] rounded-full p-3 mr-4">
-                    <Clock className="h-5 w-5 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-gray-800 dark:text-gray-200">Hours</h3>
-                    <div className="mt-1 space-y-1 text-gray-600 dark:text-gray-300">
-                      <p>Monday - Friday: 8am - 6pm</p>
-                      <p>Saturday: 9am - 2pm</p>
-                      <p>Sunday: Closed</p>
-                      <p className="text-sm text-[#0077C8] dark:text-[#3b9ede] font-medium mt-2">
-                        24/7 Emergency Support Available
-                      </p>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
             
@@ -219,7 +202,7 @@ export default function ContactPage() {
                     required
                   />
                   <label htmlFor="consent" className="ml-3 text-sm text-gray-600 dark:text-gray-300">
-                    I consent to having this website store my submitted information so they can respond to my inquiry. View our <a href="/privacy" className="text-[#0077C8] dark:text-[#3b9ede] hover:underline">privacy policy</a> to learn more about how we use data.
+                    I consent to having this website store my submitted information so they can respond to my inquiry. View our privacy policy to learn more about how we use data.
                   </label>
                 </div>
                 

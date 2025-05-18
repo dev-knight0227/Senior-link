@@ -120,29 +120,29 @@ const Footer = () => {
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link href="/services/care-homes" className="text-gray-600 dark:text-gray-300 hover:text-[#206645] dark:hover:text-green-400 transition-colors duration-300">
+                <div className="text-gray-600 dark:text-gray-300 hover:text-[#206645] dark:hover:text-green-400 transition-colors duration-300">
                   Care Homes
-                </Link>
+                </div>
               </li>
               <li>
-                <Link href="/services/caregivers" className="text-gray-600 dark:text-gray-300 hover:text-[#206645] dark:hover:text-green-400 transition-colors duration-300">
+                <div className="text-gray-600 dark:text-gray-300 hover:text-[#206645] dark:hover:text-green-400 transition-colors duration-300">
                   Caregivers
-                </Link>
+                </div>
               </li>
               <li>
-                <Link href="/services/nurses" className="text-gray-600 dark:text-gray-300 hover:text-[#206645] dark:hover:text-green-400 transition-colors duration-300">
+                <div className="text-gray-600 dark:text-gray-300 hover:text-[#206645] dark:hover:text-green-400 transition-colors duration-300">
                   Nurses
-                </Link>
+                </div>
               </li>
               <li>
-                <Link href="/services/products" className="text-gray-600 dark:text-gray-300 hover:text-[#206645] dark:hover:text-green-400 transition-colors duration-300">
+                <div className="text-gray-600 dark:text-gray-300 hover:text-[#206645] dark:hover:text-green-400 transition-colors duration-300">
                   Senior Products
-                </Link>
+                </div>
               </li>
               <li>
-                <Link href="/services/transport" className="text-gray-600 dark:text-gray-300 hover:text-[#206645] dark:hover:text-green-400 transition-colors duration-300">
+                <div className="text-gray-600 dark:text-gray-300 hover:text-[#206645] dark:hover:text-green-400 transition-colors duration-300">
                   Medical Transport
-                </Link>
+                </div>
               </li>
             </ul>
           </motion.div>

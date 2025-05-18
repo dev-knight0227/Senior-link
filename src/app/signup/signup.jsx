@@ -195,14 +195,7 @@ const SignUp = () => {
             
             {/* Terms */}
             <p className="mt-6 text-xs text-center text-gray-500 dark:text-gray-400">
-              By signing up, you agree to our{" "}
-              <Link href="/terms" className="text-[#0077C8] dark:text-[#3b9ede] hover:underline">
-                Terms of Service
-              </Link>{" "}
-              and{" "}
-              <Link href="/privacy" className="text-[#0077C8] dark:text-[#3b9ede] hover:underline">
-                Privacy Policy
-              </Link>
+              By signing up, you agree to our Terms of Service and Privacy Policy
             </p>
             
             {/* Sign In Link */}

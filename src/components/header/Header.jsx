@@ -4,9 +4,10 @@ import Link from "next/link"; // Import Link from Next.js
 import Nav from "./nav/Nav";
 import PrimaryButton from "../primaryButton/PrimaryButton";
 import MenuButton from "./menuButton/MenuButton";
-import ThemeButton from "./themeButton/ThemeButton";
+// import ThemeButton from "./themeButton/ThemeButton";
 import Logo from "./logo/Logo";
 import { User, LogIn, LogOut, ChevronDown } from 'lucide-react';
+import LanguageSwitcher from "../languageSwitcher/LanguageSwitcher";
 
 const Header = () => {
   // Auth state - in a real app, this would come from your auth context/provider
@@ -57,6 +58,9 @@ const Header = () => {
           <Nav />
           {/* Navbar End */}
 
+          {/* Language Toggle */}
+          <LanguageSwitcher />
+          {/* End Language Toggle */}
         <div className="flex items-center gap-6">
           {/* <ThemeButton /> */}
           <Link href="/contact-us">
