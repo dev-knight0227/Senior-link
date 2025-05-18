@@ -540,6 +540,8 @@ const SearchCare = ({ initialLocation = "Kraków" }) => {
                                 src={provider.image || "/placeholder.svg"}
                                 alt={provider.name}
                                 className="w-full h-full object-cover"
+                                height={300}
+                                width={400}
                               />
                               {provider.featured && (
                                 <div className="absolute top-2 left-2 bg-[#206645] text-white text-xs font-medium px-2 py-1 rounded">

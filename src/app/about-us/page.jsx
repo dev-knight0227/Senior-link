@@ -1,4 +1,5 @@
 import AboutUsDetail from '@/components/mission/Mission';
+import GreenBanner from '@/components/greenBanner/GreenBanner';
 import PageHeader from '@/components/pageHeader/PageHeader'
 import React from 'react'
 export const metadata = {
@@ -16,6 +17,7 @@ const AboutUs = () => {
         pageTitle="About Us"
       />
       <AboutUsDetail />
+      <GreenBanner />
     </>
   );
 }

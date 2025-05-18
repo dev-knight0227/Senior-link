@@ -431,7 +431,7 @@ const AboutUsDetail = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 md:py-24">
+      {/* <section className="py-16 md:py-24">
         <div className="container mx-auto px-4">
           <motion.div 
             initial="hidden"
@@ -458,7 +458,7 @@ const AboutUsDetail = () => {
             </div>
           </motion.div>
         </div>
-      </section>
+      </section> */}
     </div>
   )
 }
