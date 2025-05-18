@@ -263,7 +263,7 @@ const ServicesPageMainSection = () => {
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Caregivers & Nurses</h2>
               </div>
               <p className="text-gray-700 dark:text-gray-300 mb-6">
-                Whether you're an experienced caregiver, a nurse, or just starting out — SeniorLink lets you create a profile and offer your help on your terms. Your services matter, and we help you get discovered by those who need you most.
+                Whether you are an experienced caregiver, a nurse, or just starting out — SeniorLink lets you create a profile and offer your help on your terms. Your services matter, and we help you get discovered by those who need you most.
               </p>
               <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 mb-6">
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">What you can share:</h3>
@@ -429,7 +429,7 @@ const ServicesPageMainSection = () => {
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Transport & Home Help</h2>
               </div>
               <p className="text-gray-700 dark:text-gray-300 mb-6">
-                Whether it's a medical ride, regular transport, cleaning, or cooking — your service makes life easier for seniors and their families. SeniorLink lets people in your area find you fast when help is needed.
+                Whether it is a medical ride, regular transport, cleaning, or cooking — your service makes life easier for seniors and their families. SeniorLink lets people in your area find you fast when help is needed.
               </p>
               <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 mb-6">
                 <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Add to your listing:</h3>
@@ -566,7 +566,7 @@ const ServicesPageMainSection = () => {
         >
           <div className="bg-[#206645] dark:bg-[#206645]/80 rounded-2xl overflow-hidden shadow-xl p-8 md:p-12 text-center">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
-              Join Poland's first platform for elderly support
+              Join Poland is first platform for elderly support
             </h2>
             <p className="text-white/80 mb-8 max-w-2xl mx-auto">
               One platform. All the help you need. The smart way to organize elderly care.

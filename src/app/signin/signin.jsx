@@ -244,7 +244,7 @@ const SignIn = () => {
             {/* Sign Up Link */}
             <div className="mt-8 text-center">
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                Don't have an account?{" "}
+                Do not have an account?{" "}
                 <Link
                   href="/signup"
                   className="font-medium text-[#0077C8] dark:text-[#3b9ede] hover:underline"

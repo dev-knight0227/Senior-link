@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useRef } from "react";
+import Image from "next/image";
 
 const AddListingPage = () => {
   // State for form data
@@ -875,7 +876,7 @@ const AddListingPage = () => {
                           {photoPreview.map((preview, index) => (
                             <div key={index} className="relative group">
                               <div className="aspect-w-1 aspect-h-1 w-full overflow-hidden rounded-md bg-gray-200">
-                                <img
+                                <Image
                                   src={preview || "/placeholder.svg"}
                                   alt={`Preview ${index + 1}`}
                                   className="object-cover"

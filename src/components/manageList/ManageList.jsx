@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 
 const ManageListPage = () => {
   // State for listings data
@@ -757,7 +758,7 @@ const ManageListPage = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                         <div className="flex items-center">
                           <div className="h-10 w-10 flex-shrink-0">
-                            <img
+                            <Image
                               className="h-10 w-10 rounded-full object-cover"
                               src={listing.photos[0] || "/placeholder.svg?height=40&width=40"}
                               alt=""
@@ -1025,7 +1026,7 @@ const ManageListPage = () => {
                     
                     <div className="mt-4">
                       <div className="aspect-w-16 aspect-h-9 mb-4">
-                        <img
+                        <Image
                           src={selectedListing.photos[0] || "/placeholder.svg?height=200&width=400"}
                           alt={selectedListing.name}
                           className="object-cover rounded-md"
@@ -1071,7 +1072,7 @@ const ManageListPage = () => {
                           <div className="grid grid-cols-3 gap-2">
                             {selectedListing.photos.slice(1).map((photo, index) => (
                               <div key={index} className="aspect-w-1 aspect-h-1">
-                                <img
+                                <Image
                                   src={photo || "/placeholder.svg?height=100&width=100"}
                                   alt={`${selectedListing.name} photo ${index + 2}`}
                                   className="object-cover rounded-md"

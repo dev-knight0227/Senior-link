@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 
 // SearchCare Component - A standalone component for searching care services
 const SearchCare = ({ initialLocation = "Kraków" }) => {
@@ -535,7 +536,7 @@ const SearchCare = ({ initialLocation = "Kraków" }) => {
                           {/* Image */}
                           <div className="md:w-1/3 relative">
                             <div className="relative h-48 md:h-full">
-                              <img
+                              <Image
                                 src={provider.image || "/placeholder.svg"}
                                 alt={provider.name}
                                 className="w-full h-full object-cover"
@@ -719,7 +720,7 @@ const SearchCare = ({ initialLocation = "Kraków" }) => {
                       </div>
                       <h3 className="text-xl font-semibold text-gray-900 mb-2">No results found</h3>
                       <p className="text-gray-600 mb-6">
-                        We couldn't find any care providers matching your search criteria. Try adjusting your filters or
+                        We could not find any care providers matching your search criteria. Try adjusting your filters or
                         search terms.
                       </p>
                       <button

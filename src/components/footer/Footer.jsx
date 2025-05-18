@@ -42,7 +42,7 @@ const Footer = () => {
           <motion.div variants={itemAnimation} className="space-y-6">
             <Logo />
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              SeniorLink connects seniors with quality care services. We're dedicated to improving the lives of elderly individuals by providing access to trusted caregivers and resources.
+              SeniorLink connects seniors with quality care services. We are dedicated to improving the lives of elderly individuals by providing access to trusted caregivers and resources.
             </p>
             <div className="flex space-x-4">
               <Link href="" className="bg-gray-100 dark:bg-gray-800 p-2 rounded-full text-[#206645] dark:text-green-400 hover:bg-[#206645] hover:text-white dark:hover:bg-green-400 dark:hover:text-gray-900 transition-colors duration-300">

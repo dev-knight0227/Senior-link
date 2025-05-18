@@ -24,7 +24,7 @@ const Profile = () => {
           >
             <div className="p-8 md:p-12 text-center">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                Join Poland's first platform for elderly support
+                Join Poland is first platform for elderly support
               </h2>
               <p className="text-white/80 mb-8 max-w-2xl mx-auto text-lg">
                 The smart way to organize elderly care. One platform. All the help you need.

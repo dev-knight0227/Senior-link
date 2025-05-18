@@ -24,7 +24,7 @@ export default function ContactPage() {
         </div>
         <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
           <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">We're Here For You</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">We are Here For You</h1>
             <p className="text-xl md:text-2xl opacity-90 mb-8">
               Our caring team is ready to answer your questions and provide the support you or your loved ones need.
             </p>
@@ -59,7 +59,7 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-medium text-gray-800 dark:text-gray-200">Email</h3>
                     <p className="text-lg text-[#0077C8] dark:text-[#3b9ede] font-medium mt-1">care@seniorlink.com</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">We'll respond within 24 hours</p>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">We will respond within 24 hours</p>
                   </div>
                 </div>
                 
@@ -354,7 +354,7 @@ export default function ContactPage() {
       <div className="bg-gray-50 dark:bg-gray-800 py-12 mt-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">We're Committed to Accessibility</h2>
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-6">We are Committed to Accessibility</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-center">
               <div className="p-4">
                 <div className="bg-white dark:bg-gray-700 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center shadow-sm">

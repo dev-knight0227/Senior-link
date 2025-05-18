@@ -152,7 +152,7 @@ const AboutUsDetail = () => {
               </div>
               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">For Seniors</h3>
               <p className="text-gray-700 dark:text-gray-300 mb-6">
-                For seniors seeking daily support or companionship. Find the help you need with dignity and respect, whether it's daily care, specialized assistance, or just companionship.
+                For seniors seeking daily support or companionship. Find the help you need with dignity and respect, whether it is daily care, specialized assistance, or just companionship.
               </p>
             </motion.div>
 
@@ -255,7 +255,7 @@ const AboutUsDetail = () => {
               <div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Caregivers & Nurses</h3>
                 <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  Whether you're an experienced caregiver, a nurse, or just starting out — SeniorLink lets you create a profile and offer your help on your terms.
+                  Whether you are an experienced caregiver, a nurse, or just starting out — SeniorLink lets you create a profile and offer your help on your terms.
                 </p>
                 <ul className="space-y-2 mb-4">
                   <li className="flex items-center text-gray-700 dark:text-gray-300">
@@ -335,7 +335,7 @@ const AboutUsDetail = () => {
               <div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">Transport & Home Help</h3>
                 <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  Whether it's a medical ride, regular transport, cleaning, or cooking — your service makes life easier for seniors and their families. SeniorLink lets people in your area find you fast.
+                  Whether it is a medical ride, regular transport, cleaning, or cooking — your service makes life easier for seniors and their families. SeniorLink lets people in your area find you fast.
                 </p>
                 <ul className="space-y-2 mb-4">
                   <li className="flex items-center text-gray-700 dark:text-gray-300">
@@ -442,7 +442,7 @@ const AboutUsDetail = () => {
           >
             <div className="p-8 md:p-12 text-center">
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-                Join Poland's first platform for elderly support
+                Join Poland is first platform for elderly support
               </h2>
               <p className="text-white/80 mb-8 max-w-2xl mx-auto text-lg">
                 The smart way to organize elderly care. One platform. All the help you need.
