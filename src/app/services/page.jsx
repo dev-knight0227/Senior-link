@@ -1,7 +1,5 @@
-import DietaryServicesSection from '@/components/dietaryServicesSection/DietaryServicesSection';
 import PageHeader from '@/components/pageHeader/PageHeader'
 import ServicesPageMainSection from '@/components/servicesPageMainSection/ServicesPageMainSection';
-import SocialActivities from '@/components/socialActivitiesSection/SocialActivities';
 import React from 'react'
 
 export const metadata = {
@@ -9,7 +7,7 @@ export const metadata = {
   description: "It is SeniorLink Website. It is Created by using Modern Technology Next JS",
 };
 
-const Services = () => {
+const TermsOfUse = () => {
   return (
     <>
       <PageHeader
@@ -19,10 +17,8 @@ const Services = () => {
         pageTitle="Services"
       />
       <ServicesPageMainSection />
-      {/* <DietaryServicesSection /> */}
-      {/* <SocialActivities /> */}
     </>
   );
 }
 
-export default Services
+export default TermsOfUse;

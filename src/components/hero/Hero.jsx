@@ -1,6 +1,7 @@
 "use client"
 import PrimaryButton from '../primaryButton/PrimaryButton'
 import styles from './hero.module.css'
+import Link from "next/link";
 
 const Hero = () => {
   return (
@@ -17,7 +18,9 @@ const Hero = () => {
             consectetur tortor facilisis vulputate.
           </p> */}
           <div>
+            <Link href="/contact-us">
             <PrimaryButton>Get In Touch</PrimaryButton>
+            </Link>
           </div>
         </div>
       </div>

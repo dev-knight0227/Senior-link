@@ -2,7 +2,7 @@
 import { motion} from "framer-motion";
 import Link from "next/link";
 
-const GreenBanner = () => {
+const Profile = () => {
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { 
@@ -44,4 +44,4 @@ const GreenBanner = () => {
   );
 };
 
-export default GreenBanner;
+export default Profile;

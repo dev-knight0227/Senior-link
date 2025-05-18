@@ -58,7 +58,7 @@ const Header = () => {
           {/* Navbar End */}
 
         <div className="flex items-center gap-6">
-          <ThemeButton />
+          {/* <ThemeButton /> */}
           <Link href="/contact-us">
             <div className="hidden lg:block">
               <PrimaryButton>Contact Us</PrimaryButton>
@@ -105,6 +105,14 @@ const Header = () => {
                     >
                       <User size={18} className="text-violet-500" />
                       <span>My Profile</span>
+                    </a>
+                    <a
+                      href="/admin"
+                      className="flex items-center gap-3 px-4 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors duration-150"
+                      role="menuitem"
+                    >
+                      <User size={18} className="text-violet-500" />
+                      <span>Manage List</span>
                     </a>
                     <button
                       onClick={handleLogout}

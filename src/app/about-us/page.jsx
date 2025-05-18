@@ -1,6 +1,4 @@
-import CareGivers from '@/components/careGivers/CareGivers';
-import History from '@/components/history/History';
-import Mission from '@/components/mission/Mission';
+import AboutUsDetail from '@/components/mission/Mission';
 import PageHeader from '@/components/pageHeader/PageHeader'
 import React from 'react'
 export const metadata = {
@@ -17,9 +15,7 @@ const AboutUs = () => {
         }
         pageTitle="About Us"
       />
-      <Mission/>
-      <History/>
-      {/* <CareGivers/> */}
+      <AboutUsDetail />
     </>
   );
 }

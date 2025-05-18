@@ -237,7 +237,7 @@ export default function ContactPage() {
         </div>
         
         {/* FAQ Section */}
-        <div className="mt-16">
+        {/* <div className="mt-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-800 dark:text-white">Frequently Asked Questions</h2>
             <p className="text-gray-600 dark:text-gray-300 mt-3 max-w-2xl mx-auto">
@@ -311,7 +311,7 @@ export default function ContactPage() {
               </svg>
             </a>
           </div>
-        </div>
+        </div> */}
         
         {/* Call to Action */}
         <div className="mt-16 bg-[#0077C8] text-white rounded-2xl overflow-hidden shadow-lg">
@@ -329,13 +329,13 @@ export default function ContactPage() {
                   <Phone className="mr-2 h-5 w-5" />
                   Call Now
                 </a>
-                <a 
+                {/* <a 
                   href="#" 
                   className="inline-flex items-center justify-center px-6 py-3 bg-transparent text-white font-medium rounded-lg border border-white hover:bg-white/10 transition-colors"
                 >
                   <MessageSquare className="mr-2 h-5 w-5" />
                   Live Chat
-                </a>
+                </a> */}
               </div>
             </div>
             <div className="hidden md:block relative">
