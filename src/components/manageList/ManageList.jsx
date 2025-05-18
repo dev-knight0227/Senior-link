@@ -623,7 +623,7 @@ const ManageListPage = () => {
       </header>
       
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+      <main className="max-w-8xl mx-auto py-6 sm:px-6 lg:px-8">
         {/* Filters */}
         <div className="bg-white shadow rounded-lg mb-6">
           <div className="px-4 py-5 sm:p-6">
@@ -760,8 +760,10 @@ const ManageListPage = () => {
                           <div className="h-10 w-10 flex-shrink-0">
                             <Image
                               className="h-10 w-10 rounded-full object-cover"
-                              src={listing.photos[0] || "/placeholder.svg?height=40&width=40"}
+                              src={listing.photos[0] || "/placeholder.svg"}
                               alt=""
+                              height={40}
+                              width={40}
                             />
                           </div>
                           <div className="ml-4">
@@ -1027,9 +1029,11 @@ const ManageListPage = () => {
                     <div className="mt-4">
                       <div className="aspect-w-16 aspect-h-9 mb-4">
                         <Image
-                          src={selectedListing.photos[0] || "/placeholder.svg?height=200&width=400"}
+                          src={selectedListing.photos[0] || "/placeholder.svg"}
                           alt={selectedListing.name}
                           className="object-cover rounded-md"
+                          width={200}
+                          height={100}
                         />
                       </div>
                       
@@ -1073,9 +1077,11 @@ const ManageListPage = () => {
                             {selectedListing.photos.slice(1).map((photo, index) => (
                               <div key={index} className="aspect-w-1 aspect-h-1">
                                 <Image
-                                  src={photo || "/placeholder.svg?height=100&width=100"}
+                                  src={photo || "/placeholder.svg"}
                                   alt={`${selectedListing.name} photo ${index + 2}`}
                                   className="object-cover rounded-md"
+                                  height={100}
+                                  width={100}
                                 />
                               </div>
                             ))}
@@ -1269,7 +1275,7 @@ const MOCK_LISTINGS = [
     address: "ul. Krakowska 45",
     city: "Kraków",
     description: "A premium care facility with 24/7 medical support, comfortable private rooms, and a wide range of activities for seniors.",
-    photos: ["/placeholder.svg?height=300&width=400", "/placeholder.svg?height=300&width=400"],
+    photos: ["/placeholder.svg", "/placeholder.svg"],
     careHome: {
       capacity: "45",
       monthlyPrice: "4500-6000",
@@ -1290,7 +1296,7 @@ const MOCK_LISTINGS = [
     address: "ul. Nowa 12",
     city: "Kraków",
     description: "Experienced caregiver with 10+ years of experience and nursing background. Specializes in elderly care and companionship.",
-    photos: ["/placeholder.svg?height=300&width=400"],
+    photos: ["/placeholder.svg"],
     caregiver: {
       experience: "10",
       hourlyRate: "30-35",
@@ -1311,7 +1317,7 @@ const MOCK_LISTINGS = [
     address: "ul. Transportowa 8",
     city: "Kraków",
     description: "Specialized transport service for seniors with medical needs. Wheelchair accessible vehicles and trained staff.",
-    photos: ["/placeholder.svg?height=300&width=400", "/placeholder.svg?height=300&width=400"],
+    photos: ["/placeholder.svg", "/placeholder.svg"],
     transport: {
       vehicleType: "Van, Ambulance",
       serviceArea: "Kraków and surrounding areas",
@@ -1332,7 +1338,7 @@ const MOCK_LISTINGS = [
     address: "ul. Handlowa 22",
     city: "Kraków",
     description: "Specialized store offering a wide range of products for seniors, from mobility aids to daily living assistance devices.",
-    photos: ["/placeholder.svg?height=300&width=400"],
+    photos: ["/placeholder.svg"],
     store: {
       productCategories: ["Mobility Aids", "Medical Equipment", "Daily Living Aids", "Incontinence Products"],
       deliveryAvailable: true,
@@ -1352,7 +1358,7 @@ const MOCK_LISTINGS = [
     address: "ul. Słoneczna 76",
     city: "Kraków",
     description: "Comfortable living environment with specialized memory care units and regular physical therapy sessions.",
-    photos: ["/placeholder.svg?height=300&width=400", "/placeholder.svg?height=300&width=400"],
+    photos: ["/placeholder.svg", "/placeholder.svg"],
     careHome: {
       capacity: "30",
       monthlyPrice: "3800-5200",
@@ -1373,7 +1379,7 @@ const MOCK_LISTINGS = [
     address: "ul. Centralna 5",
     city: "Kraków",
     description: "Male caregiver with 5 years of experience. Specializes in mobility assistance and personal care for elderly men.",
-    photos: ["/placeholder.svg?height=300&width=400"],
+    photos: ["/placeholder.svg"],
     caregiver: {
       experience: "5",
       hourlyRate: "25-30",

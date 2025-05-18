@@ -1,5 +1,4 @@
 import React from 'react';
-import { Metadata } from 'next';
 import { Mail, Phone, Clock, MapPin, MessageSquare, Users, HelpCircle } from 'lucide-react';
 import Image from 'next/image';
 
