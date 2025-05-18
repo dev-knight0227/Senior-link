@@ -6,10 +6,10 @@ export default function ContactUs() {
   return (
     <div className="bg-white dark:bg-gray-900 min-h-screen">
       {/* Hero Section */}
-      <div className="relative text-white">
-        <div className="absolute inset-0">
+      <div className="relative bg-[#206645] text-white">
+        <div className="absolute inset-0 opacity-20">
           <Image 
-            src="/images/asdaught.jpeg?height=600&width=1920" 
+            src="/images/institution.jpg?height=600&width=1920" 
             alt="Senior care background" 
             fill
             className="object-cover"
