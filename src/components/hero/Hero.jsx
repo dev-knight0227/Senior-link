@@ -13,10 +13,6 @@ const Hero = () => {
           <h1 className="text-4xl mb-5 md:mb-8 text-slate-100 font-semibold md:text-5xl lg:text-6xl">
             SeniorLink – connecting those who care, with those in need of care.
           </h1>
-          {/* <p className="mb-8 font-light md:md-8 text-slate-300">
-            Lorem ipsum dolor sit amet consectetur. Mattis aenean quis cursus
-            consectetur tortor facilisis vulputate.
-          </p> */}
           <div>
             <Link href="/contact-us">
             <PrimaryButton>Get In Touch</PrimaryButton>

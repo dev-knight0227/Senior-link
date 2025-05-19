@@ -53,27 +53,6 @@ export default function Profile() {
 
   return (
     <div className="bg-white dark:bg-gray-900 min-h-screen">
-      {/* Hero Section */}
-      {/* <div className="relative bg-[#206645] text-white">
-        <div className="absolute inset-0 opacity-20">
-          <Image 
-            src="/images/teatime.jpeg" 
-            alt="Profile background" 
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-        <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
-          <div className="max-w-3xl">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">My Profile</h1>
-            <p className="text-xl md:text-2xl opacity-90 mb-8">
-              Manage your personal information and preferences.
-            </p>
-          </div>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-white dark:from-gray-900 to-transparent"></div>
-      </div> */}
 
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-3xl mx-auto bg-gray-50 dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
