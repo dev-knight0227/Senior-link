@@ -16,9 +16,11 @@ const Hero = ({ initialLocation = "Kraków" }) => {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-slate-100 mb-10">
             SeniorLink – connecting those who care, with those in need of care.
           </h1>
-          <Link href="/contact-us">
-            <PrimaryButton>Get In Touch</PrimaryButton>
-          </Link>
+          <div className="m-10">
+            <Link href="/contact-us">
+              <PrimaryButton>Get In Touch</PrimaryButton>
+            </Link>
+          </div>
         </div>
 
         {/* Search Inputs */}
