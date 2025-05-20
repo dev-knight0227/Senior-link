@@ -7,8 +7,10 @@ import {
   UserRound,
   Building2,
   GraduationCap,
+  UserPlus
 } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const TargetAudienceSection = () => {
   const audiences = [
@@ -53,6 +55,39 @@ const TargetAudienceSection = () => {
     },
   ];
 
+  const services = [
+    {
+      href: "/search-care",
+      label: "Find care homes",
+      img: "/images/knitting.jpeg",
+    },
+    {
+      href: "/search-care",
+      label: "Find care givers",
+      img: "/images/asdaught.jpeg",
+    },
+    {
+      href: "/search-care",
+      label: "Find care nurses",
+      img: "/images/medicalquest.jpeg",
+    },
+    {
+      href: "/search-care",
+      label: "Find senior products",
+      img: "/images/hands.jpeg",
+    },
+    {
+      href: "/search-care",
+      label: "Find medical transport",
+      img: "/images/transport.jpeg",
+    },
+    {
+      href: "/search-care",
+      label: "Find institution",
+      img: "/images/institution.jpg",
+    },
+  ];
+
   return (
     <section className="py-12 px-4 bg-white dark:bg-gray-900 transition-colors duration-200">
       <div className="max-w-6xl mx-auto">
@@ -70,24 +105,30 @@ const TargetAudienceSection = () => {
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-3 mb-5">
-          {[
-            { href: "/search-care", label: "Find care services" },
-            { href: "/care-facilities", label: "Add your care facility" },
-            { href: "/caregivers", label: "Register as a caregiver" },
-            { href: "/senior-stores", label: "Add your store" },
-            { href: "/transport-home-help", label: "Add your service" },
-            { href: "/institutions", label: "Add your institution" },
-          ].map(({ href, label }) => (
-            <div key={href} className="m-3">
-              <Link
-                href={href}
-                className="inline-flex items-center justify-center w-64 px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300 text-center"
-              >
-                {label}
-              </Link>
-            </div>
+        <div className="flex flex-wrap justify-center gap-6 mb-10">
+          {services.map(({ href, label, img }) => (
+            <Link
+              key={href}
+              href={href}
+              className="w-64 bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow border border-gray-200 hover:border-[#206645]"
+            >
+              <div className="relative h-40 w-full">
+                <Image src={img} alt={label} fill className="object-cover" />
+              </div>
+              <div className="p-3 text-center bg-[#206645]">
+                <h3 className="text-lg font-semibold text-white">{label}</h3>
+              </div>
+            </Link>
           ))}
+
+          {/* Add Your Profile CTA */}
+          <Link
+            href="/add-list"
+            className="flex flex-col items-center justify-center w-64 h-52 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-xl shadow-md transition-colors text-center p-6"
+          >
+            <UserPlus className="w-10 h-10 mb-3" />
+            <span className="text-lg">Add Your Profile</span>
+          </Link>
         </div>
 
         {/* Flexbox layout with centered items */}
