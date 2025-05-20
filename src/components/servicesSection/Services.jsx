@@ -57,32 +57,32 @@ const TargetAudienceSection = () => {
 
   const services = [
     {
-      href: "/search-care",
+      href: "/search-care/care_home",
       label: "Find care homes",
       img: "/images/knitting.jpeg",
     },
     {
-      href: "/search-care",
+      href: "/search-care/caregiver",
       label: "Find care givers",
       img: "/images/asdaught.jpeg",
     },
     {
-      href: "/search-care",
+      href: "/search-care/carenurse",
       label: "Find care nurses",
       img: "/images/medicalquest.jpeg",
     },
     {
-      href: "/search-care",
+      href: "/search-care/store",
       label: "Find senior products",
       img: "/images/hands.jpeg",
     },
     {
-      href: "/search-care",
+      href: "/search-care/transport",
       label: "Find medical transport",
       img: "/images/transport.jpeg",
     },
     {
-      href: "/search-care",
+      href: "/search-care/institution",
       label: "Find institution",
       img: "/images/institution.jpg",
     },

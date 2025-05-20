@@ -6,6 +6,7 @@ export const metadata = {
     "Find the perfect care solution for your loved ones. Search through verified care homes, caregivers, and support services.",
 }
 
-export default function SearchCare() {
-  return <SearchCarePage />
+export default function SearchCare({params}) {
+  const {category} = params;
+  return <SearchCarePage category = {category}/>
 }

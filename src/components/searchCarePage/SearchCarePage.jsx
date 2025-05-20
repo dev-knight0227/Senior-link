@@ -3,11 +3,11 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 // SearchCare Component - A standalone component for searching care services
-const SearchCare = ({ initialLocation = "Kraków" }) => {
+const SearchCare = ({category = "all"}) => {
   // State for search and filters
   const [searchQuery, setSearchQuery] = useState("");
-  const [location, setLocation] = useState(initialLocation);
-  const [providerType, setProviderType] = useState("all");
+  const [location, setLocation] = useState("Kraków");
+  const [providerType, setProviderType] = useState(category);
   const [sortBy, setSortBy] = useState("relevance");
   const [viewMode, setViewMode] = useState("list");
   const [specializations, setSpecializations] = useState([]);
@@ -135,6 +135,7 @@ const SearchCare = ({ initialLocation = "Kraków" }) => {
     const colors = {
       care_home: "bg-blue-100 text-blue-800",
       caregiver: "bg-purple-100 text-purple-800",
+      carenurse: "bg-purple-90 text-purple-700",
       transport: "bg-amber-100 text-amber-800",
       store: "bg-emerald-100 text-emerald-800",
       institution: "bg-gray-100 text-gray-800",
@@ -269,6 +270,7 @@ const SearchCare = ({ initialLocation = "Kraków" }) => {
                         all: "All Types",
                         care_home: "Care Homes",
                         caregiver: "Caregivers",
+                        carenurse: "Carenurses",
                         transport: "Transport Services",
                         store: "Senior Stores",
                         institution: "Institutions",
@@ -847,6 +849,7 @@ const SearchCare = ({ initialLocation = "Kraków" }) => {
                               all: "All Types",
                               care_home: "Care Homes",
                               caregiver: "Caregivers",
+                              carenurse: "Carenurses",
                               transport: "Transport Services",
                               store: "Senior Stores",
                               institution: "Institutions",
@@ -978,6 +981,7 @@ const CARE_PROVIDERS = [
 const typeIcons = {
   care_home: "🏠",
   caregiver: "👨‍⚕️",
+  carenurse: "👨‍⚕️",
   transport: "🚑",
   store: "🛒",
   institution: "🏛️",
@@ -987,6 +991,7 @@ const typeIcons = {
 const typeNames = {
   care_home: "Care Home",
   caregiver: "Caregiver",
+  carenurse: "Carenurse",
   transport: "Transport",
   store: "Senior Store",
   institution: "Institution",
