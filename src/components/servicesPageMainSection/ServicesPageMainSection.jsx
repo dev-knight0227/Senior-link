@@ -3,8 +3,10 @@ import React from "react"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import Image from "next/image"
+import { useLang } from "@/contexts/LangContext"
 
 const ServicesPageMainSection = () => {
+  const {messages} = useLang();
   // Animation variants
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
@@ -36,20 +38,20 @@ const ServicesPageMainSection = () => {
           className="max-w-3xl mx-auto text-center mb-16"
         >
           <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-            Our Services
+            {messages['ourservicesTitle']}
           </h1>
           <p className="text-lg text-gray-700 dark:text-gray-300 mb-8">
-            SeniorLink is the first marketplace in Poland focused entirely on services and institutions supporting senior citizens. We bring together care homes, caregivers, nurses, senior product stores, medical transport, and social institutions — all in one platform.
+            {messages['aboutusmainContent']}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
             <Link href="/add-list" className="inline-flex items-center px-6 py-3 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
-              Add Your Listing
+              {messages['addlistingTitle']}
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
               </svg>
             </Link>
             <Link href="/search-care/all" className="inline-flex items-center px-6 py-3 border border-[#206645] text-[#206645] hover:bg-[#206645]/5 font-medium rounded-lg transition-colors duration-300">
-              Find Services
+              {messages['findservicesTitle']}
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
               </svg>
@@ -76,8 +78,8 @@ const ServicesPageMainSection = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-white">For Families</h3>
-                  <p className="text-white/80">Support for families caring for elderly loved ones</p>
+                  <h3 className="text-xl font-bold text-white">{messages['forfamiliesTitle']}</h3>
+                  <p className="text-white/80">{messages['termsfamiliesimagesubTitle']}</p>
                 </div>
               </div>
             </div>
@@ -88,52 +90,52 @@ const ServicesPageMainSection = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
                   </svg>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">For Families</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{messages['forfamiliesTitle']}</h2>
               </div>
               <p className="text-gray-700 dark:text-gray-300 mb-6">
-                Choosing care for an aging parent or grandparent is never easy. SeniorLink helps you make an informed choice — with real reviews, clear info, and verified profiles.
+                {messages['termsfamiliesContent']}
               </p>
               <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 mb-6">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Search with confidence:</h3>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{messages['termsfamiliessubTitle']}</h3>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Compare care homes and independent caregivers</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termsfamiliessubContent1']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Filter by location, price, specialization, availability</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termsfamiliessubContent4']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Read verified reviews</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termsfamiliessubContent2']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Contact directly or use built-in chat</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termsfamiliessubContent5']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Save favorites and return anytime</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termsfamiliessubContent3']}</span>
                   </li>
                 </ul>
               </div>
               <p className="text-gray-700 dark:text-gray-300 font-medium">
-                Make the right choice with peace of mind.
+                {messages['termsfamiliesfinalContent']}
               </p>
               <div className="mt-6">
                 <Link href="/search-care/all" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
-                  Find care services
+                  {messages['findcareserviceTitle']}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
@@ -162,8 +164,8 @@ const ServicesPageMainSection = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-white">Care Facilities</h3>
-                  <p className="text-white/80">Professional care homes and nursing facilities</p>
+                  <h3 className="text-xl font-bold text-white">{messages['carefacilitiesTitle']}</h3>
+                  <p className="text-white/80">{messages['termsfacilitiesimagesubTitle']}</p>
                 </div>
               </div>
             </div>
@@ -174,52 +176,52 @@ const ServicesPageMainSection = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
                   </svg>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Care Facilities</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{messages['carefacilitiesTitle']}</h2>
               </div>
               <p className="text-gray-700 dark:text-gray-300 mb-6">
-                Your care home deserves to be seen by families who need you the most. SeniorLink helps you present your facility in a professional, trustworthy, and easy-to-find way. Whether you run a public or private nursing home or a day care center — this is your space.
+                {messages['termsfacilitiesContent']}
               </p>
               <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 mb-6">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Your profile includes:</h3>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{messages['termsfacilitiessubTitle']}</h3>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Full description, contact info, map & photos</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termsfacilitiessubContent1']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Price range, capacity, and availability</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termsfacilitiessubContent2']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Specializations (e.g. Alzheimer, Parkinson)</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termsfacilitiessubContent3']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Accessibility (elevators, private rooms, etc.)</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termsfacilitiessubContent4']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Reviews from families</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termsfacilitiessubContent5']}</span>
                   </li>
                 </ul>
               </div>
               <p className="text-gray-700 dark:text-gray-300 font-medium">
-                Join SeniorLink and help families find safe, quality care.
+                {messages['termsfacilitiesfinalContent']}
               </p>
               <div className="mt-6">
                 <Link href="/care-facilities" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
-                  Add your care facility
+                  {messages['findfacilitiesTitle']}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
