@@ -654,10 +654,10 @@ const AboutUsDetail = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Our Values
+              {messages['ourvaluesTitle']}
             </h2>
             <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-              What drives us every day
+              {messages['ourvaluessubTitle']}
             </p>
           </motion.div>
 
@@ -687,12 +687,10 @@ const AboutUsDetail = () => {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                Trust & Safety
+                {messages['trustsafetyTitle']}
               </h3>
               <p className="text-gray-700 dark:text-gray-300">
-                We verify profiles and reviews to ensure a safe environment for
-                everyone involved in senior care. Your security and peace of
-                mind are our top priorities.
+                {messages['trustsafetyContent']}
               </p>
             </motion.div>
 
@@ -715,12 +713,10 @@ const AboutUsDetail = () => {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                Community
+                {messages['communityTitle']}
               </h3>
               <p className="text-gray-700 dark:text-gray-300">
-                We believe in the power of connections and building a supportive
-                community around senior care. Together, we can create a better
-                experience for seniors and their families.
+                {messages['communityContent']}
               </p>
             </motion.div>
 
@@ -743,12 +739,10 @@ const AboutUsDetail = () => {
                 </svg>
               </div>
               <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                Efficiency
+                {messages['efficiencyTitle']}
               </h3>
               <p className="text-gray-700 dark:text-gray-300">
-                We make finding and offering care services simple, saving time
-                and reducing stress for everyone. Our platform is designed to be
-                intuitive and straightforward.
+                {messages['efficiencyContent']}
               </p>
             </motion.div>
           </motion.div>
