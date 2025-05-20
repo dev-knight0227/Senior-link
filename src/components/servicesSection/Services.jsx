@@ -95,8 +95,7 @@ const TargetAudienceSection = () => {
             </span>
             {messages['homeserviceTitle2']}
           </h2>
-          <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            {messages['homeservicesubTitle']}
+          <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-3">
           </p>
         </div>
 
