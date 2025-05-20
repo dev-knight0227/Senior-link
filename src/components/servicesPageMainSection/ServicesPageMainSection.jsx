@@ -48,7 +48,7 @@ const ServicesPageMainSection = () => {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
               </svg>
             </Link>
-            <Link href="/search-care" className="inline-flex items-center px-6 py-3 border border-[#206645] text-[#206645] hover:bg-[#206645]/5 font-medium rounded-lg transition-colors duration-300">
+            <Link href="/search-care/all" className="inline-flex items-center px-6 py-3 border border-[#206645] text-[#206645] hover:bg-[#206645]/5 font-medium rounded-lg transition-colors duration-300">
               Find Services
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -132,7 +132,7 @@ const ServicesPageMainSection = () => {
                 Make the right choice with peace of mind.
               </p>
               <div className="mt-6">
-                <Link href="/search-care" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
+                <Link href="/search-care/all" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
                   Find care services
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
