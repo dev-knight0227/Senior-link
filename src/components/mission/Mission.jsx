@@ -282,10 +282,10 @@ const AboutUsDetail = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Our Services
+              {messages['ourservicesTitle']}
             </h2>
             <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-              One platform. All the help you need.
+              {messages['ourservicessubTitle']}
             </p>
           </motion.div>
 
@@ -321,12 +321,10 @@ const AboutUsDetail = () => {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                  Care Facilities
+                  {messages['carefacilitiesTitle']}
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  Your care home deserves to be seen by families who need you
-                  the most. SeniorLink helps you present your facility in a
-                  professional, trustworthy, and easy-to-find way.
+                {messages['carefacilitiesContent']}
                 </p>
                 <ul className="space-y-2 mb-4">
                   <li className="flex items-center text-gray-700 dark:text-gray-300">
@@ -344,7 +342,7 @@ const AboutUsDetail = () => {
                         d="M5 13l4 4L19 7"
                       ></path>
                     </svg>
-                    Full description, contact info, map & photos
+                    {messages['fulldescriptioncontactinfoTitle']}
                   </li>
                   <li className="flex items-center text-gray-700 dark:text-gray-300">
                     <svg
@@ -361,7 +359,7 @@ const AboutUsDetail = () => {
                         d="M5 13l4 4L19 7"
                       ></path>
                     </svg>
-                    Price range, capacity, and availability
+                    {messages['pricerangecapacityTitle']}
                   </li>
                   <li className="flex items-center text-gray-700 dark:text-gray-300">
                     <svg
@@ -378,7 +376,7 @@ const AboutUsDetail = () => {
                         d="M5 13l4 4L19 7"
                       ></path>
                     </svg>
-                    Specializations (e.g. Alzheimer, Parkinson)
+                    {messages['specializationsTitle']}
                   </li>
                 </ul>
               </div>
@@ -409,12 +407,10 @@ const AboutUsDetail = () => {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                  Caregivers & Nurses
+                  {messages['caregivernursesTitle']}
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  Whether you are an experienced caregiver, a nurse, or just
-                  starting out — SeniorLink lets you create a profile and offer
-                  your help on your terms.
+                  {messages['caregivernursesContent']}
                 </p>
                 <ul className="space-y-2 mb-4">
                   <li className="flex items-center text-gray-700 dark:text-gray-300">
@@ -432,7 +428,7 @@ const AboutUsDetail = () => {
                         d="M5 13l4 4L19 7"
                       ></path>
                     </svg>
-                    Your type of service (daily care, specialized care, nursing)
+                    {messages['yourtypeofserviceTitle']}
                   </li>
                   <li className="flex items-center text-gray-700 dark:text-gray-300">
                     <svg
@@ -449,7 +445,7 @@ const AboutUsDetail = () => {
                         d="M5 13l4 4L19 7"
                       ></path>
                     </svg>
-                    Travel distance, availability, and hourly rate
+                    {messages['traveldistancehourlyrateTitle']}
                   </li>
                   <li className="flex items-center text-gray-700 dark:text-gray-300">
                     <svg
@@ -466,7 +462,7 @@ const AboutUsDetail = () => {
                         d="M5 13l4 4L19 7"
                       ></path>
                     </svg>
-                    Experience, certifications, and specializations
+                    {messages['experiencecertificationTitle']}
                   </li>
                 </ul>
               </div>
@@ -497,12 +493,10 @@ const AboutUsDetail = () => {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                  Senior Stores
+                  {messages['seniorstoresTitle']}
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  If you run a local shop with products for seniors — hygiene
-                  items, mobility aids, medical supplies — SeniorLink helps you
-                  show up exactly where people are looking.
+                  {messages['seniorstoresContent']}
                 </p>
                 <ul className="space-y-2 mb-4">
                   <li className="flex items-center text-gray-700 dark:text-gray-300">
@@ -520,7 +514,7 @@ const AboutUsDetail = () => {
                         d="M5 13l4 4L19 7"
                       ></path>
                     </svg>
-                    Address, map, and opening hours
+                    {messages["addressmapopenTitle"]}
                   </li>
                   <li className="flex items-center text-gray-700 dark:text-gray-300">
                     <svg
@@ -537,7 +531,7 @@ const AboutUsDetail = () => {
                         d="M5 13l4 4L19 7"
                       ></path>
                     </svg>
-                    Types of products you offer
+                    {messages["typesofproductsyouofferTitle"]}
                   </li>
                   <li className="flex items-center text-gray-700 dark:text-gray-300">
                     <svg
@@ -554,7 +548,7 @@ const AboutUsDetail = () => {
                         d="M5 13l4 4L19 7"
                       ></path>
                     </svg>
-                    Optional link to your website or online shop
+                    {messages['optionallinktositeTitle']}
                   </li>
                 </ul>
               </div>
@@ -585,12 +579,10 @@ const AboutUsDetail = () => {
               </div>
               <div>
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">
-                  Transport & Home Help
+                  {messages['transporthomehelpTitle']}
                 </h3>
                 <p className="text-gray-700 dark:text-gray-300 mb-4">
-                  Whether it is a medical ride, regular transport, cleaning, or
-                  cooking — your service makes life easier for seniors and their
-                  families. SeniorLink lets people in your area find you fast.
+                  {messages['transporthomehelpContent']}
                 </p>
                 <ul className="space-y-2 mb-4">
                   <li className="flex items-center text-gray-700 dark:text-gray-300">
@@ -608,7 +600,7 @@ const AboutUsDetail = () => {
                         d="M5 13l4 4L19 7"
                       ></path>
                     </svg>
-                    Type of service
+                    {messages["typeofserviceTitle"]}
                   </li>
                   <li className="flex items-center text-gray-700 dark:text-gray-300">
                     <svg
@@ -625,7 +617,7 @@ const AboutUsDetail = () => {
                         d="M5 13l4 4L19 7"
                       ></path>
                     </svg>
-                    Area of operation
+                    {messages['areaofoperationTitle']}
                   </li>
                   <li className="flex items-center text-gray-700 dark:text-gray-300">
                     <svg
@@ -642,7 +634,7 @@ const AboutUsDetail = () => {
                         d="M5 13l4 4L19 7"
                       ></path>
                     </svg>
-                    Prices and availability
+                    {messages['pricesandavailabilityTitle']}
                   </li>
                 </ul>
               </div>
