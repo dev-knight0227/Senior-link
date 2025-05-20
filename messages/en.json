@@ -37,12 +37,16 @@
   "carehomesTitle": "Care homes",
   "caregiversTitle": "Caregivers",
   "nursesTitle": "Nurses",
-  "seniorstorsTitle": "Senior product stores",
+  "seniorstoresTitle": "Senior stores",
   "transportTitle": "Medical transport",
   "institutionsTitle": "Social institutions",
   "learnmoreTitle": "Learn More",
   "bannerTitle": "Join Poland is first platform for elderly support",
   "bannerContent": "The smart way to organize elderly care. One platform. All the help you need.",
   "addlistingTitle": "Add your listing",
-  "searchcareTitle": "Search for care"
+  "searchcareTitle": "Search for care",
+  "footerContent": "SeniorLink connects seniors with quality care services. We are dedicated to improving the lives of elderly individuals by providing access to trusted caregivers and resources.",
+  "quicklinksTitle": "Quick Links",
+  "ourservicesTitle": "Our Services",
+  "copyContent": "All rights reserved."
 }

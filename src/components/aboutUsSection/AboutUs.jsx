@@ -21,7 +21,7 @@ const AboutUs = () => {
 
   const services = [
     [messages['carehomesTitle'], messages['caregiversTitle'], messages['nursesTitle']],
-    [messages['carehomesTitle'], messages['transportTitle'], messages['institutionsTitle']],
+    [messages['seniorstoresTitle'], messages['transportTitle'], messages['institutionsTitle']],
   ];
 
   return (

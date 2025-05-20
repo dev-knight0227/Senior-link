@@ -4,10 +4,13 @@ import Logo from "../header/logo/Logo";
 import { Facebook, Instagram, Linkedin, Twitter, Mail, Phone, MapPin, Heart } from 'lucide-react';
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useLang } from "@/contexts/LangContext";
+
 
 const currentYear = new Date().getFullYear();
 
 const Footer = () => {
+  const {messages} = useLang();
   const footerAnimation = {
     hidden: { opacity: 0, y: 50 },
     visible: { 
@@ -42,7 +45,7 @@ const Footer = () => {
           <motion.div variants={itemAnimation} className="space-y-6">
             <Logo />
             <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-              SeniorLink connects seniors with quality care services. We are dedicated to improving the lives of elderly individuals by providing access to trusted caregivers and resources.
+              {messages['footerContent']}
             </p>
             <div className="flex space-x-4">
               <Link href="" className="bg-gray-100 dark:bg-gray-800 p-2 rounded-full text-[#206645] dark:text-green-400 hover:bg-[#206645] hover:text-white dark:hover:bg-green-400 dark:hover:text-gray-900 transition-colors duration-300">
@@ -67,7 +70,7 @@ const Footer = () => {
           {/* Quick Links */}
           <motion.div variants={itemAnimation} className="space-y-6">
             <h3 className="text-lg font-semibold text-[#206645] dark:text-green-400">
-              Quick Links
+              {messages['quicklinksTitle']}
             </h3>
             <ul className="space-y-3">
               <li>
@@ -77,7 +80,7 @@ const Footer = () => {
                       <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                     </svg>
                   </span>
-                  Home
+                  {messages["homeTitle"]}
                 </Link>
               </li>
               <li>
@@ -87,7 +90,7 @@ const Footer = () => {
                       <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                     </svg>
                   </span>
-                  About Us
+                  {messages['aboutusTitle']}
                 </Link>
               </li>
               <li>
@@ -97,7 +100,7 @@ const Footer = () => {
                       <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                     </svg>
                   </span>
-                  Contact
+                  {messages['contactusTitle']}
                 </Link>
               </li>
               <li>
@@ -107,7 +110,7 @@ const Footer = () => {
                       <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                     </svg>
                   </span>
-                  Terms of Use
+                  {messages['termsofuseTitle']}
                 </Link>
               </li>
             </ul>
@@ -116,32 +119,32 @@ const Footer = () => {
           {/* Services */}
           <motion.div variants={itemAnimation} className="space-y-6">
             <h3 className="text-lg font-semibold text-[#206645] dark:text-green-400">
-              Our Services
+              {messages['ourservicesTitle']}
             </h3>
             <ul className="space-y-3">
               <li>
                 <div className="text-gray-600 dark:text-gray-300 hover:text-[#206645] dark:hover:text-green-400 transition-colors duration-300">
-                  Care Homes
+                  {messages['carehomesTitle']}
                 </div>
               </li>
               <li>
                 <div className="text-gray-600 dark:text-gray-300 hover:text-[#206645] dark:hover:text-green-400 transition-colors duration-300">
-                  Caregivers
+                  {messages['caregiversTitle']}
                 </div>
               </li>
               <li>
                 <div className="text-gray-600 dark:text-gray-300 hover:text-[#206645] dark:hover:text-green-400 transition-colors duration-300">
-                  Nurses
+                  {messages['nursesTitle']}
                 </div>
               </li>
               <li>
                 <div className="text-gray-600 dark:text-gray-300 hover:text-[#206645] dark:hover:text-green-400 transition-colors duration-300">
-                  Senior Products
+                  {messages['seniorstoresTitle']}
                 </div>
               </li>
               <li>
                 <div className="text-gray-600 dark:text-gray-300 hover:text-[#206645] dark:hover:text-green-400 transition-colors duration-300">
-                  Medical Transport
+                  {messages['transportTitle']}
                 </div>
               </li>
             </ul>
@@ -150,7 +153,7 @@ const Footer = () => {
           {/* Contact Info */}
           <motion.div variants={itemAnimation} className="space-y-6">
             <h3 className="text-lg font-semibold text-[#206645] dark:text-green-400">
-              Contact Us
+              {messages['contactusTitle']}
             </h3>
             <ul className="space-y-4">
               <li className="flex items-start">
@@ -185,13 +188,8 @@ const Footer = () => {
           className="mt-12 text-center"
         >
           <p className="text-gray-600 dark:text-gray-400 text-sm">
-            © {currentYear} SeniorLink. All rights reserved.
+            © {currentYear} SeniorLink. {messages["copyContent"]}
           </p>
-          <div className="flex justify-center items-center mt-4 text-sm text-gray-500 dark:text-gray-500">
-            <span>Made with</span>
-            <Heart className="h-4 w-4 mx-1 text-red-500" />
-            <span>in Poland</span>
-          </div>
         </motion.div>
       </div>
     </footer>
