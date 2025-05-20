@@ -6,11 +6,13 @@ import PrimaryButton from "../primaryButton/PrimaryButton";
 import MenuButton from "./menuButton/MenuButton";
 // import ThemeButton from "./themeButton/ThemeButton";
 import Logo from "./logo/Logo";
-import { User, LogIn, LogOut, ChevronDown } from 'lucide-react';
-import LanguageSwitcher from "../languageSwitcher/LanguageSwitcher";
+import { User, LogIn, LogOut, ChevronDown } from "lucide-react";
+// import LanguageSwitcher from "../languageSwitcher/LanguageSwitcher";
+import { useLang } from "@/contexts/LangContext";
 
 const Header = () => {
   // Auth state - in a real app, this would come from your auth context/provider
+  const {messages, switchLocale, locale } = useLang();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isAvatarMenuOpen, setIsAvatarMenuOpen] = useState(false);
   const avatarMenuRef = useRef(null);
@@ -50,22 +52,25 @@ const Header = () => {
   return (
     <header className="bg-white dark:bg-slate-800 dark:text-slate-100 shadow h-16 fixed w-full top-0 z-50">
       <div className="container mx-auto px-3 h-full flex justify-between items-center py-2">
-          {/* Logo Start */}
-          <Logo />
-          {/* Logo End */}
+        {/* Logo Start */}
+        <Logo />
+        {/* Logo End */}
 
-          {/* Navbar Start */}
-          <Nav />
-          {/* Navbar End */}
+        {/* Navbar Start */}
+        <Nav />
+        {/* Navbar End */}
 
-          {/* Language Toggle */}
-          <LanguageSwitcher />
-          {/* End Language Toggle */}
+        {/* Language Toggle */}
+        <select value={locale} onChange={(e) => switchLocale(e.target.value)}>
+          <option value="en">English</option>
+          <option value="pl">Polski</option>
+        </select>
+        {/* End Language Toggle */}
         <div className="flex items-center gap-6">
           {/* <ThemeButton /> */}
           <Link href="/contact-us">
             <div className="hidden lg:block">
-              <PrimaryButton>Contact Us</PrimaryButton>
+              <PrimaryButton>{messages['contactusTitle']}</PrimaryButton>
             </div>
           </Link>
 
@@ -96,7 +101,7 @@ const Header = () => {
                   <div className="py-1" role="menu" aria-orientation="vertical">
                     <div className="px-4 py-3 border-b border-gray-100 dark:border-slate-700">
                       <p className="text-sm text-gray-500 dark:text-gray-400">
-                        Signed in as
+                        {messages['signasLabel']}
                       </p>
                       <p className="text-sm font-medium truncate">
                         user@example.com
@@ -108,7 +113,7 @@ const Header = () => {
                       role="menuitem"
                     >
                       <User size={18} className="text-violet-500" />
-                      <span>My Profile</span>
+                      <span>{messages['profileTitle']}</span>
                     </a>
                     <a
                       href="/admin"
@@ -116,7 +121,7 @@ const Header = () => {
                       role="menuitem"
                     >
                       <User size={18} className="text-violet-500" />
-                      <span>Manage List</span>
+                      <span>{messages['managelistTitle']}</span>
                     </a>
                     <button
                       onClick={handleLogout}
@@ -124,7 +129,7 @@ const Header = () => {
                       role="menuitem"
                     >
                       <LogOut size={18} className="text-red-500" />
-                      <span>Log Out</span>
+                      <span>{messages['logoutTitle']}</span>
                     </button>
                   </div>
                 </div>
@@ -132,16 +137,16 @@ const Header = () => {
             </div>
           ) : (
             // Sign In and Sign Up buttons for logged out users
-            <div className="flex items-center gap-3" >
+            <div className="flex items-center gap-3">
               <Link href="/signin" onClick={() => handleLogin()}>
                 <span className="text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-violet-600 dark:hover:text-violet-400 transition-colors cursor-pointer">
-                  Sign In
+                  {messages['signinTitle']}
                 </span>
               </Link>
               {/* Replace button with Link component */}
               <Link href="/signup">
                 <span className="text-sm font-medium text-slate-700 dark:text-slate-200 hover:text-violet-600 dark:hover:text-violet-400 transition-colors cursor-pointer">
-                  Sign Up
+                  {messages['signupTitle']}
                 </span>
               </Link>
             </div>

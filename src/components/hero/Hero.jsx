@@ -3,10 +3,12 @@ import PrimaryButton from "../primaryButton/PrimaryButton";
 import styles from "./hero.module.css";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import { useLang } from "@/contexts/LangContext";
 
 const Hero = ({ initialLocation = "Kraków" }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [location, setLocation] = useState(initialLocation);
+  const {messages} = useLang();
 
   return (
     <section className={`${styles.bg} mt-16`}>
@@ -14,11 +16,11 @@ const Hero = ({ initialLocation = "Kraków" }) => {
         {/* Content */}
         <div className="text-center md:text-left md:w-1/2 space-y-6">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold text-slate-100 mb-10">
-            SeniorLink – connecting those who care, with those in need of care.
+            {messages['heroTitle']}
           </h1>
           <div className="m-10">
             <Link href="/contact-us">
-              <PrimaryButton>Get In Touch</PrimaryButton>
+              <PrimaryButton>{messages['getintouchTitle']}</PrimaryButton>
             </Link>
           </div>
         </div>
@@ -35,7 +37,7 @@ const Hero = ({ initialLocation = "Kraków" }) => {
               </div>
               <input
                 type="text"
-                placeholder="Search for care homes, caregivers, or services..."
+                placeholder={messages['searchPlaceholder']}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-10 pr-4 py-3 w-full rounded-lg sm:rounded-l-lg sm:rounded-r-none border border-gray-300 focus:ring-2 focus:ring-[#206645] focus:border-[#206645] outline-none"
@@ -52,7 +54,7 @@ const Hero = ({ initialLocation = "Kraków" }) => {
               </div>
               <input
                 type="text"
-                placeholder="Location"
+                placeholder={messages['locationPlaceholder']}
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
                 className="pl-10 pr-4 py-3 w-full rounded-lg sm:rounded-l-none sm:rounded-r-lg border border-gray-300 focus:ring-2 focus:ring-[#206645] focus:border-[#206645] outline-none"

@@ -7,83 +7,79 @@ import {
   UserRound,
   Building2,
   GraduationCap,
-  UserPlus
+  UserPlus,
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useLang } from "@/contexts/LangContext";
 
 const TargetAudienceSection = () => {
+  const { messages } = useLang();
   const audiences = [
     {
       icon: <Users className="h-6 w-6 text-[#206645] dark:text-green-400" />,
-      title:
-        "For families looking for safe, professional care for their loved ones",
-      description:
-        "Find trusted caregivers and services to ensure your loved ones receive the best care possible.",
+      title: messages['servicefamilycardTitle'],
+      description: messages['servicefamilycardContent'],
     },
     {
       icon: (
         <UserRound className="h-6 w-6 text-[#206645] dark:text-green-400" />
       ),
-      title: "For seniors seeking daily support or companionship",
-      description:
-        "Connect with compassionate caregivers who can assist with daily activities and provide meaningful companionship.",
+      title: messages['serviceseniorcardTitle'],
+      description: messages['serviceseniorcardContent'],
     },
     {
       icon: (
         <HeartHandshake className="h-6 w-6 text-[#206645] dark:text-green-400" />
       ),
-      title: "For caregivers, nurses, and volunteers offering services",
-      description:
-        "Join our network to offer your professional services and connect with those who need your expertise.",
+      title: messages['servicecaregivercardTitle'],
+      description: messages['servicecaregivercardContent'],
     },
     {
       icon: (
         <Building2 className="h-6 w-6 text-[#206645] dark:text-green-400" />
       ),
-      title: "For care homes and service providers who want to be found",
-      description:
-        "Increase your visibility and connect with families looking for quality care services.",
+      title: messages['servicecarehomeTitle'],
+      description: messages['servicecarehomeContent'],
     },
     {
       icon: (
         <GraduationCap className="h-6 w-6 text-[#206645] dark:text-green-400" />
       ),
-      title: "For public institutions supporting the elderly",
-      description:
-        "Partner with us to expand your reach and better serve the senior community.",
+      title: messages['serviceinstitutionTitle'],
+      description: messages['serviceinstitutionContent'],
     },
   ];
 
   const services = [
     {
       href: "/search-care/care_home",
-      label: "Find care homes",
+      label: messages['findhomeTitle'],
       img: "/images/knitting.jpeg",
     },
     {
       href: "/search-care/caregiver",
-      label: "Find care givers",
+      label: messages['findgiverTitle'],
       img: "/images/asdaught.jpeg",
     },
     {
       href: "/search-care/carenurse",
-      label: "Find care nurses",
+      label: messages['findnurseTitle'],
       img: "/images/medicalquest.jpeg",
     },
     {
       href: "/search-care/store",
-      label: "Find senior products",
+      label: messages['findproductTitle'],
       img: "/images/hands.jpeg",
     },
     {
       href: "/search-care/transport",
-      label: "Find medical transport",
+      label: messages['findtransportTitle'],
       img: "/images/transport.jpeg",
     },
     {
       href: "/search-care/institution",
-      label: "Find institution",
+      label: messages['findinstitutionTitle'],
       img: "/images/institution.jpg",
     },
   ];
@@ -93,15 +89,14 @@ const TargetAudienceSection = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Who is{" "}
+            {messages['homeserviceTitle1']}
             <span className="text-[#206645] dark:text-green-400">
               SeniorLink
-            </span>{" "}
-            for?
+            </span>
+            {messages['homeserviceTitle2']}
           </h2>
           <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            Connecting seniors, families, caregivers, and institutions to create
-            a supportive community.
+            {messages['homeservicesubTitle']}
           </p>
         </div>
 
@@ -127,7 +122,7 @@ const TargetAudienceSection = () => {
             className="flex flex-col items-center justify-center w-64 h-52 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-xl shadow-md transition-colors text-center p-6"
           >
             <UserPlus className="w-10 h-10 mb-3" />
-            <span className="text-lg">Add Your Profile</span>
+            <span className="text-lg">{messages['addprofileTitle']}</span>
           </Link>
         </div>
 
@@ -147,7 +142,7 @@ const TargetAudienceSection = () => {
                 </div>
                 <div>
                   <h3 className="font-medium text-gray-900 dark:text-white text-lg">
-                    {audience.title.split("For ")[1]}
+                    {audience.title}
                   </h3>
                   <p className="mt-2 text-gray-600 dark:text-gray-300 text-sm">
                     {audience.description}

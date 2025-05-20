@@ -4,9 +4,11 @@ import NavLink from "./navLink/NavLink";
 import styles from "./nav.module.css";
 import PrimaryButton from "@/components/primaryButton/PrimaryButton";
 import { NavContext } from "@/contexts/Nav";
+import { useLang } from "@/contexts/LangContext";
 
 const Nav = () => {
   const { isMenuOpened, setIsMenuOpened } = useContext(NavContext);
+  const {messages} = useLang();
 
   return (
     <nav
@@ -15,14 +17,12 @@ const Nav = () => {
         isMenuOpened && styles.navActive
       } flex gap-1 lg:gap-4 shadow lg:shadow-none dark:bg-slate-800 lg:dark:bg-transparent`}
     >
-      <NavLink path="/">Home</NavLink>
-      <NavLink path="/about-us">About Us</NavLink>
-      <NavLink path="/services">Terms of Use</NavLink>
-      {/* <NavLink path="/amenities">Amenities</NavLink> */}
-      {/* <NavLink path="/cost-and-payment">Cost & Payment</NavLink> */}
+      <NavLink path="/">{messages['homeTitle']}</NavLink>
+      <NavLink path="/about-us">{messages['aboutusTitle']}</NavLink>
+      <NavLink path="/services">{messages['termsofuseTitle']}</NavLink>
 
       <div className="lg:hidden mt-10">
-        <PrimaryButton>Contact Us</PrimaryButton>
+        <PrimaryButton>{messages['contactusTitle']}</PrimaryButton>
       </div>
     </nav>
   );
