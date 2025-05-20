@@ -17,7 +17,7 @@
   "homeserviceTitle2": " for?",
   "homeservicesubTitle": "Connecting seniors, families, caregivers, and institutions to create a supportive community.",
   "findhomeTitle": "Find care homes",
-  "findgiverTitle": "Find care givers",
+  "findgiverTitle": "Find caregivers",
   "findnurseTitle": "Find care nurses",
   "findproductTitle": "Find senior products",
   "findtransportTitle": "Find medical transport",
@@ -32,5 +32,13 @@
   "servicecarehomeTitle": "care homes and service providers who want to be found",
   "servicecarehomeContent": "Increase your visibility and connect with families looking for quality care services.",
   "serviceinstitutionTitle": "public institutions supporting the elderly",
-  "serviceinstitutionContent": "Partner with us to expand your reach and better serve the senior community."
+  "serviceinstitutionContent": "Partner with us to expand your reach and better serve the senior community.",
+  "aboutusmainContent": "SeniorLink is the first marketplace in Poland focused entirely on services and institutions supporting senior citizens. We bring together care homes, caregivers, nurses, senior product stores, medical transport, and social institutions — all in one platform.",
+  "carehomesTitle": "Care homes",
+  "caregiversTitle": "Caregivers",
+  "nursesTitle": "Nurses",
+  "seniorstorsTitle": "Senior product stores",
+  "transportTitle": "Medical transport",
+  "institutionsTitle": "Social institutions",
+  "learnmoreTitle": "Learn More"
 }

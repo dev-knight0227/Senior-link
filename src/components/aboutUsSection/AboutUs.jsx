@@ -5,8 +5,10 @@ import AboutUsImg from "../../../public/images/111.jpeg";
 import { motion, useInView, useAnimation } from "framer-motion";
 import { CheckCircle } from "lucide-react";
 import Link from "next/link";
+import { useLang } from "@/contexts/LangContext";
 
 const AboutUs = () => {
+  const {messages} = useLang();
   const controls = useAnimation();
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, threshold: 0.2 });
@@ -18,8 +20,8 @@ const AboutUs = () => {
   }, [controls, isInView]);
 
   const services = [
-    ["Care homes", "Caregivers", "Nurses"],
-    ["Senior product stores", "Medical transport", "Social institutions"],
+    [messages['carehomesTitle'], messages['caregiversTitle'], messages['nursesTitle']],
+    [messages['carehomesTitle'], messages['transportTitle'], messages['institutionsTitle']],
   ];
 
   return (
@@ -77,14 +79,10 @@ const AboutUs = () => {
                 }}
               >
                 <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-[#206645] dark:text-green-400">
-                  About Us
+                  {messages['aboutusTitle']}
                 </h2>
                 <p className="text-lg text-gray-700 dark:text-gray-200 mb-8 leading-relaxed">
-                  SeniorLink is the first marketplace in Poland focused entirely
-                  on services and institutions supporting senior citizens. We
-                  bring together care homes, caregivers, nurses, senior product
-                  stores, medical transport, and social institutions — all in
-                  one platform.
+                  {messages['aboutusmainContent']}
                 </p>
               </motion.div>
 
@@ -137,7 +135,7 @@ const AboutUs = () => {
               >
                 <Link href="/about-us" className="inline-block">
                   <button className="px-8 py-3 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg shadow-sm hover:shadow-md transition-all duration-200 flex items-center gap-2">
-                    Learn More
+                    {messages['learnmoreTitle']}
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       className="h-5 w-5"
