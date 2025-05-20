@@ -1,25 +1,16 @@
-import AboutUsDetail from '@/components/mission/Mission';
-import GreenBanner from '@/components/greenBanner/GreenBanner';
-import PageHeader from '@/components/pageHeader/PageHeader'
+
+import AboutUs from "./AboutUs";
 import React from 'react'
+
 export const metadata = {
   title: "SeniorLink | About Us",
   description:
     "It is SeniorLink Website. It is Created by using Modern Technology Next JS",
 };
-const AboutUs = () => {
-  return (
-    <>
-      <PageHeader
-        bgImg={
-          "/images/medicalquest.jpeg?auto=compress&cs=tinysrgb&w=600"
-        }
-        pageTitle="About Us"
-      />
-      <AboutUsDetail />
-      <GreenBanner />
-    </>
-  );
-}
 
-export default AboutUs
+const MainAbout = () => {
+
+  return <AboutUs />
+};
+
+export default MainAbout;

@@ -3,8 +3,10 @@ import React from "react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
+import { useLang } from "@/contexts/LangContext"
 
 const AboutUsDetail = () => {
+  const {messages} = useLang();
   // Animation variants
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
@@ -39,10 +41,10 @@ const AboutUsDetail = () => {
           >
             <motion.div variants={fadeIn} className="order-2 lg:order-1">
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-6">
-                Our Mission
+                {messages['ourmissionTitle']}
               </h2>
               <p className="text-gray-700 dark:text-gray-300 text-lg mb-6 leading-relaxed">
-                SeniorLink is the first marketplace in Poland focused entirely on services and institutions supporting senior citizens. We bring together care homes, caregivers, nurses, senior product stores, medical transport, and social institutions — all in one platform.
+                {messages['aboutusmainContent']}
               </p>
               <div className="space-y-4 mb-8">
                 <div className="flex items-start">
@@ -52,7 +54,7 @@ const AboutUsDetail = () => {
                     </svg>
                   </div>
                   <p className="ml-3 text-gray-700 dark:text-gray-300">
-                    <span className="font-medium text-gray-900 dark:text-white">Verified profiles</span> - We ensure all caregivers and facilities are properly vetted
+                    <span className="font-medium text-gray-900 dark:text-white">{messages['verifiedprofilesTitle']}</span> - {messages['verifiedprofilesContent']}
                   </p>
                 </div>
                 <div className="flex items-start">
@@ -62,7 +64,7 @@ const AboutUsDetail = () => {
                     </svg>
                   </div>
                   <p className="ml-3 text-gray-700 dark:text-gray-300">
-                    <span className="font-medium text-gray-900 dark:text-white">Comprehensive services</span> - From care homes to daily assistance, all in one place
+                    <span className="font-medium text-gray-900 dark:text-white">{messages['comprehensiveservicesTitle']}</span> - {messages['comprehensiveservicesContent']}
                   </p>
                 </div>
                 <div className="flex items-start">
@@ -72,12 +74,12 @@ const AboutUsDetail = () => {
                     </svg>
                   </div>
                   <p className="ml-3 text-gray-700 dark:text-gray-300">
-                    <span className="font-medium text-gray-900 dark:text-white">Trusted reviews</span> - Real feedback from families and seniors
+                    <span className="font-medium text-gray-900 dark:text-white">{messages['trustedreviewsTitle']}</span> - {messages['trustedreviewsContent']}
                   </p>
                 </div>
               </div>
               <Link href="/services" className="inline-flex items-center px-6 py-3 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
-                Explore Our Services
+                {messages['exploreourservicesTitle']}
                 <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                 </svg>
