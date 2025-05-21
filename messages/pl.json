@@ -187,5 +187,9 @@
   "virtualmeetingsTitle": "Spotkania wirtualne",
   "findcarepageTitle1": "Znajdź idealne",
   "findcarepageTitle2": "rozwiązanie opieki",
-  "findcarepagesubTitle": "Przeszukaj sprawdzone domy opieki, opiekunów i usługi wsparcia, aby znaleźć odpowiednią osobę dla swoich bliskich."
+  "findcarepagesubTitle": "Przeszukaj sprawdzone domy opieki, opiekunów i usługi wsparcia, aby znaleźć odpowiednią osobę dla swoich bliskich.",
+  "filterTitle": "Filtruj",
+  "providertypeTitle": "Typ usługodawcy",
+  "availability": "Dostępność",
+  "verifiedfilterTitle": "Tylko zweryfikowani usługodawcy"
 }

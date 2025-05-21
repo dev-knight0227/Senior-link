@@ -188,6 +188,8 @@
   "findcarepageTitle1": "Find the Perfect",
   "findcarepageTitle2": "Care Solution",
   "findcarepagesubTitle": "Search through verified care homes, caregivers, and support services to find the right match for your loved ones.",
-  "filtersTitle": "Filters",
-  "resetTitle": "Reset"
+  "filterTitle": "Filter",
+  "providertypeTitle": "Provider Type",
+  "availability": "Availability",
+  "verifiedfilterTitle": "Verified providers only"
 }
