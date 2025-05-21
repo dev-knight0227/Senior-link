@@ -41,7 +41,7 @@
   "transportTitle": "Transport medyczny",
   "institutionsTitle": "Instytucje",
   "learnmoreTitle": "Dowiedz się więcej",
-  "bannerTitle": "Dołącz do pierwszej w Polsce platformy wspierającej seniorów",
+  "bannerTitle": "Senior Link to pierwsza platforma wsparcia dla osób starszych",
   "bannerContent": "Inteligentny sposób na organizację opieki nad seniorami. Jedna platforma. Cała potrzebna pomoc.",
   "addlistingTitle": "Dodaj swoje ogłoszenie",
   "searchcareTitle": "Szukaj opieki",
@@ -183,5 +183,8 @@
   "multilingualstaffTitle": "Personel wielojęzyczny",
   "wheelchairaccessTitle": "Dostęp dla wózków inwalidzkich",
   "hearingassistanceTitle": "Pomoc dla osób niedosłyszących",
-  "virtualmeetingsTitle": "Spotkania wirtualne"
+  "virtualmeetingsTitle": "Spotkania wirtualne",
+  "findcarepageTitle1": "Znajdź idealne",
+  "findcarepageTitle2": "rozwiązanie opieki",
+  "findcarepagesubTitle": "Przeszukaj sprawdzone domy opieki, opiekunów i usługi wsparcia, aby znaleźć odpowiednią osobę dla swoich bliskich."
 }

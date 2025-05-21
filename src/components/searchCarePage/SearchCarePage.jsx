@@ -1,10 +1,12 @@
 "use client"
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
+import { useLang } from "@/contexts/LangContext";
 
 // SearchCare Component - A standalone component for searching care services
 const SearchCare = ({category = "all"}) => {
   // State for search and filters
+  const {messages} = useLang();
   const [searchQuery, setSearchQuery] = useState("");
   const [location, setLocation] = useState("Kraków");
   const [providerType, setProviderType] = useState(category);
@@ -156,11 +158,10 @@ const SearchCare = ({category = "all"}) => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Find the Perfect <span className="text-[#206645]">Care Solution</span>
+              {messages['findcarepageTitle1']} <span className="text-[#206645]">{messages['findcarepageTitle2']}</span>
             </h1>
             <p className="text-lg text-gray-600 mb-8">
-              Search through verified care homes, caregivers, and support services to find the right match for your loved
-              ones.
+              {messages['findcarepagesubTitle']}
             </p>
 
             {/* Search Bar */}
@@ -185,7 +186,7 @@ const SearchCare = ({category = "all"}) => {
                   </div>
                   <input
                     type="text"
-                    placeholder="Search for care homes, caregivers, or services..."
+                    placeholder={messages['searchPlaceholder']}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-10 pr-4 py-3 w-full rounded-l-lg border border-r-0 border-gray-300 focus:ring-2 focus:ring-[#206645] focus:border-[#206645] outline-none"
@@ -216,7 +217,7 @@ const SearchCare = ({category = "all"}) => {
                   </div>
                   <input
                     type="text"
-                    placeholder="Location"
+                    placeholder={messages['locationTitle']}
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                     className="pl-10 pr-4 py-3 rounded-r-lg border border-gray-300 focus:ring-2 focus:ring-[#206645] focus:border-[#206645] outline-none"

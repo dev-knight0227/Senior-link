@@ -41,7 +41,7 @@
   "transportTitle": "Medical transport",
   "institutionsTitle": "Institutions",
   "learnmoreTitle": "Learn More",
-  "bannerTitle": "Join Poland is first platform for elderly support",
+  "bannerTitle": "Senior Link is first platform for elderly support",
   "bannerContent": "The smart way to organize elderly care. One platform. All the help you need.",
   "addlistingTitle": "Add your listing",
   "searchcareTitle": "Search for care",
@@ -183,5 +183,10 @@
   "multilingualstaffTitle": "Multilingual Staff",
   "wheelchairaccessTitle": "Wheelchair Access",
   "hearingassistanceTitle": "Hearing Assistance",
-  "virtualmeetingsTitle": "Virtual Meetings"
+  "virtualmeetingsTitle": "Virtual Meetings",
+  "findcarepageTitle1": "Find the Perfect",
+  "findcarepageTitle2": "Care Solution",
+  "findcarepagesubTitle": "Search through verified care homes, caregivers, and support services to find the right match for your loved ones.",
+  "filtersTitle": "Filters",
+  "resetTitle": "Reset"
 }
