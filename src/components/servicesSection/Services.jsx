@@ -68,6 +68,11 @@ const TargetAudienceSection = () => {
       img: "/images/medicalquest.jpeg",
     },
     {
+      href: "/search-care/volunteer",
+      label: messages['findvolunteerTitle'],
+      img: "/images/333.jpeg",
+    },
+    {
       href: "/search-care/store",
       label: messages['findproductTitle'],
       img: "/images/hands.jpeg",
