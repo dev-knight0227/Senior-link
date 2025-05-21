@@ -1,6 +1,6 @@
 "use client"
 import React from "react"
-import { motion } from "framer-motion"
+import { m, motion } from "framer-motion"
 import Link from "next/link"
 import Image from "next/image"
 import { useLang } from "@/contexts/LangContext"
@@ -250,8 +250,8 @@ const ServicesPageMainSection = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-white">Caregivers & Nurses</h3>
-                  <p className="text-white/80">Professional care providers and healthcare specialists</p>
+                  <h3 className="text-xl font-bold text-white">{messages['caregivernursesTitle']}</h3>
+                  <p className="text-white/80">{messages['termspersonimagesubTitle']}</p>
                 </div>
               </div>
             </div>
@@ -262,52 +262,52 @@ const ServicesPageMainSection = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                   </svg>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Caregivers & Nurses</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{messages['caregivernursesTitle']}</h2>
               </div>
               <p className="text-gray-700 dark:text-gray-300 mb-6">
-                Whether you are an experienced caregiver, a nurse, or just starting out — SeniorLink lets you create a profile and offer your help on your terms. Your services matter, and we help you get discovered by those who need you most.
+                {messages['termspersonContent']}
               </p>
               <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 mb-6">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">What you can share:</h3>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{messages['termspersonsubTitle']}</h3>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Your type of service (daily care, specialized care, nursing, rehabilitation, etc.)</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termspersonsubContent1']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Travel distance, availability, and hourly rate</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termspersonsubContent2']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Experience, certifications, and specializations</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termspersonsubContent3']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Chat and contact options</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termspersonsubContent4']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Reviews from families and patients</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termspersonsubContent5']}</span>
                   </li>
                 </ul>
               </div>
               <p className="text-gray-700 dark:text-gray-300 font-medium">
-                Build trust, reach more families, and grow your impact.
+                {messages['termspersonfinalContent']}
               </p>
               <div className="mt-6">
                 <Link href="/caregivers" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
-                  Register as a caregiver
+                  {messages['findpersonTitle']}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
@@ -336,8 +336,8 @@ const ServicesPageMainSection = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-white">Senior Stores</h3>
-                  <p className="text-white/80">Specialized products and equipment for seniors</p>
+                  <h3 className="text-xl font-bold text-white">{messages['seniorstoresTitle']}</h3>
+                  <p className="text-white/80">{messages['termsstoresimagesubTitle']}</p>
                 </div>
               </div>
             </div>
@@ -348,46 +348,46 @@ const ServicesPageMainSection = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                   </svg>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Senior Stores</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{messages['seniorstoresTitle']}</h2>
               </div>
               <p className="text-gray-700 dark:text-gray-300 mb-6">
-                If you run a local shop with products for seniors — hygiene items, mobility aids, medical supplies — SeniorLink helps you show up exactly where people are looking. Reach the customers who need your products the most.
+                {messages['termsstoresContent']}
               </p>
               <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 mb-6">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Your listing can include:</h3>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{messages['termsstoressubTitle']}</h3>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Address, map, and opening hours</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termsstoressubContent1']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Types of products you offer</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termsstoressubContent2']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Optional link to your website or online shop</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termsstoressubContent3']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Photos of your store or shelves</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termsstoressubContent4']}</span>
                   </li>
                 </ul>
               </div>
               <p className="text-gray-700 dark:text-gray-300 font-medium">
-                Help families and caregivers find what they need locally.
+                {messages['termsstoresfinalContent']}
               </p>
               <div className="mt-6">
                 <Link href="/senior-stores" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
-                  Add your store
+                  {messages['findstoresTitle']}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
@@ -416,8 +416,8 @@ const ServicesPageMainSection = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-white">Transport & Home Help</h3>
-                  <p className="text-white/80">Transportation and home assistance services</p>
+                  <h3 className="text-xl font-bold text-white">{messages['transporthomehelpTitle']}</h3>
+                  <p className="text-white/80">{messages['termstranshomeimagesubTitle']}</p>
                 </div>
               </div>
             </div>
@@ -428,46 +428,46 @@ const ServicesPageMainSection = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
                   </svg>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Transport & Home Help</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{messages['transporthomehelpTitle']}</h2>
               </div>
               <p className="text-gray-700 dark:text-gray-300 mb-6">
-                Whether it is a medical ride, regular transport, cleaning, or cooking — your service makes life easier for seniors and their families. SeniorLink lets people in your area find you fast when help is needed.
+                {messages['termstranshomeContent']}
               </p>
               <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 mb-6">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Add to your listing:</h3>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{messages['termstranshomesubTitle']}</h3>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Type of service</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termstranshomesubContent1']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Area of operation</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termstranshomesubContent2']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Prices and availability</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termstranshomesubContent3']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Contact info and optional photos</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termstranshomesubContent4']}</span>
                   </li>
                 </ul>
               </div>
               <p className="text-gray-700 dark:text-gray-300 font-medium">
-                Make it easy for others to reach you when they need support.
+                {messages['termstranshomefinalContent']}
               </p>
               <div className="mt-6">
                 <Link href="/transport-home-help" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
-                  Add your service
+                  {messages['findtranshomeTitle']}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
@@ -496,8 +496,8 @@ const ServicesPageMainSection = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-white">Institutions</h3>
-                  <p className="text-white/80">Public institutions and support organizations</p>
+                  <h3 className="text-xl font-bold text-white">{messages['institutionsTitle']}</h3>
+                  <p className="text-white/80">{messages['termsinstitutionsimagesubTitle']}</p>
                 </div>
               </div>
             </div>
@@ -508,46 +508,46 @@ const ServicesPageMainSection = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path>
                   </svg>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">Institutions</h2>
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{messages['institutionsTitle']}</h2>
               </div>
               <p className="text-gray-700 dark:text-gray-300 mb-6">
-                Public institutions supporting seniors often remain invisible to those who need them. SeniorLink gives you visibility and a clear point of contact to connect with your community.
+                {messages['termsinstitutionsContent']}
               </p>
               <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 mb-6">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">Useful for:</h3>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-4">{messages['termsinstitutionssubTitle']}</h3>
                 <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Social welfare offices (MOPS, GOPS)</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termsinstitutionssubContent1']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Family support centers (PCPR)</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termsinstitutionssubContent2']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Senior offices and NGOs</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termsinstitutionssubContent3']}</span>
                   </li>
                   <li className="flex items-start">
                     <svg className="w-5 h-5 text-[#206645] dark:text-green-400 mt-0.5 mr-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
                     </svg>
-                    <span className="text-gray-700 dark:text-gray-300">Local programs and networks</span>
+                    <span className="text-gray-700 dark:text-gray-300">{messages['termsinstitutionssubContent4']}</span>
                   </li>
                 </ul>
               </div>
               <p className="text-gray-700 dark:text-gray-300 font-medium">
-                Make sure seniors and families can find your support.
+                {messages['termsinstitutionsfinalContent']}
               </p>
               <div className="mt-6">
                 <Link href="/institutions" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
-                  Add your institution
+                  {messages['findinstitutionsTitle']}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
