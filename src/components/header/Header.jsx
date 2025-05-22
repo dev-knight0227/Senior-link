@@ -6,7 +6,7 @@ import Nav from "./nav/Nav";
 import PrimaryButton from "../primaryButton/PrimaryButton";
 import MenuButton from "./menuButton/MenuButton";
 import Logo from "./logo/Logo";
-import { User, LogOut, ChevronDown } from "lucide-react";
+import { User, Users, LogOut, ChevronDown } from "lucide-react";
 import { useLang } from "@/contexts/LangContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { signOut } from "firebase/auth";
@@ -20,7 +20,10 @@ const Header = () => {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (avatarMenuRef.current && !avatarMenuRef.current.contains(event.target)) {
+      if (
+        avatarMenuRef.current &&
+        !avatarMenuRef.current.contains(event.target)
+      ) {
         setIsAvatarMenuOpen(false);
       }
     };
@@ -71,32 +74,58 @@ const Header = () => {
                 />
               </button>
               {isAvatarMenuOpen && (
-                <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-800 shadow-lg rounded-xl z-50">
-                  <div className="px-4 py-3 border-b">
-                    <p className="text-sm text-gray-500">{messages["signasLabel"]}</p>
-                    <p className="text-sm font-medium">{user.email}</p>
+                <div className="absolute right-0 mt-2 w-60 bg-white dark:bg-slate-800 shadow-xl rounded-xl overflow-hidden ring-1 ring-black ring-opacity-5 z-50">
+                  {/* User Info */}
+                  <div className="px-5 py-4 border-b border-gray-100 dark:border-slate-700">
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      {messages["signasLabel"]}
+                    </p>
+                    <p className="text-sm font-semibold text-gray-800 dark:text-white truncate">
+                      {user.email}
+                    </p>
                   </div>
-                  <Link href="/profile" className="block px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-700">
-                    {messages["profileTitle"]}
-                  </Link>
-                  <Link href="/admin" className="block px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-700">
-                    {messages["managelistTitle"]}
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-700"
-                  >
-                    {messages["logoutTitle"]}
-                  </button>
+
+                  {/* Navigation Links */}
+                  <div className="py-1">
+                    <Link
+                      href="/profile"
+                      className="flex items-center gap-2 px-5 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
+                    >
+                      <User size={16} className="text-[#0077C8]" />
+                      <span>{messages["profileTitle"]}</span>
+                    </Link>
+
+                    <Link
+                      href="/admin"
+                      className="flex items-center gap-2 px-5 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
+                    >
+                      <Users size={16} className="text-[#0077C8]" />
+                      <span>{messages["managelistTitle"]}</span>
+                    </Link>
+
+                    <button
+                      onClick={handleLogout}
+                      className="flex w-full items-center gap-2 px-5 py-3 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-slate-700 dark:text-red-400 transition-colors"
+                    >
+                      <LogOut size={16} />
+                      <span>{messages["logoutTitle"]}</span>
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
           ) : (
             <div className="flex gap-3">
-              <Link href="/signin" className="text-sm font-medium hover:text-violet-600">
+              <Link
+                href="/signin"
+                className="text-sm font-medium hover:text-violet-600"
+              >
                 {messages["signinTitle"]}
               </Link>
-              <Link href="/signup" className="text-sm font-medium hover:text-violet-600">
+              <Link
+                href="/signup"
+                className="text-sm font-medium hover:text-violet-600"
+              >
                 {messages["signupTitle"]}
               </Link>
             </div>
