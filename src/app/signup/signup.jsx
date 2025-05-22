@@ -37,6 +37,7 @@ const SignUp = () => {
       await setDoc(doc(db, "users", user.email), {
         enabled: true,
         isAdministrator: false,
+        setList: false,
         username: user.displayName,
         userid: user.email,
       });
@@ -64,6 +65,7 @@ const SignUp = () => {
         await setDoc(userDocRef, {
           enabled: true,
           isAdministrator: false,
+          setList: false,
           username: user.displayName,
           userid: user.email,
         });

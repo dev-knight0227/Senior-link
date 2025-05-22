@@ -8,7 +8,9 @@ import { ArrowRight, AtSign, Eye, EyeOff, Facebook, Lock } from 'lucide-react';
 import Logo from "../../components/header/logo/Logo";
 
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "@/firebase/auth";
+import { auth, googleProvider } from "@/firebase/auth";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { db } from "@/firebase/firestore";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -41,13 +43,28 @@ const SignIn = () => {
   };
 
   const handleGoogleSignIn = async () => {
+    setError('');
     try {
       setIsLoading(true);
-      const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+
+      // Check if the user already exists in Firestore
+      const userDocRef = doc(db, "users", user.email);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        await setDoc(userDocRef, {
+          enabled: true,
+          isAdministrator: false,
+          setList: false,
+          username: user.displayName,
+          userid: user.email,
+        });
+      }
       router.push("/");
     } catch (err) {
-      setError("Google sign-in failed.");
+      setError(err.message);
       console.error(err);
     } finally {
       setIsLoading(false);
