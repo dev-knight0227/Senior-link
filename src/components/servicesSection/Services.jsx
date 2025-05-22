@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Users,
@@ -12,79 +13,109 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { useLang } from "@/contexts/LangContext";
+import { useAuth } from "@/contexts/AuthContext";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/firebase/firestore";
 
 const TargetAudienceSection = () => {
   const { messages } = useLang();
+  const { user, loading } = useAuth();
+  const [isList, setIsList] = useState(false);
+
+  useEffect(() => {
+    const fetchAdminStatus = async () => {
+      if (user) {
+        try {
+          const userDocRef = doc(db, "users", user.email);
+          const userDocSnap = await getDoc(userDocRef);
+          if (userDocSnap.exists()) {
+            const userData = userDocSnap.data();
+            setIsList(userData.setList === true);
+          } else {
+            setIsList(false);
+          }
+        } catch (error) {
+          console.error("Error fetching admin status:", error);
+          setIsList(false);
+        }
+      } else {
+        setIsList(false);
+      }
+    };
+
+    fetchAdminStatus();
+  }, [user]);
+
   const audiences = [
     {
       icon: <Users className="h-6 w-6 text-[#206645] dark:text-green-400" />,
-      title: messages['servicefamilycardTitle'],
-      description: messages['servicefamilycardContent'],
+      title: messages["servicefamilycardTitle"],
+      description: messages["servicefamilycardContent"],
     },
     {
       icon: (
         <UserRound className="h-6 w-6 text-[#206645] dark:text-green-400" />
       ),
-      title: messages['serviceseniorcardTitle'],
-      description: messages['serviceseniorcardContent'],
+      title: messages["serviceseniorcardTitle"],
+      description: messages["serviceseniorcardContent"],
     },
     {
       icon: (
         <HeartHandshake className="h-6 w-6 text-[#206645] dark:text-green-400" />
       ),
-      title: messages['servicecaregivercardTitle'],
-      description: messages['servicecaregivercardContent'],
+      title: messages["servicecaregivercardTitle"],
+      description: messages["servicecaregivercardContent"],
     },
     {
       icon: (
         <Building2 className="h-6 w-6 text-[#206645] dark:text-green-400" />
       ),
-      title: messages['servicecarehomeTitle'],
-      description: messages['servicecarehomeContent'],
+      title: messages["servicecarehomeTitle"],
+      description: messages["servicecarehomeContent"],
     },
     {
       icon: (
         <GraduationCap className="h-6 w-6 text-[#206645] dark:text-green-400" />
       ),
-      title: messages['serviceinstitutionTitle'],
-      description: messages['serviceinstitutionContent'],
+      title: messages["serviceinstitutionTitle"],
+      description: messages["serviceinstitutionContent"],
     },
   ];
 
   const services = [
     {
       href: "/search-care/care_home",
-      label: messages['findhomeTitle'],
+      label: messages["findhomeTitle"],
       img: "/images/knitting.jpeg",
     },
     {
       href: "/search-care/caregiver",
-      label: messages['findgiverTitle'],
+      label: messages["findgiverTitle"],
       img: "/images/asdaught.jpeg",
     },
     {
       href: "/search-care/carenurse",
-      label: messages['findnurseTitle'],
+      label: messages["findnurseTitle"],
       img: "/images/medicalquest.jpeg",
     },
     {
       href: "/search-care/volunteer",
-      label: messages['findvolunteerTitle'],
+      label: messages["findvolunteerTitle"],
       img: "/images/333.jpeg",
     },
     {
       href: "/search-care/store",
-      label: messages['findproductTitle'],
+      label: messages["findproductTitle"],
       img: "/images/hands.jpeg",
     },
     {
       href: "/search-care/transport",
-      label: messages['findtransportTitle'],
+      label: messages["findtransportTitle"],
       img: "/images/transport.jpeg",
     },
     {
       href: "/search-care/institution",
-      label: messages['findinstitutionTitle'],
+      label: messages["findinstitutionTitle"],
       img: "/images/institution.jpg",
     },
   ];
@@ -94,14 +125,13 @@ const TargetAudienceSection = () => {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            {messages['homeserviceTitle1']}
+            {messages["homeserviceTitle1"]}
             <span className="text-[#206645] dark:text-green-400">
               SeniorLink
             </span>
-            {messages['homeserviceTitle2']}
+            {messages["homeserviceTitle2"]}
           </h2>
-          <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-3">
-          </p>
+          <p className="text-gray-600 dark:text-gray-300 max-w-2xl mx-3"></p>
         </div>
 
         <div className="flex flex-wrap justify-center gap-6 mb-10">
@@ -122,11 +152,11 @@ const TargetAudienceSection = () => {
 
           {/* Add Your Profile CTA */}
           <Link
-            href="/add-list"
+            href={isList?"/profile":"/add-list"}
             className="flex flex-col items-center justify-center w-64 h-52 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-xl shadow-md transition-colors text-center p-6"
           >
             <UserPlus className="w-10 h-10 mb-3" />
-            <span className="text-lg">{messages['addprofileTitle']}</span>
+            <span className="text-lg">{messages["addprofileTitle"]}</span>
           </Link>
         </div>
 

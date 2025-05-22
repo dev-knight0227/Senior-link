@@ -1,8 +1,10 @@
 "use client"
 import React, { useState, useRef } from "react";
 import Image from "next/image";
+import { useLang } from "@/contexts/LangContext";
 
 const AddListingPage = () => {
+  const {messages} = useLang();
   // State for form data
   const [formData, setFormData] = useState({
     entryType: "",
@@ -12,25 +14,41 @@ const AddListingPage = () => {
     address: "",
     city: "",
     description: "",
+    photos: [],
+    reviews: [],
+    availability: "",
     // Dynamic fields for different entry types
     careHome: {
+      specializations: [],
+      accessibility: [],
       capacity: "",
       monthlyPrice: "",
-      amenities: [],
-      medicalSupport: false,
-      acceptsInsurance: false,
+      map: ""
     },
     caregiver: {
       experience: "",
       hourlyRate: "",
       specializations: [],
-      availability: "",
-      canDrive: false,
+      certifications: [],
+      othercontacts: []
+    },
+    nurse: {
+      experience: "",
+      hourlyRate: "",
+      specializations: [],
+      certifications: [],
+      othercontacts: []
+    },
+    Volunteer: {
+      experience: "",
+      hourlyRate: "",
+      specializations: [],
+      certifications: [],
+      othercontacts: []
     },
     transport: {
       vehicleType: "",
       serviceArea: "",
-      wheelchairAccessible: false,
       pricePerKm: "",
       operatingHours: "",
     },
@@ -39,7 +57,12 @@ const AddListingPage = () => {
       deliveryAvailable: false,
       openingHours: "",
       websiteUrl: "",
+      map: ""
     },
+    institution: {
+      category: "",
+      websiteUrl: ""
+    }
   });
 
   // State for photos

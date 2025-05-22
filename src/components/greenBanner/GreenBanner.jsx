@@ -1,10 +1,17 @@
 "use client";
+import { useState, useRef, useEffect } from "react";
 import { motion} from "framer-motion";
 import Link from "next/link";
 import { useLang } from "@/contexts/LangContext";
+import { useAuth } from "@/contexts/AuthContext";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/firebase/firestore";
 
 const GreenBanner = () => {
   const {messages} = useLang();
+  const { user, loading } = useAuth();
+  const [isList, setIsList] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { 
@@ -13,6 +20,34 @@ const GreenBanner = () => {
       transition: { duration: 0.6 }
     }
   }
+
+  useEffect(() => {
+      const fetchAdminStatus = async () => {
+        if (user) {
+          try {
+            const userDocRef = doc(db, "users", user.email);
+            const userDocSnap = await getDoc(userDocRef);
+            if (userDocSnap.exists()) {
+              const userData = userDocSnap.data();
+              setIsAdmin(userData.isAdministrator === true);
+              setIsList(userData.setList === true);
+            } else {
+              setIsAdmin(false);
+              setIsList(false);
+            }
+          } catch (error) {
+            console.error("Error fetching admin status:", error);
+            setIsAdmin(false);
+            setIsList(false);
+          }
+        } else {
+          setIsAdmin(false);
+          setIsList(false);
+        }
+      };
+    
+      fetchAdminStatus();
+    }, [user]);
 
   return (
     <section className="py-16 md:py-24 bg-white dark:bg-gray-900">
@@ -32,9 +67,12 @@ const GreenBanner = () => {
                 {messages['bannerContent']}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                {isList?<Link href="/profile" className="inline-flex items-center justify-center px-6 py-3 bg-white text-[#206645] font-medium rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                  {messages['profileTitle']}
+                </Link>:
                 <Link href="/add-list" className="inline-flex items-center justify-center px-6 py-3 bg-white text-[#206645] font-medium rounded-lg hover:bg-gray-100 transition-colors duration-300">
                   {messages['addlistingTitle']}
-                </Link>
+                </Link>}
                 <Link href="/search-care/all" className="inline-flex items-center justify-center px-6 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white/10 transition-colors duration-300">
                   {messages['searchcareTitle']}
                 </Link>

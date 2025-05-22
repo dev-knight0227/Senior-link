@@ -1,12 +1,43 @@
 "use client"
 import React from "react"
+import { useState, useRef, useEffect } from "react";
 import { m, motion } from "framer-motion"
 import Link from "next/link"
 import Image from "next/image"
 import { useLang } from "@/contexts/LangContext"
+import { useAuth } from "@/contexts/AuthContext";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/firebase/firestore";
 
 const ServicesPageMainSection = () => {
   const {messages} = useLang();
+  const { user, loading } = useAuth();
+  const [isList, setIsList] = useState(false);
+
+  useEffect(() => {
+    const fetchAdminStatus = async () => {
+      if (user) {
+        try {
+          const userDocRef = doc(db, "users", user.email);
+          const userDocSnap = await getDoc(userDocRef);
+          if (userDocSnap.exists()) {
+            const userData = userDocSnap.data();
+            setIsList(userData.setList === true);
+          } else {
+            setIsList(false);
+          }
+        } catch (error) {
+          console.error("Error fetching admin status:", error);
+          setIsList(false);
+        }
+      } else {
+        setIsList(false);
+      }
+    };
+
+    fetchAdminStatus();
+  }, [user]);
+
   // Animation variants
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
@@ -44,12 +75,18 @@ const ServicesPageMainSection = () => {
             {messages['aboutusmainContent']}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
+            {isList?<Link href="/profile" className="inline-flex items-center px-6 py-3 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
+              {messages['profileTitle']}
+              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+              </svg>
+            </Link>:
             <Link href="/add-list" className="inline-flex items-center px-6 py-3 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
               {messages['addlistingTitle']}
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
               </svg>
-            </Link>
+            </Link>}
             <Link href="/search-care/all" className="inline-flex items-center px-6 py-3 border border-[#206645] text-[#206645] hover:bg-[#206645]/5 font-medium rounded-lg transition-colors duration-300">
               {messages['findservicesTitle']}
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

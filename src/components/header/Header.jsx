@@ -6,7 +6,7 @@ import Nav from "./nav/Nav";
 import PrimaryButton from "../primaryButton/PrimaryButton";
 import MenuButton from "./menuButton/MenuButton";
 import Logo from "./logo/Logo";
-import { User, Users, FilePlus,TicketPlus, LogOut, ChevronDown } from "lucide-react";
+import { User, Users, FilePlus, LogOut, ChevronDown } from "lucide-react";
 import { useLang } from "@/contexts/LangContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { signOut } from "firebase/auth";
