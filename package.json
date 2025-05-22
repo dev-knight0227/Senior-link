@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@gsap/react": "^2.1.1",
+    "firebase": "^11.8.0",
     "framer-motion": "^11.2.9",
     "gsap": "^3.12.5",
     "lucide-react": "^0.510.0",

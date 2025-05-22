@@ -191,5 +191,6 @@
   "filterTitle": "Filtruj",
   "providertypeTitle": "Typ usługodawcy",
   "availability": "Dostępność",
-  "verifiedfilterTitle": "Tylko zweryfikowani usługodawcy"
+  "verifiedfilterTitle": "Tylko zweryfikowani usługodawcy",
+  "filterspecializationsTitle": "Specjalizacje"
 }

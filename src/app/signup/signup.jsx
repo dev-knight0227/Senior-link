@@ -5,6 +5,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, AtSign, Eye, EyeOff, Facebook, Lock } from 'lucide-react';
 import Logo from "../../components/header/logo/Logo";
+import { useRouter } from "next/navigation";
+
+import {auth, googleProvider, facebookProvider} from '../../firebase/auth';
+import { createUserWithEmailAndPassword, signInWithPopup, sendEmailVerification } from "firebase/auth";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -12,25 +16,23 @@ const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleEmailSignUp = async (e) => {
     e.preventDefault();
-    setError("");
-    
+    setError('');
+
     if (!email || !password) {
-      setError("Please fill in all fields");
+      setError('Please fill in all fields');
       return;
     }
-    
+
     try {
       setIsLoading(true);
-      // Here you would implement your actual sign-up logic
-      console.log("Signing up with email:", email, password);
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      // Redirect or show success
+      await createUserWithEmailAndPassword(auth, email, password);
+      router.push("/");
     } catch (err) {
-      setError("Failed to create an account. Please try again.");
+      setError(err.message);
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -38,15 +40,13 @@ const SignUp = () => {
   };
 
   const handleGoogleSignUp = async () => {
-    setError("");
+    setError('');
     try {
       setIsLoading(true);
-      // Implement Google sign-up logic
-      console.log("Signing up with Google");
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await signInWithPopup(auth, googleProvider);
+      router.push("/");
     } catch (err) {
-      setError("Google sign-up failed. Please try again.");
+      setError(err.message);
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -54,15 +54,13 @@ const SignUp = () => {
   };
 
   const handleFacebookSignUp = async () => {
-    setError("");
+    setError('');
     try {
       setIsLoading(true);
-      // Implement Facebook sign-up logic
-      console.log("Signing up with Facebook");
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await signInWithPopup(auth, facebookProvider);
+      // Redirect or show success message
     } catch (err) {
-      setError("Facebook sign-up failed. Please try again.");
+      setError(err.message);
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -105,14 +103,14 @@ const SignUp = () => {
                 <span className="font-medium text-gray-700 dark:text-gray-200">Continue with Google</span>
               </button>
               
-              <button
+              {/* <button
                 onClick={handleFacebookSignUp}
                 disabled={isLoading}
                 className="flex items-center justify-center gap-3 w-full p-3 bg-[#1877F2] rounded-xl hover:bg-[#1865D3] transition-colors duration-200"
               >
                 <Facebook size={24} className="text-white" />
                 <span className="font-medium text-white">Continue with Facebook</span>
-              </button>
+              </button> */}
             </div>
             
             {/* Divider */}

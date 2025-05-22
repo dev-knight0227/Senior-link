@@ -266,7 +266,7 @@ const SearchCare = ({category = "all"}) => {
                 <div className="space-y-6">
                   {/* Provider Type */}
                   <div>
-                    <h3 className="text-sm font-medium text-gray-900 mb-3">Provider Type</h3>
+                    <h3 className="text-sm font-medium text-gray-900 mb-3">{messages['providertypeTitle']}</h3>
                     <div className="space-y-2">
                       {Object.entries({
                         all: "All Types",
@@ -298,7 +298,7 @@ const SearchCare = ({category = "all"}) => {
 
                   {/* Specializations */}
                   <div>
-                    <h3 className="text-sm font-medium text-gray-900 mb-3">Specializations</h3>
+                    <h3 className="text-sm font-medium text-gray-900 mb-3">{messages['filterspecializationsTitle']}</h3>
                     <div className="space-y-2">
                       {[
                         "Dementia Care",
@@ -325,7 +325,7 @@ const SearchCare = ({category = "all"}) => {
 
                   {/* Availability */}
                   <div>
-                    <h3 className="text-sm font-medium text-gray-900 mb-3">Availability</h3>
+                    <h3 className="text-sm font-medium text-gray-900 mb-3">{messages['availabilityTitle']}</h3>
                     <select
                       value={availability}
                       onChange={(e) => setAvailability(e.target.value)}

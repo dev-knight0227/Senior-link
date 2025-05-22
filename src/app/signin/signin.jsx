@@ -2,9 +2,13 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { ArrowRight, AtSign, Eye, EyeOff, Facebook, Lock } from 'lucide-react';
 import Logo from "../../components/header/logo/Logo";
+
+import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth } from "@/firebase/auth";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
@@ -13,29 +17,21 @@ const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const router = useRouter();
 
   const handleEmailSignIn = async (e) => {
     e.preventDefault();
     setError("");
 
     if (!email || !password) {
-      setError("Please fill in all fields");
+      setError("Please fill in all fields.");
       return;
     }
 
     try {
       setIsLoading(true);
-      // Here you would implement your actual sign-in logic
-      console.log(
-        "Signing in with email:",
-        email,
-        password,
-        "Remember me:",
-        rememberMe
-      );
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      // Redirect or show success
+      await signInWithEmailAndPassword(auth, email, password);
+      router.push("/"); // or your desired post-login page
     } catch (err) {
       setError("Invalid email or password. Please try again.");
       console.error(err);
@@ -45,36 +41,34 @@ const SignIn = () => {
   };
 
   const handleGoogleSignIn = async () => {
-    setError("");
     try {
       setIsLoading(true);
-      // Implement Google sign-in logic
-      console.log("Signing in with Google");
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const provider = new GoogleAuthProvider();
+      await signInWithPopup(auth, provider);
+      router.push("/");
     } catch (err) {
-      setError("Google sign-in failed. Please try again.");
+      setError("Google sign-in failed.");
       console.error(err);
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleFacebookSignIn = async () => {
-    setError("");
-    try {
-      setIsLoading(true);
-      // Implement Facebook sign-in logic
-      console.log("Signing in with Facebook");
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-    } catch (err) {
-      setError("Facebook sign-in failed. Please try again.");
-      console.error(err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // const handleFacebookSignIn = async () => {
+  //   setError("");
+  //   try {
+  //     setIsLoading(true);
+  //     // Implement Facebook sign-in logic
+  //     console.log("Signing in with Facebook");
+  //     // Simulate API call
+  //     await new Promise((resolve) => setTimeout(resolve, 1000));
+  //   } catch (err) {
+  //     setError("Facebook sign-in failed. Please try again.");
+  //     console.error(err);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-white to-gray-100 dark:from-gray-900 dark:to-gray-800 p-4 sm:p-6 md:p-8">
@@ -116,7 +110,7 @@ const SignIn = () => {
                 </span>
               </button>
 
-              <button
+              {/* <button
                 onClick={handleFacebookSignIn}
                 disabled={isLoading}
                 className="flex items-center justify-center gap-3 w-full p-3 bg-[#1877F2] rounded-xl hover:bg-[#1865D3] transition-colors duration-200"
@@ -125,7 +119,7 @@ const SignIn = () => {
                 <span className="font-medium text-white">
                   Sign in with Facebook
                 </span>
-              </button>
+              </button> */}
             </div>
 
             {/* Divider */}

@@ -5,6 +5,7 @@ import Footer from "@/components/footer/Footer";
 import NavProvider from "@/contexts/Nav";
 import ThemeProvider from "@/contexts/Theme";
 import { LangProvider } from "@/contexts/LangContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,15 +21,17 @@ export default function RootLayout({ children }) {
       <body suppressHydrationWarning className={inter.className}>
         <ThemeProvider>
           <LangProvider>
-            <NavProvider>
-              {/* Here NavProvider is a Context API Provider */}
-              <Header />
-            </NavProvider>
-            <div className="mt-16">
-              {/* This div is used because header component is given h-16(4rem or 64px) height and Position Fixed */}
-              {children}
-            </div>
-            <Footer />
+            <AuthProvider>
+              <NavProvider>
+                {/* Here NavProvider is a Context API Provider */}
+                <Header />
+              </NavProvider>
+              <div className="mt-16">
+                {/* This div is used because header component is given h-16(4rem or 64px) height and Position Fixed */}
+                {children}
+              </div>
+              <Footer />
+            </AuthProvider>
           </LangProvider>
         </ThemeProvider>
       </body>

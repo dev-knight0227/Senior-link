@@ -191,5 +191,6 @@
   "filterTitle": "Filter",
   "providertypeTitle": "Provider Type",
   "availability": "Availability",
-  "verifiedfilterTitle": "Verified providers only"
+  "verifiedfilterTitle": "Verified providers only",
+  "filterspecializationsTitle": "Specializations"
 }
