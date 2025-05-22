@@ -11,12 +11,15 @@ import { useLang } from "@/contexts/LangContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/firebase/firestore";
 
 const Header = () => {
   const { messages, switchLocale, locale } = useLang();
   const { user, loading } = useAuth();
   const [isAvatarMenuOpen, setIsAvatarMenuOpen] = useState(false);
   const avatarMenuRef = useRef(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -29,7 +32,33 @@ const Header = () => {
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
+    
   }, []);
+
+  useEffect(() => {
+    const fetchAdminStatus = async () => {
+      if (user) {
+        try {
+          const userDocRef = doc(db, "users", user.email);
+          const userDocSnap = await getDoc(userDocRef);
+          if (userDocSnap.exists()) {
+            const userData = userDocSnap.data();
+            setIsAdmin(userData.isAdministrator === true);
+          } else {
+            setIsAdmin(false);
+          }
+        } catch (error) {
+          console.error("Error fetching admin status:", error);
+          setIsAdmin(false);
+        }
+      } else {
+        setIsAdmin(false);
+      }
+    };
+  
+    fetchAdminStatus();
+  }, [user]);
+  
 
   const handleLogout = async () => {
     try {
@@ -95,13 +124,13 @@ const Header = () => {
                       <span>{messages["profileTitle"]}</span>
                     </Link>
 
-                    <Link
+                    {isAdmin && <Link
                       href="/admin"
                       className="flex items-center gap-2 px-5 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
                     >
                       <Users size={16} className="text-[#0077C8]" />
                       <span>{messages["managelistTitle"]}</span>
-                    </Link>
+                    </Link>}
 
                     <button
                       onClick={handleLogout}

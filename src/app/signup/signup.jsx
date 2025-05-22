@@ -9,6 +9,8 @@ import { useRouter } from "next/navigation";
 
 import {auth, googleProvider, facebookProvider} from '../../firebase/auth';
 import { createUserWithEmailAndPassword, signInWithPopup, sendEmailVerification } from "firebase/auth";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { db } from "@/firebase/firestore";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -29,7 +31,15 @@ const SignUp = () => {
 
     try {
       setIsLoading(true);
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      
+      await setDoc(doc(db, "users", user.email), {
+        enabled: true,
+        isAdministrator: false,
+        username: user.displayName,
+        userid: user.email,
+      });
       router.push("/");
     } catch (err) {
       setError(err.message);
@@ -43,7 +53,21 @@ const SignUp = () => {
     setError('');
     try {
       setIsLoading(true);
-      await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+
+      // Check if the user already exists in Firestore
+      const userDocRef = doc(db, "users", user.email);
+      const userDoc = await getDoc(userDocRef);
+
+      if (!userDoc.exists()) {
+        await setDoc(userDocRef, {
+          enabled: true,
+          isAdministrator: false,
+          username: user.displayName,
+          userid: user.email,
+        });
+      }
       router.push("/");
     } catch (err) {
       setError(err.message);
