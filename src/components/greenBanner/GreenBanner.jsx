@@ -70,7 +70,7 @@ const GreenBanner = () => {
                 {isList?<Link href="/profile" className="inline-flex items-center justify-center px-6 py-3 bg-white text-[#206645] font-medium rounded-lg hover:bg-gray-100 transition-colors duration-300">
                   {messages['profileTitle']}
                 </Link>:
-                <Link href="/add-list" className="inline-flex items-center justify-center px-6 py-3 bg-white text-[#206645] font-medium rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                <Link href="/add-list/caregiver" className="inline-flex items-center justify-center px-6 py-3 bg-white text-[#206645] font-medium rounded-lg hover:bg-gray-100 transition-colors duration-300">
                   {messages['addlistingTitle']}
                 </Link>}
                 <Link href="/search-care/all" className="inline-flex items-center justify-center px-6 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white/10 transition-colors duration-300">

@@ -6,6 +6,7 @@ export const metadata = {
     "Find the perfect care solution for your loved ones. Search through verified care homes, caregivers, and support services.",
 }
 
-export default function AddListPage() {
-  return <AddList />
+export default function AddListPage({params}) {
+  const {category} = params;
+  return <AddList category = {category} />
 }
