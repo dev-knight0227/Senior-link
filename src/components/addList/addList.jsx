@@ -3,9 +3,11 @@ import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { useLang } from "@/contexts/LangContext";
 import { useRouter } from "next/navigation";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "@/firebase/firestore";
 import { useAuth } from "@/contexts/AuthContext";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "@/firebase/storage";
 
 const AddListingPage = ({ category = "" }) => {
   const { messages } = useLang();
@@ -268,124 +270,50 @@ const AddListingPage = ({ category = "" }) => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Validate form
     const formErrors = validateForm();
+    console.log(formErrors);
     setErrors(formErrors);
-
-    // If no errors, submit form
+  
     if (Object.keys(formErrors).length === 0) {
       setIsSubmitting(true);
-
-      // Create form data for submission (including files)
-      const submissionData = new FormData();
-
-      // Add form fields
-      Object.keys(formData).forEach((key) => {
-        if (
-          typeof formData[key] === "object" &&
-          !Array.isArray(formData[key])
-        ) {
-          // Handle nested objects
-          Object.keys(formData[key]).forEach((nestedKey) => {
-            if (Array.isArray(formData[key][nestedKey])) {
-              // Handle arrays
-              submissionData.append(
-                `${key}.${nestedKey}`,
-                JSON.stringify(formData[key][nestedKey])
-              );
-            } else {
-              submissionData.append(
-                `${key}.${nestedKey}`,
-                formData[key][nestedKey]
-              );
-            }
-          });
-        } else {
-          submissionData.append(key, formData[key]);
-        }
-      });
-
-      // Add photos
-      photos.forEach((photo, index) => {
-        submissionData.append(`photo${index}`, photo);
-      });
-
-      // Simulate API call
-      setTimeout(() => {
-        console.log("Form submitted:", submissionData);
-        setIsSubmitting(false);
+  
+      try {
+        // Upload photos to Firebase Storage and get their URLs
+        const photoURLs = await Promise.all(
+          photos.map(async (photo) => {
+            const photoRef = ref(storage, `listings/${Date.now()}_${photo.name}`);
+            await uploadBytes(photoRef, photo);
+            return getDownloadURL(photoRef);
+          })
+        );
+  
+        // Prepare data for Firestore
+        const submissionData = {
+          ...formData,
+          photos: photoURLs,
+          createdAt: serverTimestamp(),
+        };
+  
+        // Add document to Firestore
+        await addDoc(collection(db, 'lists'), submissionData);
+  
         setSubmitSuccess(true);
-
-        // Reset form after successful submission
-        setTimeout(() => {
-          setFormData({
-            entryType: category,
-            name: "",
-            email: "",
-            phone: "",
-            address: "",
-            city: "",
-            description: "",
-            reviews: [],
-            // Dynamic fields for different entry types
-            careHome: {
-              specializations: [],
-              capacity: "",
-              monthlyPrice: "",
-              amenities: [],
-              map: "",
-            },
-            caregiver: {
-              experience: "",
-              hourlyRate: "",
-              specializations: [],
-              availability: "",
-              certifications: "",
-              telegram: "",
-            },
-            nurse: {
-              experience: "",
-              hourlyRate: "",
-              specializations: [],
-              availability: "",
-              certifications: "",
-              telegram: "",
-            },
-            volunteer: {
-              experience: "",
-              hourlyRate: "",
-              specializations: "",
-              availability: "",
-              certifications: "",
-              telegram: "",
-            },
-            transport: {
-              serviceArea: "",
-              hourlyRate: "",
-              availability: "",
-              telegram: "",
-            },
-            store: {
-              productCategories: [],
-              openingHours: "",
-              websiteUrl: "",
-              map: "",
-            },
-            institution: {
-              category: "",
-              websiteUrl: "",
-            },
-          });
-          setPhotos([]);
-          setPhotoPreview([]);
-          setSubmitSuccess(false);
-        }, 3000);
-      }, 1500);
+        setFormData(initialFormData); // Reset form data
+        setPhotos([]);
+        setPhotoPreview([]);
+      } catch (error) {
+        console.error('Error submitting form:', error);
+        setErrors({ submit: 'Failed to submit the form. Please try again.' });
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
+  
   // Render error message
   const renderError = (field) => {
     return errors[field] ? (
