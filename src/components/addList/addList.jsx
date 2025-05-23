@@ -133,7 +133,7 @@ const AddListingPage = ({category=""}) => {
       // Example: send to Firestore
       // await setDoc(doc(db, "reviewsCollection", userId), { reviews: formData.careHome.reviews });
 
-      console.log("Saving reviews:", formData.careHome.reviews);
+      console.log("Saving reviews:", formData.reviews);
       alert("Reviews saved successfully!");
     } catch (error) {
       console.error("Error saving reviews:", error);
@@ -1520,6 +1520,8 @@ const AddListingPage = ({category=""}) => {
                                   src={preview || "/placeholder.svg"}
                                   alt={`Preview ${index + 1}`}
                                   className="object-cover"
+                                  width={200}
+                                  height={200}
                                 />
                               </div>
                               <button
