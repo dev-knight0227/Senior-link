@@ -18,9 +18,6 @@ const AddListingPage = ({ category = "" }) => {
     }
   }, [user, loading, router]);
 
-  if (loading || !user) {
-    router.push("/signin");
-  }
   // State for form data
   const [formData, setFormData] = useState({
     entryType: category,
