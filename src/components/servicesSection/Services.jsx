@@ -152,7 +152,7 @@ const TargetAudienceSection = () => {
 
           {/* Add Your Profile CTA */}
           <Link
-            href={isList?"/profile":"/add-list/caregiver"}
+            href={isList?"/profile":"/add-list/careHome"}
             className="flex flex-col items-center justify-center w-64 h-52 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-xl shadow-md transition-colors text-center p-6"
           >
             <UserPlus className="w-10 h-10 mb-3" />

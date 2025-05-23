@@ -1,10 +1,26 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { useLang } from "@/contexts/LangContext";
+import { useRouter } from "next/navigation";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { db } from "@/firebase/firestore";
+import { useAuth } from "@/contexts/AuthContext";
 
-const AddListingPage = ({category=""}) => {
+const AddListingPage = ({ category = "" }) => {
   const { messages } = useLang();
+  const { user, loading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push("/signin");
+    }
+  }, [user, loading, router]);
+
+  if (loading || !user) {
+    router.push("/signin");
+  }
   // State for form data
   const [formData, setFormData] = useState({
     entryType: category,
@@ -17,7 +33,7 @@ const AddListingPage = ({category=""}) => {
     reviews: [],
     // Dynamic fields for different entry types
     careHome: {
-      specializations: [],
+      specializations: "",
       capacity: "",
       monthlyPrice: "",
       amenities: [],
@@ -309,38 +325,60 @@ const AddListingPage = ({category=""}) => {
         // Reset form after successful submission
         setTimeout(() => {
           setFormData({
-            entryType: "",
+            entryType: category,
             name: "",
             email: "",
             phone: "",
             address: "",
             city: "",
             description: "",
+            reviews: [],
+            // Dynamic fields for different entry types
             careHome: {
+              specializations: [],
               capacity: "",
               monthlyPrice: "",
               amenities: [],
-              medicalSupport: false,
-              acceptsInsurance: false,
+              map: "",
             },
             caregiver: {
               experience: "",
               hourlyRate: "",
               specializations: [],
               availability: "",
-              canDrive: false,
+              certifications: "",
+              telegram: "",
+            },
+            nurse: {
+              experience: "",
+              hourlyRate: "",
+              specializations: [],
+              availability: "",
+              certifications: "",
+              telegram: "",
+            },
+            volunteer: {
+              experience: "",
+              hourlyRate: "",
+              specializations: "",
+              availability: "",
+              certifications: "",
+              telegram: "",
             },
             transport: {
-              vehicleType: "",
               serviceArea: "",
-              wheelchairAccessible: false,
-              pricePerKm: "",
-              operatingHours: "",
+              hourlyRate: "",
+              availability: "",
+              telegram: "",
             },
             store: {
               productCategories: [],
-              deliveryAvailable: false,
               openingHours: "",
+              websiteUrl: "",
+              map: "",
+            },
+            institution: {
+              category: "",
               websiteUrl: "",
             },
           });
@@ -412,7 +450,7 @@ const AddListingPage = ({category=""}) => {
                 {messages["accessibilityLabel"]}
               </label>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {messages['carehomeAccessibility'].map((amenity) => (
+                {messages["carehomeAccessibility"].map((amenity) => (
                   <div key={amenity} className="flex items-center">
                     <input
                       type="checkbox"
@@ -481,7 +519,7 @@ const AddListingPage = ({category=""}) => {
         return (
           <div className="space-y-10">
             <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">
-              {messages['caregiverdetailsTitle']}
+              {messages["caregiverdetailsTitle"]}
             </h3>
 
             {/* Experience and Hourly Rate */}
@@ -491,7 +529,7 @@ const AddListingPage = ({category=""}) => {
                   htmlFor="caregiver.experience"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
-                  {messages['experienceLabel']}
+                  {messages["experienceLabel"]}
                 </label>
                 <input
                   type="number"
@@ -509,7 +547,7 @@ const AddListingPage = ({category=""}) => {
                   htmlFor="caregiver.hourlyRate"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
-                  {messages['hourlyrateLabel']}
+                  {messages["hourlyrateLabel"]}
                 </label>
                 <input
                   type="text"
@@ -527,10 +565,10 @@ const AddListingPage = ({category=""}) => {
             {/* Specializations */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                {messages['specializationsLabel']}
+                {messages["specializationsLabel"]}
               </label>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {messages['caregiverSpecializations'].map((spec) => (
+                {messages["caregiverSpecializations"].map((spec) => (
                   <label
                     key={spec}
                     className="flex items-center text-sm text-gray-700 dark:text-gray-200"
@@ -558,7 +596,7 @@ const AddListingPage = ({category=""}) => {
                 htmlFor="caregiver.availability"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
-                {messages['availability']}
+                {messages["availability"]}
               </label>
               <select
                 id="caregiver.availability"
@@ -567,13 +605,13 @@ const AddListingPage = ({category=""}) => {
                 onChange={handleChange}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#206645] outline-none"
               >
-                <option value="">{messages['availabilityPlaceholder']}</option>
-                <option value="Weekdays">{messages['weekdaysTitle']}</option>
-                <option value="Weekends">{messages['weekendsTitle']}</option>
-                <option value="Evenings">{messages['eveningsTitle']}</option>
-                <option value="Mornings">{messages['morningsTitle']}</option>
+                <option value="">{messages["availabilityPlaceholder"]}</option>
+                <option value="Weekdays">{messages["weekdaysTitle"]}</option>
+                <option value="Weekends">{messages["weekendsTitle"]}</option>
+                <option value="Evenings">{messages["eveningsTitle"]}</option>
+                <option value="Mornings">{messages["morningsTitle"]}</option>
                 <option value="24/7">24/7</option>
-                <option value="Flexible">{messages['flexibleTitle']}</option>
+                <option value="Flexible">{messages["flexibleTitle"]}</option>
               </select>
               {renderError("caregiver.availability")}
             </div>
@@ -585,7 +623,7 @@ const AddListingPage = ({category=""}) => {
                   htmlFor="caregiver.certifications"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
-                  {messages['certificationsLabel']}
+                  {messages["certificationsLabel"]}
                 </label>
                 <input
                   type="text"
@@ -624,7 +662,7 @@ const AddListingPage = ({category=""}) => {
         return (
           <div className="space-y-10">
             <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">
-              {messages['nursedetailsTitle']}
+              {messages["nursedetailsTitle"]}
             </h3>
 
             {/* Experience and Hourly Rate */}
@@ -634,7 +672,7 @@ const AddListingPage = ({category=""}) => {
                   htmlFor="nurse.experience"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
-                  {messages['experienceLabel']}
+                  {messages["experienceLabel"]}
                 </label>
                 <input
                   type="number"
@@ -652,7 +690,7 @@ const AddListingPage = ({category=""}) => {
                   htmlFor="nurse.hourlyRate"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
-                  {messages['hourlyrateLabel']}
+                  {messages["hourlyrateLabel"]}
                 </label>
                 <input
                   type="text"
@@ -670,10 +708,10 @@ const AddListingPage = ({category=""}) => {
             {/* Specializations */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                {messages['specializationsLabel']}
+                {messages["specializationsLabel"]}
               </label>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {messages['caregiverSpecializations'].map((spec) => (
+                {messages["caregiverSpecializations"].map((spec) => (
                   <label
                     key={spec}
                     className="flex items-center text-sm text-gray-700 dark:text-gray-200"
@@ -699,7 +737,7 @@ const AddListingPage = ({category=""}) => {
                 htmlFor="nurse.availability"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
-                {messages['availability']}
+                {messages["availability"]}
               </label>
               <select
                 id="nurse.availability"
@@ -708,13 +746,13 @@ const AddListingPage = ({category=""}) => {
                 onChange={handleChange}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#206645] outline-none"
               >
-                <option value="">{messages['availabilityPlaceholder']}</option>
-                <option value="Weekdays">{messages['weekdaysTitle']}</option>
-                <option value="Weekends">{messages['weekendsTitle']}</option>
-                <option value="Evenings">{messages['eveningsTitle']}</option>
-                <option value="Mornings">{messages['morningsTitle']}</option>
+                <option value="">{messages["availabilityPlaceholder"]}</option>
+                <option value="Weekdays">{messages["weekdaysTitle"]}</option>
+                <option value="Weekends">{messages["weekendsTitle"]}</option>
+                <option value="Evenings">{messages["eveningsTitle"]}</option>
+                <option value="Mornings">{messages["morningsTitle"]}</option>
                 <option value="24/7">24/7</option>
-                <option value="Flexible">{messages['flexibleTitle']}</option>
+                <option value="Flexible">{messages["flexibleTitle"]}</option>
               </select>
               {renderError("nurse.availability")}
             </div>
@@ -726,7 +764,7 @@ const AddListingPage = ({category=""}) => {
                   htmlFor="nurse.certifications"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
-                  {messages['certificationsLabel']}
+                  {messages["certificationsLabel"]}
                 </label>
                 <input
                   type="text"
@@ -765,7 +803,7 @@ const AddListingPage = ({category=""}) => {
         return (
           <div className="space-y-10">
             <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">
-              {messages['volunteerdetailsTitle']}
+              {messages["volunteerdetailsTitle"]}
             </h3>
 
             {/* Experience and Hourly Rate */}
@@ -775,7 +813,7 @@ const AddListingPage = ({category=""}) => {
                   htmlFor="volunteer.experience"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
-                  {messages['experienceLabel']}
+                  {messages["experienceLabel"]}
                 </label>
                 <input
                   type="number"
@@ -793,7 +831,7 @@ const AddListingPage = ({category=""}) => {
                   htmlFor="volunteer.hourlyRate"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
-                  {messages['hourlyrateLabel']}
+                  {messages["hourlyrateLabel"]}
                 </label>
                 <input
                   type="text"
@@ -811,10 +849,10 @@ const AddListingPage = ({category=""}) => {
             {/* Specializations */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                {messages['specializationsLabel']}
+                {messages["specializationsLabel"]}
               </label>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {messages['caregiverSpecializations'].map((spec) => (
+                {messages["caregiverSpecializations"].map((spec) => (
                   <label
                     key={spec}
                     className="flex items-center text-sm text-gray-700 dark:text-gray-200"
@@ -842,7 +880,7 @@ const AddListingPage = ({category=""}) => {
                 htmlFor="volunteer.availability"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
-                {messages['availability']}
+                {messages["availability"]}
               </label>
               <select
                 id="volunteer.availability"
@@ -851,13 +889,13 @@ const AddListingPage = ({category=""}) => {
                 onChange={handleChange}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#206645] outline-none"
               >
-                <option value="">{messages['availabilityPlaceholder']}</option>
-                <option value="Weekdays">{messages['weekdaysTitle']}</option>
-                <option value="Weekends">{messages['weekendsTitle']}</option>
-                <option value="Evenings">{messages['eveningsTitle']}</option>
-                <option value="Mornings">{messages['morningsTitle']}</option>
+                <option value="">{messages["availabilityPlaceholder"]}</option>
+                <option value="Weekdays">{messages["weekdaysTitle"]}</option>
+                <option value="Weekends">{messages["weekendsTitle"]}</option>
+                <option value="Evenings">{messages["eveningsTitle"]}</option>
+                <option value="Mornings">{messages["morningsTitle"]}</option>
                 <option value="24/7">24/7</option>
-                <option value="Flexible">{messages['flexibleTitle']}</option>
+                <option value="Flexible">{messages["flexibleTitle"]}</option>
               </select>
               {renderError("volunteer.availability")}
             </div>
@@ -869,7 +907,7 @@ const AddListingPage = ({category=""}) => {
                   htmlFor="volunteer.certifications"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
-                  {messages['certificationsLabel']}
+                  {messages["certificationsLabel"]}
                 </label>
                 <input
                   type="text"
@@ -908,7 +946,7 @@ const AddListingPage = ({category=""}) => {
         return (
           <div className="space-y-10">
             <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">
-              {messages['transportdetailsTitle']}
+              {messages["transportdetailsTitle"]}
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -917,7 +955,7 @@ const AddListingPage = ({category=""}) => {
                   htmlFor="transport.hourlyRate"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
-                  {messages['hourlyrateLabel']}
+                  {messages["hourlyrateLabel"]}
                 </label>
                 <input
                   type="text"
@@ -936,7 +974,7 @@ const AddListingPage = ({category=""}) => {
                   htmlFor="transport.serviceArea"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
-                  {messages['serviceareaLabel']}
+                  {messages["serviceareaLabel"]}
                 </label>
                 <input
                   type="text"
@@ -956,7 +994,7 @@ const AddListingPage = ({category=""}) => {
                 htmlFor="transport.availability"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
-                {messages['availability']}
+                {messages["availability"]}
               </label>
               <select
                 id="transport.availability"
@@ -965,13 +1003,13 @@ const AddListingPage = ({category=""}) => {
                 onChange={handleChange}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#206645] outline-none"
               >
-                <option value="">{messages['availabilityPlaceholder']}</option>
-                <option value="Weekdays">{messages['weekdaysTitle']}</option>
-                <option value="Weekends">{messages['weekendsTitle']}</option>
-                <option value="Evenings">{messages['eveningsTitle']}</option>
-                <option value="Mornings">{messages['morningsTitle']}</option>
+                <option value="">{messages["availabilityPlaceholder"]}</option>
+                <option value="Weekdays">{messages["weekdaysTitle"]}</option>
+                <option value="Weekends">{messages["weekendsTitle"]}</option>
+                <option value="Evenings">{messages["eveningsTitle"]}</option>
+                <option value="Mornings">{messages["morningsTitle"]}</option>
                 <option value="24/7">24/7</option>
-                <option value="Flexible">{messages['flexibleTitle']}</option>
+                <option value="Flexible">{messages["flexibleTitle"]}</option>
               </select>
               {renderError("transport.availability")}
             </div>
@@ -1003,15 +1041,15 @@ const AddListingPage = ({category=""}) => {
         return (
           <div className="space-y-10">
             <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">
-              {messages['storedetailsTitle']}
+              {messages["storedetailsTitle"]}
             </h3>
 
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                {messages['productcategoriesTitle']}
+                {messages["productcategoriesTitle"]}
               </label>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {messages['productCategories'].map((category) => (
+                {messages["productCategories"].map((category) => (
                   <div key={category} className="flex items-center">
                     <input
                       type="checkbox"
@@ -1042,7 +1080,7 @@ const AddListingPage = ({category=""}) => {
                   htmlFor="store.openingHours"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
-                  {messages['openinghoursLabel']}
+                  {messages["openinghoursLabel"]}
                 </label>
                 <input
                   type="text"
@@ -1061,7 +1099,7 @@ const AddListingPage = ({category=""}) => {
                   htmlFor="store.websiteUrl"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
-                  {messages['websiteurlLabel']}
+                  {messages["websiteurlLabel"]}
                 </label>
                 <input
                   type="url"
@@ -1102,7 +1140,7 @@ const AddListingPage = ({category=""}) => {
         return (
           <div className="space-y-10">
             <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">
-              {messages['institutiondetailsTitle']}
+              {messages["institutiondetailsTitle"]}
             </h3>
 
             <div>
@@ -1110,7 +1148,7 @@ const AddListingPage = ({category=""}) => {
                 htmlFor="transport.availability"
                 className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
               >
-                {messages['categoryTitle']}
+                {messages["categoryTitle"]}
               </label>
               <select
                 id="institution.category"
@@ -1119,11 +1157,19 @@ const AddListingPage = ({category=""}) => {
                 onChange={handleChange}
                 className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-[#206645] outline-none"
               >
-                <option value="">{messages['categoryPlaceholder']}</option>
-                <option value="socialwelfare">{messages['institutioncategoryOption1']}</option>
-                <option value="familysupportcenter">{messages['institutioncategoryOption2']}</option>
-                <option value="senioroffice">{messages['institutioncategoryOption3']}</option>
-                <option value="localprograms">{messages['institutioncategoryOption4']}</option>
+                <option value="">{messages["categoryPlaceholder"]}</option>
+                <option value="socialwelfare">
+                  {messages["institutioncategoryOption1"]}
+                </option>
+                <option value="familysupportcenter">
+                  {messages["institutioncategoryOption2"]}
+                </option>
+                <option value="senioroffice">
+                  {messages["institutioncategoryOption3"]}
+                </option>
+                <option value="localprograms">
+                  {messages["institutioncategoryOption4"]}
+                </option>
               </select>
               {renderError("transport.availability")}
             </div>
@@ -1133,7 +1179,7 @@ const AddListingPage = ({category=""}) => {
                   htmlFor="institution.websiteUrl"
                   className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
                 >
-                  {messages['websiteurlLabel']}
+                  {messages["websiteurlLabel"]}
                 </label>
                 <input
                   type="url"
@@ -1147,7 +1193,6 @@ const AddListingPage = ({category=""}) => {
               </div>
             </div>
           </div>
-          
         );
 
       default:
@@ -1374,7 +1419,7 @@ const AddListingPage = ({category=""}) => {
 
                   <div className="space-y-6">
                     <h4 className="text-lg font-medium text-gray-900 dark:text-white">
-                      {messages['clientreviewsLabel']}
+                      {messages["clientreviewsLabel"]}
                     </h4>
                     {formData.reviews.map((review, index) => (
                       <div
@@ -1386,12 +1431,12 @@ const AddListingPage = ({category=""}) => {
                           onClick={() => handleDeleteReview(index)}
                           className="absolute top-2 right-2 px-3 py-1 text-xs font-medium text-white bg-red-500 rounded-md shadow hover:bg-red-600 transition-colors duration-200"
                         >
-                          {messages['deleteTitle']}
+                          {messages["deleteTitle"]}
                         </button>
 
                         <div>
                           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                            {messages['reviewernameLabel']}
+                            {messages["reviewernameLabel"]}
                           </label>
                           <input
                             type="text"
@@ -1407,7 +1452,7 @@ const AddListingPage = ({category=""}) => {
 
                         <div>
                           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                            {messages['phonenumberLabel']}
+                            {messages["phonenumberLabel"]}
                           </label>
                           <input
                             type="tel"
@@ -1423,7 +1468,7 @@ const AddListingPage = ({category=""}) => {
 
                         <div>
                           <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                            {messages['reviewLabel']}
+                            {messages["reviewLabel"]}
                           </label>
                           <textarea
                             name={`reviews[${index}].text`}
@@ -1444,24 +1489,24 @@ const AddListingPage = ({category=""}) => {
                       onClick={addReview}
                       className="px-5 py-2 bg-[#206645] text-white font-medium rounded-lg hover:bg-[#185536] transition-colors mr-3"
                     >
-                      {messages['addreviewTitle']}
+                      {messages["addreviewTitle"]}
                     </button>
                     <button
                       type="button"
                       onClick={saveReviews}
                       className="px-5 py-2 bg-[#206645] text-white font-medium rounded-lg hover:bg-[#185536] transition-colors"
                     >
-                      {messages['saveTitle']}
+                      {messages["saveTitle"]}
                     </button>
                   </div>
 
                   {/* Photo Upload */}
                   <div>
                     <h2 className="text-xl font-semibold text-gray-900 mb-4">
-                      {messages['photosLabel']}
+                      {messages["photosLabel"]}
                     </h2>
                     <p className="text-gray-600 mb-4">
-                      {messages['photossubTitle']}
+                      {messages["photossubTitle"]}
                     </p>
 
                     <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
@@ -1485,7 +1530,7 @@ const AddListingPage = ({category=""}) => {
                             htmlFor="file-upload"
                             className="relative cursor-pointer bg-white rounded-md font-medium text-[#206645] hover:text-[#185536] focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-[#206645]"
                           >
-                            <span>{messages['uploadphotosTitle']}</span>
+                            <span>{messages["uploadphotosTitle"]}</span>
                             <input
                               id="file-upload"
                               name="file-upload"
@@ -1497,10 +1542,10 @@ const AddListingPage = ({category=""}) => {
                               ref={fileInputRef}
                             />
                           </label>
-                          <p className="pl-1">{messages['draganddropTitle']}</p>
+                          <p className="pl-1">{messages["draganddropTitle"]}</p>
                         </div>
                         <p className="text-xs text-gray-500">
-                          {messages['pngjpgTitle']}
+                          {messages["pngjpgTitle"]}
                         </p>
                       </div>
                     </div>
@@ -1510,7 +1555,7 @@ const AddListingPage = ({category=""}) => {
                     {photoPreview.length > 0 && (
                       <div className="mt-4">
                         <h3 className="text-sm font-medium text-gray-700 mb-2">
-                          {messages['uploadphotosTitle']}
+                          {messages["uploadphotosTitle"]}
                         </h3>
                         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                           {photoPreview.map((preview, index) => (
@@ -1584,10 +1629,10 @@ const AddListingPage = ({category=""}) => {
                           d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                         ></path>
                       </svg>
-                      {messages['submittingTitle']}
+                      {messages["submittingTitle"]}
                     </span>
                   ) : (
-                    messages['submitlistingTitle']
+                    messages["submitlistingTitle"]
                   )}
                 </button>
                 <button
@@ -1603,7 +1648,7 @@ const AddListingPage = ({category=""}) => {
                     }
                   }}
                 >
-                  {messages['cancelTitle']}
+                  {messages["cancelTitle"]}
                 </button>
               </div>
             </form>
@@ -1630,20 +1675,18 @@ const AddListingPage = ({category=""}) => {
               </div>
               <div className="ml-3">
                 <h3 className="text-sm font-medium text-gray-900">
-                  {messages['helpneedTitle']}
+                  {messages["helpneedTitle"]}
                 </h3>
                 <div className="mt-2 text-sm text-gray-600">
-                  <p>
-                    {messages['helpneedContent']}
-                  </p>
+                  <p>{messages["helpneedContent"]}</p>
                   <p className="mt-2">
                     <a
                       href="/contact-us"
                       className="text-[#206645] font-medium hover:text-[#185536]"
                     >
-                      {messages['contactsupportTitle']}
+                      {messages["contactsupportTitle"]}
                     </a>
-                    {messages['callusatTitle']}
+                    {messages["callusatTitle"]}
                     <a
                       href="tel:+48123456789"
                       className="text-[#206645] font-medium hover:text-[#185536]"
