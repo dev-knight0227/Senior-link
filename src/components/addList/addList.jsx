@@ -3,7 +3,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { useLang } from "@/contexts/LangContext";
 import { useRouter } from "next/navigation";
-import { doc, setDoc, getDoc, collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { doc, setDoc, getDoc, collection, addDoc, serverTimestamp, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase/firestore";
 import { useAuth } from "@/contexts/AuthContext";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
@@ -301,6 +301,9 @@ const AddListingPage = ({ category = "" }) => {
   
         // Add document to Firestore
         await setDoc(doc(db, 'lists', user.email), submissionData);
+        await updateDoc(doc(db, 'users', user.email), {
+          setList: true,
+        });
   
         setSubmitSuccess(true);
         setFormData(initialFormData); // Reset form data

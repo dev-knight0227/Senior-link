@@ -171,12 +171,12 @@ const ServicesPageMainSection = () => {
                 {messages['termsfamiliesfinalContent']}
               </p>
               <div className="mt-6">
-                <Link href="/search-care/all" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
+                {!isList && <Link href="/search-care/all" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
                   {messages['findcareserviceTitle']}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
-                </Link>
+                </Link>}
               </div>
             </div>
           </motion.div>
@@ -257,12 +257,12 @@ const ServicesPageMainSection = () => {
                 {messages['termsfacilitiesfinalContent']}
               </p>
               <div className="mt-6">
-                <Link href="/add-list/careHome" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
+                {!isList && <Link href="/add-list/careHome" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
                   {messages['findfacilitiesTitle']}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
-                </Link>
+                </Link>}
               </div>
             </div>
           </motion.div>
@@ -343,12 +343,12 @@ const ServicesPageMainSection = () => {
                 {messages['termspersonfinalContent']}
               </p>
               <div className="mt-6">
-                <Link href="/add-list/caregiver" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
+                {!isList && <Link href="/add-list/caregiver" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
                   {messages['findpersonTitle']}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
-                </Link>
+                </Link>}
               </div>
             </div>
           </motion.div>
@@ -423,12 +423,12 @@ const ServicesPageMainSection = () => {
                 {messages['termsstoresfinalContent']}
               </p>
               <div className="mt-6">
-                <Link href="/add-list/store" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
+                {!isList && <Link href="/add-list/store" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
                   {messages['findstoresTitle']}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
-                </Link>
+                </Link>}
               </div>
             </div>
           </motion.div>
@@ -503,12 +503,12 @@ const ServicesPageMainSection = () => {
                 {messages['termstranshomefinalContent']}
               </p>
               <div className="mt-6">
-                <Link href="/add-list/transport" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
+                {!isList && <Link href="/add-list/transport" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
                   {messages['findtranshomeTitle']}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
-                </Link>
+                </Link>}
               </div>
             </div>
           </motion.div>
@@ -583,12 +583,12 @@ const ServicesPageMainSection = () => {
                 {messages['termsinstitutionsfinalContent']}
               </p>
               <div className="mt-6">
-                <Link href="/add-list/institution" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
+                {!isList && <Link href="/add-list/institution" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
                   {messages['findinstitutionsTitle']}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
                   </svg>
-                </Link>
+                </Link>}
               </div>
             </div>
           </motion.div>
