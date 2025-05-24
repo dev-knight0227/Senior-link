@@ -13,15 +13,7 @@ const AddListingPage = ({ category = "" }) => {
   const { messages } = useLang();
   const { user, loading } = useAuth();
   const router = useRouter();
-
-  useEffect(() => {
-    if (!loading && !user) {
-      router.push("/signin");
-    }
-  }, [user, loading, router]);
-
-  // State for form data
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     entryType: category,
     name: "",
     email: "",
@@ -78,7 +70,16 @@ const AddListingPage = ({ category = "" }) => {
       category: "",
       websiteUrl: "",
     },
-  });
+  }
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push("/signin");
+    }
+  }, [user, loading, router]);
+
+  // State for form data
+  const [formData, setFormData] = useState(initialFormData);
 
   // State for photos
   const [photos, setPhotos] = useState([]);
@@ -299,7 +300,7 @@ const AddListingPage = ({ category = "" }) => {
         };
   
         // Add document to Firestore
-        await addDoc(collection(db, 'lists'), submissionData);
+        await setDoc(doc(db, 'lists', user.email), submissionData);
   
         setSubmitSuccess(true);
         setFormData(initialFormData); // Reset form data
