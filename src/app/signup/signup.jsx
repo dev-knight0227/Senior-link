@@ -41,7 +41,6 @@ const SignUp = () => {
         role: "",
         username: user.displayName,
         userid: user.email,
-        createdAt: new Date.now()
       });
       router.push("/");
     } catch (err) {
