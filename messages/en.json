@@ -305,5 +305,15 @@
   "helpneedTitle": "Need help with your listing?",
   "helpneedContent": "If you need assistance with creating your listing or have questions about the process, our team is here to help.",
   "contactsupportTitle": "Contact Support",
-  "callusatTitle": " or call us at "
+  "callusatTitle": " or call us at ",
+  "editprofileTitle": "Edit Profile",
+  "reviewsTitle": "reviews",
+  "professionaldetailsTitle": "Professional Details",
+  "quickactionsTitle": "Quick Actions",
+  "contactviatelegramTitle": "Contact via Telegram",
+  "viewallreviewsTitle": "View All Reviews",
+  "verificationstatusTitle": "Verification Status",
+  "identityverifiedTitle": "Identity Verified",
+  "verifiedTitle": "Verified",
+  "photogalleryTitle": "Photo Gallery"
 }

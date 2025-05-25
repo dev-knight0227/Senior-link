@@ -305,5 +305,15 @@
   "helpneedTitle": "Potrzebujesz pomocy z ogłoszeniem?",
   "helpneedContent": "Jeśli potrzebujesz pomocy przy tworzeniu ogłoszenia lub masz pytania dotyczące procesu, nasz zespół jest do Twojej dyspozycji.",
   "contactsupportTitle": "Skontaktuj się z pomocą techniczną",
-  "callusatTitle": " zadzwoń pod numer "
+  "callusatTitle": " zadzwoń pod numer ",
+  "editprofileTitle": "Edytuj profil",
+  "reviewsTitle": "Opinie",
+  "professionaldetailsTitle": "Szczegóły zawodowe",
+  "quickactionsTitle": "Akcje szybkie",
+  "contactviatelegramTitle": "Skontaktuj się przez Telegram",
+  "viewallreviewsTitle": "Zobacz wszystkie opinie",
+  "verificationstatusTitle": "Status weryfikacji",
+  "identityverifiedTitle": "Tożsamość zweryfikowana",
+  "verifiedTitle": "Zweryfikowany",
+  "photogalleryTitle": "Galeria zdjęć"
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -10,6 +11,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase/firestore";
 import { useAuth } from "@/contexts/AuthContext";
+import { useLang } from "@/contexts/LangContext";
 import Loading from "@/app/loading";
 import {
   MapPin,
@@ -30,7 +32,9 @@ export default function ProfileComponent() {
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState(null);
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
+  const { messages } = useLang();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -48,6 +52,12 @@ export default function ProfileComponent() {
     };
     fetchUser();
   }, [user]);
+
+  useEffect(() => {
+    if (!loading && !user.email) {
+      router.push("/signin");
+    }
+  }, [user, loading, router]);
 
   if (!userData)
     return (
@@ -80,19 +90,19 @@ export default function ProfileComponent() {
   const getTypeLabel = (type) => {
     switch (type) {
       case "caregiver":
-        return "Professional Caregiver";
+        return messages["caregiverTitle"];
       case "nurse":
-        return "Registered Nurse";
+        return messages["nurseTitle"];
       case "careHome":
-        return "Care Home";
+        return messages["carehomeTitle"];
       case "transport":
-        return "Transport Service";
+        return messages["transportTitle"];
       case "store":
-        return "Senior Store";
+        return messages["seniorstoreTitle"];
       case "volunteer":
-        return "Volunteer";
+        return messages["volunteerTitle"];
       case "institution":
-        return "Institution";
+        return messages["institutionTitle"];
       default:
         return "Profile";
     }
@@ -162,7 +172,7 @@ export default function ProfileComponent() {
                     onClick={() => setIsEditing(!isEditing)}
                   >
                     <Edit className="w-5 h-5 mr-2" />
-                    Edit Profile
+                    {messages["editprofileTitle"]}
                   </Button>
                 </div>
 
@@ -184,7 +194,8 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <div className="flex">{renderStars(5)}</div>
                   <span className="text-base text-gray-700 font-medium">
-                    5.0 ({userData.reviews?.length || 0} reviews)
+                    5.0 ({userData.reviews?.length || 0}{" "}
+                    {messages["reviewsTitle"]})
                   </span>
                 </div>
               </div>
@@ -201,7 +212,7 @@ export default function ProfileComponent() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Users className="w-5 h-5 text-[#206645]" />
-                  About
+                  {messages["descriptionTitle"]}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -216,7 +227,7 @@ export default function ProfileComponent() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Award className="w-5 h-5 text-[#206645]" />
-                  Professional Details
+                  {messages["professionaldetailsTitle"]}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -296,7 +307,7 @@ export default function ProfileComponent() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Camera className="w-5 h-5 text-[#206645]" />
-                  Photo Gallery
+                  {messages["photogalleryTitle"]}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -346,23 +357,23 @@ export default function ProfileComponent() {
             {/* Quick Actions */}
             <Card>
               <CardHeader>
-                <CardTitle>Quick Actions</CardTitle>
+                <CardTitle>{messages["quickactionsTitle"]}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <Button className="w-full bg-[#206645] hover:bg-[#185536]">
                   <Phone className="w-4 h-4 mr-2" />
-                  Call Now
+                  {messages["callnowTitle"]}
                 </Button>
                 <Button
                   variant="outline"
                   className="w-full border-[#206645] text-[#206645] hover:bg-[#206645]/10"
                 >
                   <Mail className="w-4 h-4 mr-2" />
-                  Send Message
+                  {messages["sendmessageTitle"]}
                 </Button>
                 <Button variant="outline" className="w-full">
                   <MessageCircle className="w-4 h-4 mr-2" />
-                  Contact via Telegram
+                  {messages["contactviatelegramTitle"]}
                 </Button>
               </CardContent>
             </Card>
@@ -372,7 +383,7 @@ export default function ProfileComponent() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Star className="w-5 h-5 text-[#206645]" />
-                  Client Reviews
+                  {messages["clientreviewsLabel"]}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -386,7 +397,7 @@ export default function ProfileComponent() {
                       <div className="flex">{renderStars(5)}</div>
                     </div>
                     <p className="text-sm text-gray-700 italic">
-                    &quot;{review.text}&quot;
+                      &quot;{review.text}&quot;
                     </p>
                     {index < userData.reviews.length - 1 && <Separator />}
                   </div>
@@ -396,7 +407,7 @@ export default function ProfileComponent() {
                   variant="ghost"
                   className="w-full text-[#206645] hover:bg-[#206645]/10"
                 >
-                  View All Reviews
+                  {messages["viewallreviewsTitle"]}
                 </Button>
               </CardContent>
             </Card>
@@ -404,24 +415,16 @@ export default function ProfileComponent() {
             {/* Verification Status */}
             <Card>
               <CardHeader>
-                <CardTitle>Verification Status</CardTitle>
+                <CardTitle>{messages["verificationstatusTitle"]}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm">Identity Verified</span>
+                  <span className="text-sm">
+                    {messages["identityverifiedTitle"]}
+                  </span>
                   <Badge className="bg-green-100 text-green-800">
-                    ✓ Verified
+                    ✓ {messages["verifiedTitle"]}
                   </Badge>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm">Background Check</span>
-                  <Badge className="bg-green-100 text-green-800">
-                    ✓ Passed
-                  </Badge>
-                </div>
-                <div className="flex items-center justify-between">
-                  <span className="text-sm">Certifications</span>
-                  <Badge className="bg-green-100 text-green-800">✓ Valid</Badge>
                 </div>
               </CardContent>
             </Card>
