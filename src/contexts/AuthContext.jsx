@@ -14,6 +14,7 @@ export const AuthProvider = ({ children }) => {
     email: null,
     displayName: null,
     photoURL: null,
+    role: "",
     setList: false, // default value for setList
   }
   const [user, setUser] = useState(initUser); // stores Firebase user + custom data
@@ -30,6 +31,7 @@ export const AuthProvider = ({ children }) => {
         setUser({
           ...firebaseUser,
           setList: userData.setList || false, // default to false if not set
+          role: userData.role || "", // default to empty string if not set
         });
       } else {
         setUser(initUser);

@@ -73,7 +73,7 @@ const AddListingPage = ({ category = "" }) => {
   }
 
   useEffect(() => {
-    if (!loading && !user) {
+    if (!loading && !user.email) {
       router.push("/signin");
     }
   }, [user, loading, router]);
@@ -303,6 +303,7 @@ const AddListingPage = ({ category = "" }) => {
         await setDoc(doc(db, 'lists', user.email), submissionData);
         await updateDoc(doc(db, 'users', user.email), {
           setList: true,
+          role: formData.entryType, // Update user role based on entry type
         });
   
         setSubmitSuccess(true);

@@ -38,8 +38,10 @@ const SignUp = () => {
         enabled: true,
         isAdministrator: false,
         setList: false,
+        role: "",
         username: user.displayName,
         userid: user.email,
+        createdAt: new Date.now()
       });
       router.push("/");
     } catch (err) {
@@ -66,6 +68,7 @@ const SignUp = () => {
           enabled: true,
           isAdministrator: false,
           setList: false,
+          role: "",
           username: user.displayName,
           userid: user.email,
         });

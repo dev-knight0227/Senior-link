@@ -121,7 +121,7 @@ const Header = () => {
                       className="flex items-center gap-2 px-5 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
                     >
                       <User size={16} className="text-[#0077C8]" />
-                      <span>{messages["profileTitle"]}</span>
+                      <span>{messages["profileTitle"]}({user.role})</span>
                     </Link>:<Link
                       href="/add-list/caregiver"
                       className="flex items-center gap-2 px-5 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"

@@ -58,6 +58,7 @@ const SignIn = () => {
           enabled: true,
           isAdministrator: false,
           setList: false,
+          role: "",
           username: user.displayName,
           userid: user.email,
         });
