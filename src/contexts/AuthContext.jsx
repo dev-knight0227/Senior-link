@@ -49,8 +49,15 @@ export const AuthProvider = ({ children }) => {
     }));
   };
 
+  const switchRole = (newRole) => {
+    setUser((prevUser) => ({
+      ...prevUser,
+      role: newRole,
+    }));
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, switchList }}>
+    <AuthContext.Provider value={{ user, loading, switchList, switchRole }}>
       {children}
     </AuthContext.Provider>
   );

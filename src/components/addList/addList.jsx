@@ -11,7 +11,7 @@ import { storage } from "@/firebase/storage";
 
 const AddListingPage = ({ category = "" }) => {
   const { messages } = useLang();
-  const { user, loading, switchList } = useAuth();
+  const { user, loading, switchList, switchRole } = useAuth();
   const router = useRouter();
   const initialFormData = {
     entryType: category,
@@ -307,6 +307,7 @@ const AddListingPage = ({ category = "" }) => {
         });
   
         setSubmitSuccess(true);
+        switchRole(formData.entryType); // Update user context with new role
         setFormData(initialFormData); // Reset form data
         setPhotos([]);
         setPhotoPreview([]);

@@ -386,7 +386,7 @@ export default function ProfileComponent() {
                       <div className="flex">{renderStars(5)}</div>
                     </div>
                     <p className="text-sm text-gray-700 italic">
-                      "{review.text}"
+                    &quot;{review.text}&quot;
                     </p>
                     {index < userData.reviews.length - 1 && <Separator />}
                   </div>
