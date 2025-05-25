@@ -1,11 +1,8 @@
 "use client";
-import { useState, useRef, useEffect } from "react";
 import { motion} from "framer-motion";
 import Link from "next/link";
 import { useLang } from "@/contexts/LangContext";
 import { useAuth } from "@/contexts/AuthContext";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/firebase/firestore";
 
 const GreenBanner = () => {
   const {messages} = useLang();

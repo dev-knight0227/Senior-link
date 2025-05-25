@@ -86,7 +86,7 @@ const Header = () => {
             </div>
           </Link>
 
-          {!loading && user ? (
+          {!loading && user.email ? (
             <div className="relative" ref={avatarMenuRef}>
               <button
                 onClick={() => setIsAvatarMenuOpen((prev) => !prev)}

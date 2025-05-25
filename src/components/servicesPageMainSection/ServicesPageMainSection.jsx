@@ -1,13 +1,10 @@
 "use client"
 import React from "react"
-import { useState, useRef, useEffect } from "react";
 import { m, motion } from "framer-motion"
 import Link from "next/link"
 import Image from "next/image"
 import { useLang } from "@/contexts/LangContext"
 import { useAuth } from "@/contexts/AuthContext";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/firebase/firestore";
 
 const ServicesPageMainSection = () => {
   const {messages} = useLang();
