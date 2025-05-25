@@ -1,4 +1,4 @@
-import Profile from "@/components/profile/Profile"
+import ProfileComponent from "@/components/profile/Profile"
 
 export const metadata = {
   title: "SeniorLink | My profile",
@@ -7,5 +7,5 @@ export const metadata = {
 }
 
 export default function MyProfile() {
-  return <Profile />
+  return <ProfileComponent />
 }

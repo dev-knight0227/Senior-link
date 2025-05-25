@@ -1,184 +1,462 @@
-"use client"
-import React, { useState, useEffect } from 'react';
-import { User, Mail, Phone, MapPin, Edit2 } from 'lucide-react';
-import Image from 'next/image';
+"use client";
 
-export default function Profile() {
-  const [userData, setUserData] = useState(null);
+import { useState } from "react";
+import { useEffect } from "react";
+import Image from "next/image";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/firebase/firestore";
+import { useAuth } from "@/contexts/AuthContext";
+import {
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Star,
+  Edit,
+  Camera,
+  Users,
+  Award,
+  Calendar,
+  DollarSign,
+  MessageCircle,
+} from "lucide-react";
+
+const mockProfileData = {
+  entryType: "",
+  name: "",
+  email: "",
+  phone: "",
+  address: "",
+  city: "",
+  description:
+    "",
+  photos: [
+    
+  ],
+  reviews: [
+  ],
+  caregiver: {
+    experience: "",
+    hourlyRate: "",
+    specializations: [],
+    availability: "",
+    certifications: "",
+    telegram: "",
+  },
+};
+
+export default function ProfileComponent() {
+  const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
-  const [formState, setFormState] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    address: '',
-  });
+  const [userData, setUserData] = useState();
+  const { user } = useAuth();
 
   useEffect(() => {
-    // Simulate fetching user data from an API
-    const fetchUserData = async () => {
-      // Replace this with actual API call
-      const data = {
-        firstName: 'Jane',
-        lastName: 'Doe',
-        email: 'jane.doe@example.com',
-        phone: '(555) 987-6543',
-        address: '456 Wellness Blvd, Healthtown, HT 67890',
-      };
-      setUserData(data);
-      setFormState(data);
+    console.log("Fetching user data...");
+    const fetchUser = async () => {
+      if (user) {
+        try {
+          const userDocRef = doc(db, "lists", user.email);
+          console.log(user.email);
+          const userDocSnap = await getDoc(userDocRef);
+          if (userDocSnap.exists()) {
+            const profileData = userDocSnap.data();
+            setUserData(profileData);
+          } else {
+            // setUserData(mockProfileData);
+          }
+        } catch (error) {
+          console.error("Error fetching admin status:", error);
+          // setUserData(mockProfileData);
+        }
+      } else {
+        // setUserData(mockProfileData);
+      }
     };
 
-    fetchUserData();
+    fetchUser();
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormState((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+  const getTypeIcon = (type) => {
+    switch (type) {
+      case "caregiver":
+        return "\u{1F468}\u{200D}\u{2695}\u{FE0F}";
+      case "nurse":
+        return "\u{1F469}\u{200D}\u{2695}\u{FE0F}";
+      case "careHome":
+        return "\u{1F3E0}";
+      case "transport":
+        return "\u{1F691}";
+      case "store":
+        return "\u{1F6D2}";
+      case "volunteer":
+        return "\u{1F91D}";
+      case "institution":
+        return "\u{1F3DB}";
+      default:
+        return "\u{1F464}";
+    }
   };
 
-  const handleSave = (e) => {
-    e.preventDefault();
-    // Implement save logic here (e.g., API call)
-    setUserData(formState);
-    setIsEditing(false);
+  const getTypeLabel = (type) => {
+    switch (type) {
+      case "caregiver":
+        return "Professional Caregiver";
+      case "nurse":
+        return "Registered Nurse";
+      case "careHome":
+        return "Care Home";
+      case "transport":
+        return "Transport Service";
+      case "store":
+        return "Senior Store";
+      case "volunteer":
+        return "Volunteer";
+      case "institution":
+        return "Institution";
+      default:
+        return "Profile";
+    }
   };
 
-  if (!userData) {
-    return <div className="text-center py-12">Loading profile...</div>;
-  }
+  const renderStars = (rating) => {
+    return Array.from({ length: 5 }, (_, i) => (
+      <Star
+        key={i}
+        className={`w-4 h-4 ${
+          i < rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
+        }`}
+      />
+    ));
+  };
 
   return (
-    <div className="bg-white dark:bg-gray-900 min-h-screen">
-
-      <div className="container mx-auto px-4 py-12">
-        <div className="max-w-3xl mx-auto bg-gray-50 dark:bg-gray-800 rounded-xl p-6 shadow-sm border border-gray-100 dark:border-gray-700">
-          <div className="flex items-center mb-6">
-            <div className="bg-[#206645] rounded-full p-3 mr-4">
-              <User className="h-6 w-6 text-white" />
-            </div>
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Personal Information</h2>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4">
+      <div className="max-w-6xl mx-auto space-y-6">
+        <Card className="overflow-hidden">
+          <div className="relative h-32 bg-gradient-to-r from-[#206645] to-[#2d8a5f]">
+            <div className="absolute inset-0 bg-black/20" />
+            <Button
+              variant="ghost"
+              size="sm"
+              className="absolute top-4 right-4 text-white hover:bg-white/20"
+              onClick={() => setIsEditing(!isEditing)}
+            >
+              <Edit className="w-4 h-4 mr-2" />
+              Edit Profile
+            </Button>
           </div>
 
-          {isEditing ? (
-            <form onSubmit={handleSave} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    First Name
-                  </label>
-                  <input
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    value={formState.firstName}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[#206645] dark:focus:ring-[#3b9ede] focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all text-base"
-                    required
+          <CardContent className="relative pt-0 pb-6">
+            <div className="flex flex-col md:flex-row items-start md:items-end gap-6 -mt-16">
+              {/* Profile Avatar */}
+              <div className="relative">
+                <Avatar className="w-32 h-32 border-4 border-white shadow-lg">
+                  <AvatarImage
+                    src={userData.photos[0] || "/placeholder.svg"}
+                    alt={userData.name}
                   />
+                  <AvatarFallback className="text-2xl bg-[#206645] text-white">
+                    {userData.name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
+                  </AvatarFallback>
+                </Avatar>
+                <Button
+                  size="sm"
+                  className="absolute bottom-0 right-0 rounded-full w-8 h-8 p-0 bg-[#206645] hover:bg-[#185536]"
+                >
+                  <Camera className="w-4 h-4" />
+                </Button>
+              </div>
+
+              {/* Profile Info */}
+              <div className="flex-1 space-y-2">
+                <div className="flex items-center gap-3">
+                  <h1 className="text-3xl font-bold text-gray-900">
+                    {userData.name}
+                  </h1>
+                  <Badge
+                    variant="secondary"
+                    className="bg-[#206645]/10 text-[#206645] border-[#206645]/20"
+                  >
+                    <span className="mr-1">
+                      {getTypeIcon(userData.entryType)}
+                    </span>
+                    {getTypeLabel(userData.entryType)}
+                  </Badge>
                 </div>
 
-                <div>
-                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                    Last Name
-                  </label>
-                  <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    value={formState.lastName}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[#206645] dark:focus:ring-[#3b9ede] focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all text-base"
-                    required
-                  />
+                <div className="flex flex-wrap gap-4 text-sm text-gray-600">
+                  <div className="flex items-center gap-1">
+                    <MapPin className="w-4 h-4" />
+                    {userData.address}, {userData.city}
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Phone className="w-4 h-4" />
+                    {userData.phone}
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <Mail className="w-4 h-4" />
+                    {userData.email}
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <div className="flex">{renderStars(5)}</div>
+                  <span className="text-sm text-gray-600">
+                    5.0 ({userData.reviews.length} reviews)
+                  </span>
                 </div>
               </div>
-
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formState.email}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[#206645] dark:focus:ring-[#3b9ede] focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all text-base"
-                  required
-                />
-              </div>
-
-              <div>
-                <label htmlFor="phone" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Phone Number
-                </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  value={formState.phone}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[#206645] dark:focus:ring-[#3b9ede] focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all text-base"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="address" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                  Address
-                </label>
-                <textarea
-                  id="address"
-                  name="address"
-                  rows={3}
-                  value={formState.address}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-[#206645] dark:focus:ring-[#3b9ede] focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-white transition-all text-base"
-                ></textarea>
-              </div>
-
-              <div className="flex justify-end space-x-4">
-                <button
-                  type="button"
-                  onClick={() => setIsEditing(false)}
-                  className="px-6 py-3 bg-gray-300 dark:bg-gray-600 text-gray-800 dark:text-white font-medium rounded-lg hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-6 py-3 bg-[#206645] hover:bg-[#0066b0] dark:bg-[#206645] dark:hover:bg-[#0088e0] text-white font-medium rounded-lg transition-colors"
-                >
-                  Save Changes
-                </button>
-              </div>
-            </form>
-          ) : (
-            <div className="space-y-4">
-              <div className="flex items-center">
-                <Mail className="h-5 w-5 text-[#206645] dark:text-[#3b9ede] mr-2" />
-                <span className="text-gray-800 dark:text-white">{userData.email}</span>
-              </div>
-              <div className="flex items-center">
-                <Phone className="h-5 w-5 text-[#206645] dark:text-[#3b9ede] mr-2" />
-                <span className="text-gray-800 dark:text-white">{userData.phone}</span>
-              </div>
-              <div className="flex items-center">
-                <MapPin className="h-5 w-5 text-[#206645] dark:text-[#3b9ede] mr-2" />
-                <span className="text-gray-800 dark:text-white">{userData.address}</span>
-              </div>
-              <button
-                onClick={() => setIsEditing(true)}
-                className="mt-6 inline-flex items-center px-6 py-3 bg-[#206645] hover:bg-[#0066b0] dark:bg-[#206645] dark:hover:bg-[#0088e0] text-white font-medium rounded-lg transition-colors"
-              >
-                <Edit2 className="h-5 w-5 mr-2" />
-                Edit Profile
-              </button>
             </div>
-          )}
+          </CardContent>
+        </Card>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left Column */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* About Section */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Users className="w-5 h-5 text-[#206645]" />
+                  About
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-700 leading-relaxed">
+                  {userData.description}
+                </p>
+              </CardContent>
+            </Card>
+
+            {/* Professional Details */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Award className="w-5 h-5 text-[#206645]" />
+                  Professional Details
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="flex items-center gap-3">
+                    <Calendar className="w-5 h-5 text-gray-400" />
+                    <div>
+                      <p className="text-sm text-gray-600">Experience</p>
+                      <p className="font-semibold">
+                        {userData.caregiver.experience} years
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <DollarSign className="w-5 h-5 text-gray-400" />
+                    <div>
+                      <p className="text-sm text-gray-600">Hourly Rate</p>
+                      <p className="font-semibold">
+                        ${userData.caregiver.hourlyRate}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <Clock className="w-5 h-5 text-gray-400" />
+                    <div>
+                      <p className="text-sm text-gray-600">Availability</p>
+                      <p className="font-semibold">
+                        {userData.caregiver.availability}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <MessageCircle className="w-5 h-5 text-gray-400" />
+                    <div>
+                      <p className="text-sm text-gray-600">Contact</p>
+                      <a
+                        href={userData.caregiver.telegram}
+                        className="font-semibold text-[#206645] hover:underline"
+                      >
+                        Telegram
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <Separator />
+
+                <div>
+                  <p className="text-sm text-gray-600 mb-2">Specializations</p>
+                  <div className="flex flex-wrap gap-2">
+                    {userData.caregiver.specializations.map(
+                      (spec, index) => (
+                        <Badge
+                          key={index}
+                          variant="outline"
+                          className="border-[#206645]/30 text-[#206645]"
+                        >
+                          {spec}
+                        </Badge>
+                      )
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <p className="text-sm text-gray-600 mb-2">Certifications</p>
+                  <p className="font-medium">
+                    {userData.caregiver.certifications}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Photo Gallery */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Camera className="w-5 h-5 text-[#206645]" />
+                  Photo Gallery
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {/* Main Photo */}
+                  <div className="aspect-video rounded-lg overflow-hidden bg-gray-100">
+                    <Image
+                      src={
+                        userData.photos[activePhotoIndex] ||
+                        "/placeholder.svg"
+                      }
+                      alt="Profile photo"
+                      width={600}
+                      height={400}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+
+                  {/* Thumbnail Gallery */}
+                  <div className="grid grid-cols-4 gap-2">
+                    {userData.photos.map((photo, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setActivePhotoIndex(index)}
+                        className={`aspect-square rounded-md overflow-hidden border-2 transition-colors ${
+                          activePhotoIndex === index
+                            ? "border-[#206645]"
+                            : "border-gray-200 hover:border-gray-300"
+                        }`}
+                      >
+                        <Image
+                          src={photo || "/placeholder.svg"}
+                          alt={`Photo ${index + 1}`}
+                          width={100}
+                          height={100}
+                          className="w-full h-full object-cover"
+                        />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Right Column */}
+          <div className="space-y-6">
+            {/* Quick Actions */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Quick Actions</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <Button className="w-full bg-[#206645] hover:bg-[#185536]">
+                  <Phone className="w-4 h-4 mr-2" />
+                  Call Now
+                </Button>
+                <Button
+                  variant="outline"
+                  className="w-full border-[#206645] text-[#206645] hover:bg-[#206645]/10"
+                >
+                  <Mail className="w-4 h-4 mr-2" />
+                  Send Message
+                </Button>
+                <Button variant="outline" className="w-full">
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Contact via Telegram
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Reviews */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Star className="w-5 h-5 text-[#206645]" />
+                  Client Reviews
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {userData.reviews.map((review, index) => (
+                  <div key={index} className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium text-sm">{review.name}</p>
+                        <p className="text-xs text-gray-500">{review.phone}</p>
+                      </div>
+                      <div className="flex">{renderStars(5)}</div>
+                    </div>
+                    <p className="text-sm text-gray-700 italic">
+                      "{review.text}"
+                    </p>
+                    {index < userData.reviews.length - 1 && (
+                      <Separator />
+                    )}
+                  </div>
+                ))}
+
+                <Button
+                  variant="ghost"
+                  className="w-full text-[#206645] hover:bg-[#206645]/10"
+                >
+                  View All Reviews
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Verification Status */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Verification Status</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm">Identity Verified</span>
+                  <Badge className="bg-green-100 text-green-800">
+                    ✓ Verified
+                  </Badge>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm">Background Check</span>
+                  <Badge className="bg-green-100 text-green-800">
+                    ✓ Passed
+                  </Badge>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm">Certifications</span>
+                  <Badge className="bg-green-100 text-green-800">✓ Valid</Badge>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </div>
