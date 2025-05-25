@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -11,6 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase/firestore";
 import { useAuth } from "@/contexts/AuthContext";
+import Loading from "@/app/loading";
 import {
   MapPin,
   Phone,
@@ -26,114 +26,62 @@ import {
   MessageCircle,
 } from "lucide-react";
 
-const mockProfileData = {
-  entryType: "",
-  name: "",
-  email: "",
-  phone: "",
-  address: "",
-  city: "",
-  description:
-    "",
-  photos: [
-    
-  ],
-  reviews: [
-  ],
-  caregiver: {
-    experience: "",
-    hourlyRate: "",
-    specializations: [],
-    availability: "",
-    certifications: "",
-    telegram: "",
-  },
-};
-
 export default function ProfileComponent() {
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
-  const [userData, setUserData] = useState();
+  const [userData, setUserData] = useState(null);
   const { user } = useAuth();
 
   useEffect(() => {
-    console.log("Fetching user data...");
     const fetchUser = async () => {
-      if (user) {
+      if (user?.email) {
         try {
           const userDocRef = doc(db, "lists", user.email);
-          console.log(user.email);
           const userDocSnap = await getDoc(userDocRef);
           if (userDocSnap.exists()) {
-            const profileData = userDocSnap.data();
-            setUserData(profileData);
-          } else {
-            // setUserData(mockProfileData);
+            setUserData(userDocSnap.data());
           }
         } catch (error) {
-          console.error("Error fetching admin status:", error);
-          // setUserData(mockProfileData);
+          console.error("Error fetching user data:", error);
         }
-      } else {
-        // setUserData(mockProfileData);
       }
     };
-
     fetchUser();
-  }, []);
+  }, [user]);
+
+  if (!userData) return <><Loading /></>;
 
   const getTypeIcon = (type) => {
     switch (type) {
-      case "caregiver":
-        return "\u{1F468}\u{200D}\u{2695}\u{FE0F}";
-      case "nurse":
-        return "\u{1F469}\u{200D}\u{2695}\u{FE0F}";
-      case "careHome":
-        return "\u{1F3E0}";
-      case "transport":
-        return "\u{1F691}";
-      case "store":
-        return "\u{1F6D2}";
-      case "volunteer":
-        return "\u{1F91D}";
-      case "institution":
-        return "\u{1F3DB}";
-      default:
-        return "\u{1F464}";
+      case "caregiver": return "\u{1F468}\u{200D}\u{2695}\u{FE0F}";
+      case "nurse": return "\u{1F469}\u{200D}\u{2695}\u{FE0F}";
+      case "careHome": return "\u{1F3E0}";
+      case "transport": return "\u{1F691}";
+      case "store": return "\u{1F6D2}";
+      case "volunteer": return "\u{1F91D}";
+      case "institution": return "\u{1F3DB}";
+      default: return "\u{1F464}";
     }
   };
 
   const getTypeLabel = (type) => {
     switch (type) {
-      case "caregiver":
-        return "Professional Caregiver";
-      case "nurse":
-        return "Registered Nurse";
-      case "careHome":
-        return "Care Home";
-      case "transport":
-        return "Transport Service";
-      case "store":
-        return "Senior Store";
-      case "volunteer":
-        return "Volunteer";
-      case "institution":
-        return "Institution";
-      default:
-        return "Profile";
+      case "caregiver": return "Professional Caregiver";
+      case "nurse": return "Registered Nurse";
+      case "careHome": return "Care Home";
+      case "transport": return "Transport Service";
+      case "store": return "Senior Store";
+      case "volunteer": return "Volunteer";
+      case "institution": return "Institution";
+      default: return "Profile";
     }
   };
 
-  const renderStars = (rating) => {
-    return Array.from({ length: 5 }, (_, i) => (
-      <Star
-        key={i}
-        className={`w-4 h-4 ${
-          i < rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"
-        }`}
-      />
-    ));
-  };
+  const renderStars = (rating) => (
+    Array.from({ length: 5 }, (_, i) => (
+      <Star key={i} className={`w-4 h-4 ${i < rating ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`} />
+    ))
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4">
@@ -154,71 +102,42 @@ export default function ProfileComponent() {
 
           <CardContent className="relative pt-0 pb-6">
             <div className="flex flex-col md:flex-row items-start md:items-end gap-6 -mt-16">
-              {/* Profile Avatar */}
               <div className="relative">
                 <Avatar className="w-32 h-32 border-4 border-white shadow-lg">
-                  <AvatarImage
-                    src={userData.photos[0] || "/placeholder.svg"}
-                    alt={userData.name}
-                  />
+                  <AvatarImage src={userData.photos[0] || "/placeholder.svg"} alt={userData.name} />
                   <AvatarFallback className="text-2xl bg-[#206645] text-white">
-                    {userData.name
-                      .split(" ")
-                      .map((n) => n[0])
-                      .join("")}
+                    {userData.name.split(" ").map(n => n[0]).join("")}
                   </AvatarFallback>
                 </Avatar>
-                <Button
-                  size="sm"
-                  className="absolute bottom-0 right-0 rounded-full w-8 h-8 p-0 bg-[#206645] hover:bg-[#185536]"
-                >
+                <Button size="sm" className="absolute bottom-0 right-0 rounded-full w-8 h-8 p-0 bg-[#206645] hover:bg-[#185536]">
                   <Camera className="w-4 h-4" />
                 </Button>
               </div>
 
-              {/* Profile Info */}
               <div className="flex-1 space-y-2">
                 <div className="flex items-center gap-3">
-                  <h1 className="text-3xl font-bold text-gray-900">
-                    {userData.name}
-                  </h1>
-                  <Badge
-                    variant="secondary"
-                    className="bg-[#206645]/10 text-[#206645] border-[#206645]/20"
-                  >
-                    <span className="mr-1">
-                      {getTypeIcon(userData.entryType)}
-                    </span>
+                  <h1 className="text-3xl font-bold text-gray-900">{userData.name}</h1>
+                  <Badge variant="secondary" className="bg-[#206645]/10 text-[#206645] border-[#206645]/20">
+                    <span className="mr-1">{getTypeIcon(userData.entryType)}</span>
                     {getTypeLabel(userData.entryType)}
                   </Badge>
                 </div>
 
                 <div className="flex flex-wrap gap-4 text-sm text-gray-600">
-                  <div className="flex items-center gap-1">
-                    <MapPin className="w-4 h-4" />
-                    {userData.address}, {userData.city}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Phone className="w-4 h-4" />
-                    {userData.phone}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Mail className="w-4 h-4" />
-                    {userData.email}
-                  </div>
+                  <div className="flex items-center gap-1"><MapPin className="w-4 h-4" />{userData.address}, {userData.city}</div>
+                  <div className="flex items-center gap-1"><Phone className="w-4 h-4" />{userData.phone}</div>
+                  <div className="flex items-center gap-1"><Mail className="w-4 h-4" />{userData.email}</div>
                 </div>
 
                 <div className="flex items-center gap-2">
                   <div className="flex">{renderStars(5)}</div>
-                  <span className="text-sm text-gray-600">
-                    5.0 ({userData.reviews.length} reviews)
-                  </span>
+                  <span className="text-sm text-gray-600">5.0 ({userData.reviews?.length || 0} reviews)</span>
                 </div>
               </div>
             </div>
           </CardContent>
         </Card>
-
+        {/* Additional cards (About, Professional Details, Reviews, etc.) go here as in previous code */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Column */}
           <div className="lg:col-span-2 space-y-6">
