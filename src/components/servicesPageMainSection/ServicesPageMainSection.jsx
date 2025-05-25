@@ -12,31 +12,6 @@ import { db } from "@/firebase/firestore";
 const ServicesPageMainSection = () => {
   const {messages} = useLang();
   const { user, loading } = useAuth();
-  const [isList, setIsList] = useState(false);
-
-  useEffect(() => {
-    const fetchAdminStatus = async () => {
-      if (user) {
-        try {
-          const userDocRef = doc(db, "users", user.email);
-          const userDocSnap = await getDoc(userDocRef);
-          if (userDocSnap.exists()) {
-            const userData = userDocSnap.data();
-            setIsList(userData.setList === true);
-          } else {
-            setIsList(false);
-          }
-        } catch (error) {
-          console.error("Error fetching admin status:", error);
-          setIsList(false);
-        }
-      } else {
-        setIsList(false);
-      }
-    };
-
-    fetchAdminStatus();
-  }, [user]);
 
   // Animation variants
   const fadeIn = {
@@ -75,7 +50,7 @@ const ServicesPageMainSection = () => {
             {messages['aboutusmainContent']}
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            {isList?<Link href="/profile" className="inline-flex items-center px-6 py-3 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
+            {user.setList?<Link href="/profile" className="inline-flex items-center px-6 py-3 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
               {messages['profileTitle']}
               <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
@@ -171,7 +146,7 @@ const ServicesPageMainSection = () => {
                 {messages['termsfamiliesfinalContent']}
               </p>
               <div className="mt-6">
-                {!isList && <Link href="/search-care/all" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
+                {!user.setList && <Link href="/search-care/all" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
                   {messages['findcareserviceTitle']}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -257,7 +232,7 @@ const ServicesPageMainSection = () => {
                 {messages['termsfacilitiesfinalContent']}
               </p>
               <div className="mt-6">
-                {!isList && <Link href="/add-list/careHome" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
+                {!user.setList && <Link href="/add-list/careHome" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
                   {messages['findfacilitiesTitle']}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -343,7 +318,7 @@ const ServicesPageMainSection = () => {
                 {messages['termspersonfinalContent']}
               </p>
               <div className="mt-6">
-                {!isList && <Link href="/add-list/caregiver" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
+                {!user.setList && <Link href="/add-list/caregiver" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
                   {messages['findpersonTitle']}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -423,7 +398,7 @@ const ServicesPageMainSection = () => {
                 {messages['termsstoresfinalContent']}
               </p>
               <div className="mt-6">
-                {!isList && <Link href="/add-list/store" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
+                {!user.setList && <Link href="/add-list/store" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
                   {messages['findstoresTitle']}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -503,7 +478,7 @@ const ServicesPageMainSection = () => {
                 {messages['termstranshomefinalContent']}
               </p>
               <div className="mt-6">
-                {!isList && <Link href="/add-list/transport" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
+                {!user.setList && <Link href="/add-list/transport" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
                   {messages['findtranshomeTitle']}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
@@ -583,7 +558,7 @@ const ServicesPageMainSection = () => {
                 {messages['termsinstitutionsfinalContent']}
               </p>
               <div className="mt-6">
-                {!isList && <Link href="/add-list/institution" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
+                {!user.setList && <Link href="/add-list/institution" className="inline-flex items-center px-5 py-2.5 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
                   {messages['findinstitutionsTitle']}
                   <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>

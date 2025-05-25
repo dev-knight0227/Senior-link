@@ -20,31 +20,6 @@ import { db } from "@/firebase/firestore";
 const TargetAudienceSection = () => {
   const { messages } = useLang();
   const { user, loading } = useAuth();
-  const [isList, setIsList] = useState(false);
-
-  useEffect(() => {
-    const fetchAdminStatus = async () => {
-      if (user) {
-        try {
-          const userDocRef = doc(db, "users", user.email);
-          const userDocSnap = await getDoc(userDocRef);
-          if (userDocSnap.exists()) {
-            const userData = userDocSnap.data();
-            setIsList(userData.setList === true);
-          } else {
-            setIsList(false);
-          }
-        } catch (error) {
-          console.error("Error fetching admin status:", error);
-          setIsList(false);
-        }
-      } else {
-        setIsList(false);
-      }
-    };
-
-    fetchAdminStatus();
-  }, [user]);
 
   const audiences = [
     {
@@ -152,7 +127,7 @@ const TargetAudienceSection = () => {
 
           {/* Add Your Profile CTA */}
           <Link
-            href={isList?"/profile":"/add-list/careHome"}
+            href={user.setList?"/profile":"/add-list/careHome"}
             className="flex flex-col items-center justify-center w-64 h-52 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-xl shadow-md transition-colors text-center p-6"
           >
             <UserPlus className="w-10 h-10 mb-3" />

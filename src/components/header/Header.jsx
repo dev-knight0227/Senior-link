@@ -11,7 +11,7 @@ import { useLang } from "@/contexts/LangContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "@/firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "@/firebase/firestore";
 
 const Header = () => {
@@ -20,7 +20,6 @@ const Header = () => {
   const [isAvatarMenuOpen, setIsAvatarMenuOpen] = useState(false);
   const avatarMenuRef = useRef(null);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [isList, setIsList] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -45,19 +44,15 @@ const Header = () => {
           if (userDocSnap.exists()) {
             const userData = userDocSnap.data();
             setIsAdmin(userData.isAdministrator === true);
-            setIsList(userData.setList === true);
           } else {
             setIsAdmin(false);
-            setIsList(false);
           }
         } catch (error) {
           console.error("Error fetching admin status:", error);
           setIsAdmin(false);
-          setIsList(false);
         }
       } else {
         setIsAdmin(false);
-        setIsList(false);
       }
     };
   
@@ -121,7 +116,7 @@ const Header = () => {
 
                   {/* Navigation Links */}
                   <div className="py-1">
-                    {isList?<Link
+                    {user.setList?<Link
                       href="/profile"
                       className="flex items-center gap-2 px-5 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
                     >

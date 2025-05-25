@@ -11,7 +11,7 @@ import { storage } from "@/firebase/storage";
 
 const AddListingPage = ({ category = "" }) => {
   const { messages } = useLang();
-  const { user, loading } = useAuth();
+  const { user, loading, switchList } = useAuth();
   const router = useRouter();
   const initialFormData = {
     entryType: category,
@@ -314,6 +314,8 @@ const AddListingPage = ({ category = "" }) => {
         setErrors({ submit: 'Failed to submit the form. Please try again.' });
       } finally {
         setIsSubmitting(false);
+        switchList(true); // Update user context to reflect list submission
+        router.push("/");
       }
     }
   };
