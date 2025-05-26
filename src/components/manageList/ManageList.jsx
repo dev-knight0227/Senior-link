@@ -243,7 +243,7 @@ const ManageListPage = () => {
       volunteer: "bg-purple-100 text-purple-800",
       transport: "bg-amber-100 text-amber-800",
       store: "bg-emerald-100 text-emerald-800",
-      intitution: "bg-emerald-100 text-emerald-800",
+      institution: "bg-emerald-100 text-emerald-800",
     };
 
     const typeNames = {
@@ -286,7 +286,7 @@ const ManageListPage = () => {
             <div>
               <h4 className="text-sm font-medium text-gray-500">Capacity</h4>
               <p className="mt-1 text-sm text-gray-900">
-                {listing.careHome.capacity} residents
+                {listing.mainData.capacity} residents
               </p>
             </div>
             <div>
@@ -294,13 +294,13 @@ const ManageListPage = () => {
                 Monthly Price
               </h4>
               <p className="mt-1 text-sm text-gray-900">
-                {listing.careHome.monthlyPrice} PLN
+                {listing.mainData.monthlyPrice} PLN
               </p>
             </div>
             <div className="sm:col-span-2">
               <h4 className="text-sm font-medium text-gray-500">Amenities</h4>
               <div className="mt-1 flex flex-wrap gap-1">
-                {listing.careHome.amenities.map((amenity, index) => (
+                {listing.mainData.amenities.map((amenity, index) => (
                   <span
                     key={index}
                     className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800"
@@ -309,22 +309,6 @@ const ManageListPage = () => {
                   </span>
                 ))}
               </div>
-            </div>
-            <div>
-              <h4 className="text-sm font-medium text-gray-500">
-                Medical Support
-              </h4>
-              <p className="mt-1 text-sm text-gray-900">
-                {listing.careHome.medicalSupport ? "Yes" : "No"}
-              </p>
-            </div>
-            <div>
-              <h4 className="text-sm font-medium text-gray-500">
-                Accepts Insurance
-              </h4>
-              <p className="mt-1 text-sm text-gray-900">
-                {listing.careHome.acceptsInsurance ? "Yes" : "No"}
-              </p>
             </div>
           </div>
         );
@@ -335,13 +319,13 @@ const ManageListPage = () => {
             <div>
               <h4 className="text-sm font-medium text-gray-500">Experience</h4>
               <p className="mt-1 text-sm text-gray-900">
-                {listing.caregiver.experience} years
+                {listing.mainData.experience} years
               </p>
             </div>
             <div>
               <h4 className="text-sm font-medium text-gray-500">Hourly Rate</h4>
               <p className="mt-1 text-sm text-gray-900">
-                {listing.caregiver.hourlyRate} PLN
+                {listing.mainData.hourlyRate} PLN
               </p>
             </div>
             <div className="sm:col-span-2">
@@ -349,7 +333,7 @@ const ManageListPage = () => {
                 Specializations
               </h4>
               <div className="mt-1 flex flex-wrap gap-1">
-                {listing.caregiver.specializations.map((spec, index) => (
+                {listing.mainData.specializations.map((spec, index) => (
                   <span
                     key={index}
                     className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800"
@@ -364,13 +348,7 @@ const ManageListPage = () => {
                 Availability
               </h4>
               <p className="mt-1 text-sm text-gray-900">
-                {listing.caregiver.availability}
-              </p>
-            </div>
-            <div>
-              <h4 className="text-sm font-medium text-gray-500">Can Drive</h4>
-              <p className="mt-1 text-sm text-gray-900">
-                {listing.caregiver.canDrive ? "Yes" : "No"}
+                {listing.mainData.availability}
               </p>
             </div>
           </div>
@@ -430,7 +408,7 @@ const ManageListPage = () => {
                 Product Categories
               </h4>
               <div className="mt-1 flex flex-wrap gap-1">
-                {listing.store.productCategories.map((category, index) => (
+                {listing.mainData.productCategories.map((category, index) => (
                   <span
                     key={index}
                     className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800"
@@ -445,13 +423,13 @@ const ManageListPage = () => {
                 Opening Hours
               </h4>
               <p className="mt-1 text-sm text-gray-900">
-                {listing.store.openingHours}
+                {listing.mainData.openingHours}
               </p>
             </div>
             <div>
               <h4 className="text-sm font-medium text-gray-500">Website</h4>
               <p className="mt-1 text-sm text-gray-900">
-                {listing.store.websiteUrl ? (
+                {listing.mainData.websiteUrl ? (
                   <a
                     href={listing.store.websiteUrl}
                     target="_blank"
@@ -463,14 +441,6 @@ const ManageListPage = () => {
                 ) : (
                   "Not provided"
                 )}
-              </p>
-            </div>
-            <div>
-              <h4 className="text-sm font-medium text-gray-500">
-                Delivery Available
-              </h4>
-              <p className="mt-1 text-sm text-gray-900">
-                {listing.store.deliveryAvailable ? "Yes" : "No"}
               </p>
             </div>
           </div>
