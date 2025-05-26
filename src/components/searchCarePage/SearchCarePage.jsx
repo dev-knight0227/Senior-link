@@ -324,14 +324,14 @@ const SearchCare = ({ category = "all" }) => {
                     </h3>
                     <div className="space-y-2">
                       {Object.entries({
-                        all: "All Types",
-                        careHome: "Care Homes",
-                        caregiver: "Caregivers",
-                        nurse: "Carenurses",
-                        volunteer: "Volunteers",
-                        transport: "Transport Services",
-                        store: "Senior Stores",
-                        institution: "Institutions",
+                        all: messages['alltypesTitle'],
+                        careHome: messages['carehomesTitle'],
+                        caregiver: messages['caregiversTitle'],
+                        nurse: messages['nursesTitle'],
+                        volunteer: messages['findvolunteerTitle'],
+                        transport: messages['transportserviceTitle'],
+                        store: messages['seniorstoresTitle'],
+                        institution: messages['institutionsTitle'],
                       }).map(([value, label]) => (
                         <div key={value} className="flex items-center">
                           <input
@@ -396,7 +396,7 @@ const SearchCare = ({ category = "all" }) => {
                       onChange={(e) => setAvailability(e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#206645] focus:border-[#206645] text-sm"
                     >
-                      <option value="any">Any availability</option>
+                      <option value="any">{messages['anyavailabilityTitle']}</option>
                       <option value="available">Currently available</option>
                       <option value="weekday">Weekdays</option>
                       <option value="weekend">Weekends</option>
@@ -417,7 +417,7 @@ const SearchCare = ({ category = "all" }) => {
                       htmlFor="verified"
                       className="ml-2 text-sm text-gray-700 cursor-pointer"
                     >
-                      Verified providers only
+                      {messages['verifiedonlyTitle']}
                     </label>
                   </div>
                 </div>

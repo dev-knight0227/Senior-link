@@ -345,5 +345,8 @@
   "paginationshowingTitle1": "Wyświetlanie wyników od",
   "paginationshowingTitle2": "do",
   "paginationshowingTitle3": "z",
-  "paginationshowingTitle4": ""
+  "paginationshowingTitle4": "",
+  "transportserviceTitle": "Usługa transportowa",
+  "anyavailabilityTitle": "Dowolna dostępność",
+  "verifiedonlyTitle": "Tylko zweryfikowane"
 }

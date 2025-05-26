@@ -345,5 +345,8 @@
   "paginationshowingTitle1": "Showing",
   "paginationshowingTitle2": "to",
   "paginationshowingTitle3": "of",
-  "paginationshowingTitle4": "results"
+  "paginationshowingTitle4": "results",
+  "transportserviceTitle": "Transport Service",
+  "anyavailabilityTitle": "Any Availability",
+  "verifiedonlyTitle": "Verified Only"
 }
