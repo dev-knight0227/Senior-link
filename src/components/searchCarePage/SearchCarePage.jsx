@@ -22,11 +22,11 @@ const SearchCare = ({ category = "all" }) => {
   const [filteredResults, setFilteredResults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [listings, setListings] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchListings = async () => {
       try {
+        setIsLoading(true);
         const querySnapshot = await getDocs(collection(db, "lists"));
         const data = querySnapshot.docs.map((doc) => ({
           id: doc.id,
@@ -43,11 +43,14 @@ const SearchCare = ({ category = "all" }) => {
           // ...doc.data(),
         }));
         console.log(data);
+        // setFilteredResults(data);
+        resetFilters();
         setListings(data);
       } catch (error) {
         console.error("Error fetching listings:", error);
       } finally {
-        setLoading(false);
+        
+        setIsLoading(false);
       }
     };
 
@@ -66,7 +69,6 @@ const SearchCare = ({ category = "all" }) => {
     // Simulate loading data
     setTimeout(() => {
       setFilteredResults(listings);
-      setIsLoading(false);
     }, 500);
 
     return () => {
@@ -597,7 +599,7 @@ const SearchCare = ({ category = "all" }) => {
 
             {/* Results Content */}
             <div>
-              {isLoading || loading ? (
+              {isLoading ? (
                 <div className="flex justify-center items-center h-64">
                   <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#206645]"></div>
                 </div>
