@@ -51,7 +51,7 @@ const ManageListPage = () => {
             mainData: doc.data()[doc.data().entryType] || {},
             photos: doc.data().photos,
             verified: true,
-            // ...doc.data(),
+            createdAt: doc.data().createdAt.toDate().toISOString(),
           };
         });
         console.log(data);
