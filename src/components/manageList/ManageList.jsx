@@ -4,6 +4,8 @@ import Image from "next/image";
 import { useLang } from "@/contexts/LangContext";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase/firestore";
+import { useAuth } from "@/contexts/AuthContext";
+import { useRouter } from "next/navigation";
 
 const ManageListPage = () => {
   // State for listings data
@@ -25,6 +27,8 @@ const ManageListPage = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [editFormData, setEditFormData] = useState(null);
+  const { user, loading } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -68,6 +72,12 @@ const ManageListPage = () => {
 
     fetchListings();
   }, []);
+
+  useEffect(() => {
+    if (!loading && !user.email) {
+      router.push("/signin");
+    }
+  }, [user, loading, router]);
 
   // Fetch listings data
   // useEffect(() => {

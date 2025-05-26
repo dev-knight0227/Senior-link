@@ -11,7 +11,7 @@ import { storage } from "@/firebase/storage";
 
 const AddListingPage = ({ category = "" }) => {
   const { messages } = useLang();
-  const { user, loading, switchList, switchRole } = useAuth();
+  const { user, loading, switchList, switchRole, switchAvatar } = useAuth();
   const router = useRouter();
   const initialFormData = {
     entryType: category,
@@ -248,14 +248,7 @@ const AddListingPage = ({ category = "" }) => {
         newErrors["caregiver.hourlyRate"] = "Hourly rate is required";
       if (!formData.caregiver.availability)
         newErrors["caregiver.availability"] = "Availability is required";
-    } else if (formData.entryType === "transport") {
-      if (!formData.transport.vehicleType)
-        newErrors["transport.vehicleType"] = "Vehicle type is required";
-      if (!formData.transport.serviceArea)
-        newErrors["transport.serviceArea"] = "Service area is required";
-      if (!formData.transport.pricePerKm)
-        newErrors["transport.pricePerKm"] = "Price per km is required";
-    } else if (formData.entryType === "store") {
+    }else if (formData.entryType === "store") {
       if (formData.store.productCategories.length === 0)
         newErrors["store.productCategories"] =
           "At least one product category is required";
@@ -309,6 +302,7 @@ const AddListingPage = ({ category = "" }) => {
   
         setSubmitSuccess(true);
         switchRole(formData.entryType); // Update user context with new role
+        switchAvatar(photoURLs[0]); // Set first photo as avatar
         setFormData(initialFormData); // Reset form data
         setPhotos([]);
         setPhotoPreview([]);

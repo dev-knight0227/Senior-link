@@ -38,7 +38,7 @@ const SearchCare = ({ category = "all" }) => {
           description: doc.data().description,
           reviews: doc.data().reviews || [],
           mainData: doc.data()[doc.data().entryType] || {},
-          image: doc.data().photos[0] || "",
+          image: doc.data().photos[doc.data().avatar] || "",
           verified: true,
           // ...doc.data(),
         }));
