@@ -1,12 +1,15 @@
-"use client"
+"use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useLang } from "@/contexts/LangContext";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "@/firebase/firestore";
+import Loading from "@/app/loading";
 
 // SearchCare Component - A standalone component for searching care services
-const SearchCare = ({category = "all"}) => {
+const SearchCare = ({ category = "all" }) => {
   // State for search and filters
-  const {messages} = useLang();
+  const { messages } = useLang();
   const [searchQuery, setSearchQuery] = useState("");
   const [location, setLocation] = useState("Kraków");
   const [providerType, setProviderType] = useState(category);
@@ -19,6 +22,38 @@ const SearchCare = ({category = "all"}) => {
   const [isMobile, setIsMobile] = useState(false);
   const [filteredResults, setFilteredResults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [listings, setListings] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchListings = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "lists"));
+        const data = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          type: doc.data().entryType,
+          name: doc.data().name,
+          email: doc.data().email,
+          phone: doc.data().phone,
+          address: doc.data().address + ", " + doc.data().city,
+          description: doc.data().description,
+          reviews: doc.data().reviews || [],
+          mainData: doc.data()[doc.data().entryType] || {},
+          image: doc.data().photos[0] || "",
+          verified: true,
+          // ...doc.data(),
+        }));
+        console.log(data);
+        setListings(data);
+      } catch (error) {
+        console.error("Error fetching listings:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchListings();
+  }, []);
 
   // Check if mobile on mount
   useEffect(() => {
@@ -31,7 +66,7 @@ const SearchCare = ({category = "all"}) => {
 
     // Simulate loading data
     setTimeout(() => {
-      setFilteredResults(CARE_PROVIDERS);
+      setFilteredResults(listings);
       setIsLoading(false);
     }, 500);
 
@@ -44,15 +79,15 @@ const SearchCare = ({category = "all"}) => {
   useEffect(() => {
     if (isLoading) return;
 
-    let results = [...CARE_PROVIDERS];
+    let results = [...listings];
 
     // Filter by search query
     if (searchQuery) {
       results = results.filter(
         (provider) =>
           provider.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          provider.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          provider.specializations.some((spec) => spec.toLowerCase().includes(searchQuery.toLowerCase()))
+          provider.description.toLowerCase().includes(searchQuery.toLowerCase())
+        // provider.specializations.some((spec) => spec.toLowerCase().includes(searchQuery.toLowerCase()))
       );
     }
 
@@ -67,55 +102,65 @@ const SearchCare = ({category = "all"}) => {
     }
 
     // Filter by specializations
-    if (specializations.length > 0) {
-      results = results.filter((provider) =>
-        specializations.some((spec) =>
-          provider.specializations.some((providerSpec) => providerSpec.toLowerCase().includes(spec.toLowerCase()))
-        )
-      );
-    }
+    // if (specializations.length > 0) {
+    //   results = results.filter((provider) =>
+    //     specializations.some((spec) =>
+    //       provider.specializations.some((providerSpec) => providerSpec.toLowerCase().includes(spec.toLowerCase()))
+    //     )
+    //   );
+    // }
 
     // Filter by availability
-    if (availability !== "any") {
-      results = results.filter((provider) => provider.availability.toLowerCase().includes(availability.toLowerCase()));
-    }
+    // if (availability !== "any") {
+    //   results = results.filter((provider) =>
+    //     provider.availability.toLowerCase().includes(availability.toLowerCase())
+    //   );
+    // }
 
     // Sort results
-    switch (sortBy) {
-      case "rating":
-        results.sort((a, b) => b.rating - a.rating);
-        break;
-      case "price_low":
-        // This is a simplified sort for the mock data
-        results.sort((a, b) => {
-          const aPrice = a.price.includes("PLN/hour")
-            ? parseFloat(a.price.split("-")[0]) * 160 // Assuming 160 hours per month
-            : parseFloat(a.price.split("-")[0]);
-          const bPrice = b.price.includes("PLN/hour")
-            ? parseFloat(b.price.split("-")[0]) * 160
-            : parseFloat(b.price.split("-")[0]);
-          return aPrice - bPrice;
-        });
-        break;
-      case "price_high":
-        results.sort((a, b) => {
-          const aPrice = a.price.includes("PLN/hour")
-            ? parseFloat(a.price.split("-")[0]) * 160
-            : parseFloat(a.price.split("-")[0]);
-          const bPrice = b.price.includes("PLN/hour")
-            ? parseFloat(b.price.split("-")[0]) * 160
-            : parseFloat(b.price.split("-")[0]);
-          return bPrice - aPrice;
-        });
-        break;
-      default:
-        // For relevance, show featured first
-        results.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
-        break;
-    }
+    // switch (sortBy) {
+    //   case "rating":
+    //     results.sort((a, b) => b.rating - a.rating);
+    //     break;
+    //   case "price_low":
+    //     // This is a simplified sort for the mock data
+    //     results.sort((a, b) => {
+    //       const aPrice = a.price.includes("PLN/hour")
+    //         ? parseFloat(a.price.split("-")[0]) * 160 // Assuming 160 hours per month
+    //         : parseFloat(a.price.split("-")[0]);
+    //       const bPrice = b.price.includes("PLN/hour")
+    //         ? parseFloat(b.price.split("-")[0]) * 160
+    //         : parseFloat(b.price.split("-")[0]);
+    //       return aPrice - bPrice;
+    //     });
+    //     break;
+    //   case "price_high":
+    //     results.sort((a, b) => {
+    //       const aPrice = a.price.includes("PLN/hour")
+    //         ? parseFloat(a.price.split("-")[0]) * 160
+    //         : parseFloat(a.price.split("-")[0]);
+    //       const bPrice = b.price.includes("PLN/hour")
+    //         ? parseFloat(b.price.split("-")[0]) * 160
+    //         : parseFloat(b.price.split("-")[0]);
+    //       return bPrice - aPrice;
+    //     });
+    //     break;
+    //   default:
+    //     // For relevance, show featured first
+    //     results.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+    //     break;
+    // }
 
     setFilteredResults(results);
-  }, [searchQuery, providerType, sortBy, verifiedOnly, specializations, availability, isLoading]);
+  }, [
+    searchQuery,
+    providerType,
+    sortBy,
+    verifiedOnly,
+    specializations,
+    availability,
+    isLoading,
+  ]);
 
   // Reset filters
   const resetFilters = () => {
@@ -129,15 +174,17 @@ const SearchCare = ({category = "all"}) => {
 
   // Toggle specialization selection
   const toggleSpecialization = (spec) => {
-    setSpecializations((prev) => (prev.includes(spec) ? prev.filter((s) => s !== spec) : [...prev, spec]));
+    setSpecializations((prev) =>
+      prev.includes(spec) ? prev.filter((s) => s !== spec) : [...prev, spec]
+    );
   };
 
   // Render provider type badge
   const renderTypeBadge = (type) => {
     const colors = {
-      care_home: "bg-blue-100 text-blue-800",
+      careHome: "bg-blue-100 text-blue-800",
       caregiver: "bg-purple-100 text-purple-800",
-      carenurse: "bg-purple-90 text-purple-700",
+      nurse: "bg-purple-90 text-purple-700",
       volunteer: "bg-purple-80 text-purple-600",
       transport: "bg-amber-100 text-amber-800",
       store: "bg-emerald-100 text-emerald-800",
@@ -145,7 +192,9 @@ const SearchCare = ({category = "all"}) => {
     };
 
     return (
-      <div className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${colors[type]}`}>
+      <div
+        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${colors[type]}`}
+      >
         <span className="mr-1">{typeIcons[type]}</span>
         <span>{typeNames[type]}</span>
       </div>
@@ -159,10 +208,13 @@ const SearchCare = ({category = "all"}) => {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              {messages['findcarepageTitle1']} <span className="text-[#206645]">{messages['findcarepageTitle2']}</span>
+              {messages["findcarepageTitle1"]}{" "}
+              <span className="text-[#206645]">
+                {messages["findcarepageTitle2"]}
+              </span>
             </h1>
             <p className="text-lg text-gray-600 mb-8">
-              {messages['findcarepagesubTitle']}
+              {messages["findcarepagesubTitle"]}
             </p>
 
             {/* Search Bar */}
@@ -187,7 +239,7 @@ const SearchCare = ({category = "all"}) => {
                   </div>
                   <input
                     type="text"
-                    placeholder={messages['searchPlaceholder']}
+                    placeholder={messages["searchPlaceholder"]}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     className="pl-10 pr-4 py-3 w-full rounded-l-lg border border-r-0 border-gray-300 focus:ring-2 focus:ring-[#206645] focus:border-[#206645] outline-none"
@@ -218,7 +270,7 @@ const SearchCare = ({category = "all"}) => {
                   </div>
                   <input
                     type="text"
-                    placeholder={messages['locationTitle']}
+                    placeholder={messages["locationTitle"]}
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                     className="pl-10 pr-4 py-3 rounded-r-lg border border-gray-300 focus:ring-2 focus:ring-[#206645] focus:border-[#206645] outline-none"
@@ -253,26 +305,28 @@ const SearchCare = ({category = "all"}) => {
                         d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"
                       />
                     </svg>
-                    {messages['filterTitle']}
+                    {messages["filterTitle"]}
                   </h2>
                   <button
                     onClick={resetFilters}
                     className="text-gray-500 hover:text-gray-700 text-sm font-medium"
                   >
-                    {messages['resetTitle']}
+                    {messages["resetTitle"]}
                   </button>
                 </div>
 
                 <div className="space-y-6">
                   {/* Provider Type */}
                   <div>
-                    <h3 className="text-sm font-medium text-gray-900 mb-3">{messages['providertypeTitle']}</h3>
+                    <h3 className="text-sm font-medium text-gray-900 mb-3">
+                      {messages["providertypeTitle"]}
+                    </h3>
                     <div className="space-y-2">
                       {Object.entries({
                         all: "All Types",
-                        care_home: "Care Homes",
+                        careHome: "Care Homes",
                         caregiver: "Caregivers",
-                        carenurse: "Carenurses",
+                        nurse: "Carenurses",
                         volunteer: "Volunteers",
                         transport: "Transport Services",
                         store: "Senior Stores",
@@ -288,7 +342,10 @@ const SearchCare = ({category = "all"}) => {
                             onChange={() => setProviderType(value)}
                             className="h-4 w-4 text-[#206645] focus:ring-[#206645] border-gray-300"
                           />
-                          <label htmlFor={`type-${value}`} className="ml-2 text-sm text-gray-700 cursor-pointer">
+                          <label
+                            htmlFor={`type-${value}`}
+                            className="ml-2 text-sm text-gray-700 cursor-pointer"
+                          >
                             {label}
                           </label>
                         </div>
@@ -298,7 +355,9 @@ const SearchCare = ({category = "all"}) => {
 
                   {/* Specializations */}
                   <div>
-                    <h3 className="text-sm font-medium text-gray-900 mb-3">{messages['filterspecializationsTitle']}</h3>
+                    <h3 className="text-sm font-medium text-gray-900 mb-3">
+                      {messages["filterspecializationsTitle"]}
+                    </h3>
                     <div className="space-y-2">
                       {[
                         "Dementia Care",
@@ -315,7 +374,10 @@ const SearchCare = ({category = "all"}) => {
                             onChange={() => toggleSpecialization(spec)}
                             className="h-4 w-4 text-[#206645] focus:ring-[#206645] border-gray-300 rounded"
                           />
-                          <label htmlFor={`spec-${spec}`} className="ml-2 text-sm text-gray-700 cursor-pointer">
+                          <label
+                            htmlFor={`spec-${spec}`}
+                            className="ml-2 text-sm text-gray-700 cursor-pointer"
+                          >
                             {spec}
                           </label>
                         </div>
@@ -325,7 +387,9 @@ const SearchCare = ({category = "all"}) => {
 
                   {/* Availability */}
                   <div>
-                    <h3 className="text-sm font-medium text-gray-900 mb-3">{messages['availabilityTitle']}</h3>
+                    <h3 className="text-sm font-medium text-gray-900 mb-3">
+                      {messages["availabilityTitle"]}
+                    </h3>
                     <select
                       value={availability}
                       onChange={(e) => setAvailability(e.target.value)}
@@ -348,7 +412,10 @@ const SearchCare = ({category = "all"}) => {
                       onChange={(e) => setVerifiedOnly(e.target.checked)}
                       className="h-4 w-4 text-[#206645] focus:ring-[#206645] border-gray-300 rounded"
                     />
-                    <label htmlFor="verified" className="ml-2 text-sm text-gray-700 cursor-pointer">
+                    <label
+                      htmlFor="verified"
+                      className="ml-2 text-sm text-gray-700 cursor-pointer"
+                    >
                       Verified providers only
                     </label>
                   </div>
@@ -366,7 +433,9 @@ const SearchCare = ({category = "all"}) => {
                   <h2 className="text-lg font-semibold text-gray-900">
                     {filteredResults.length} results found
                   </h2>
-                  {(providerType !== "all" || specializations.length > 0 || availability !== "any") && (
+                  {(providerType !== "all" ||
+                    specializations.length > 0 ||
+                    availability !== "any") && (
                     <div className="flex flex-wrap gap-2 mt-2">
                       {providerType !== "all" && (
                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
@@ -489,8 +558,12 @@ const SearchCare = ({category = "all"}) => {
                     >
                       <option value="relevance">Sort by: Relevance</option>
                       <option value="rating">Sort by: Highest Rating</option>
-                      <option value="price_low">Sort by: Price: Low to High</option>
-                      <option value="price_high">Sort by: Price: High to Low</option>
+                      <option value="price_low">
+                        Sort by: Price: Low to High
+                      </option>
+                      <option value="price_high">
+                        Sort by: Price: High to Low
+                      </option>
                     </select>
                   </div>
 
@@ -525,7 +598,7 @@ const SearchCare = ({category = "all"}) => {
 
             {/* Results Content */}
             <div>
-              {isLoading ? (
+              {isLoading || loading ? (
                 <div className="flex justify-center items-center h-64">
                   <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[#206645]"></div>
                 </div>
@@ -544,9 +617,9 @@ const SearchCare = ({category = "all"}) => {
                               <Image
                                 src={provider.image || "/placeholder.svg"}
                                 alt={provider.name}
-                                className="w-full h-full object-cover"
-                                height={300}
-                                width={400}
+                                className="w-full h-full"
+                                width={300}
+                                height={200}
                               />
                               {provider.featured && (
                                 <div className="absolute top-2 left-2 bg-[#206645] text-white text-xs font-medium px-2 py-1 rounded">
@@ -566,7 +639,7 @@ const SearchCare = ({category = "all"}) => {
                                     strokeLinejoin="round"
                                     strokeWidth={2}
                                     d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                                    />
+                                  />
                                 </svg>
                               </button>
                             </div>
@@ -577,7 +650,9 @@ const SearchCare = ({category = "all"}) => {
                             <div className="flex-grow">
                               <div className="flex justify-between items-start">
                                 <div>
-                                  <h3 className="text-xl font-semibold text-gray-900 mb-1">{provider.name}</h3>
+                                  <h3 className="text-xl font-semibold text-gray-900 mb-1">
+                                    {provider.name}
+                                  </h3>
                                   <div className="flex items-center mb-2">
                                     {renderTypeBadge(provider.type)}
                                     {provider.verified && (
@@ -610,8 +685,12 @@ const SearchCare = ({category = "all"}) => {
                                   >
                                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                   </svg>
-                                  <span className="font-semibold text-gray-900">{provider.rating}</span>
-                                  <span className="text-gray-500 text-sm ml-1">({provider.reviewCount})</span>
+                                  <span className="font-semibold text-gray-900">
+                                    {provider.rating}
+                                  </span>
+                                  <span className="text-gray-500 text-sm ml-1">
+                                    ({provider.reviewCount})
+                                  </span>
                                 </div>
                               </div>
 
@@ -640,9 +719,11 @@ const SearchCare = ({category = "all"}) => {
                                 <span className="mx-2">•</span>
                               </div>
 
-                              <p className="text-gray-600 mb-4 line-clamp-2">{provider.description}</p>
+                              <p className="text-gray-600 mb-4 line-clamp-2">
+                                {provider.description}
+                              </p>
 
-                              <div className="flex flex-wrap gap-2 mb-4">
+                              {/* <div className="flex flex-wrap gap-2 mb-4">
                                 {provider.specializations.slice(0, 3).map((spec, index) => (
                                   <span
                                     key={index}
@@ -656,12 +737,14 @@ const SearchCare = ({category = "all"}) => {
                                     +{provider.specializations.length - 3} more
                                   </span>
                                 )}
-                              </div>
+                              </div> */}
                             </div>
 
                             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pt-4 border-t border-gray-100">
                               <div className="mb-3 sm:mb-0">
-                                <div className="text-[#206645] font-semibold">{provider.price}</div>
+                                <div className="text-[#206645] font-semibold">
+                                  {provider.price}
+                                </div>
                                 <div className="flex items-center text-sm text-gray-500">
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -707,7 +790,7 @@ const SearchCare = ({category = "all"}) => {
                         </div>
                       </div>
                     ))
-                 ) : (
+                  ) : (
                     <div className="bg-white rounded-xl shadow-sm p-8 text-center">
                       <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
                         <svg
@@ -725,10 +808,13 @@ const SearchCare = ({category = "all"}) => {
                           />
                         </svg>
                       </div>
-                      <h3 className="text-xl font-semibold text-gray-900 mb-2">No results found</h3>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                        No results found
+                      </h3>
                       <p className="text-gray-600 mb-6">
-                        We could not find any care providers matching your search criteria. Try adjusting your filters or
-                        search terms.
+                        We could not find any care providers matching your
+                        search criteria. Try adjusting your filters or search
+                        terms.
                       </p>
                       <button
                         onClick={resetFilters}
@@ -763,10 +849,12 @@ const SearchCare = ({category = "all"}) => {
                           d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
                         />
                       </svg>
-                      <h3 className="text-xl font-semibold text-gray-900 mb-2">Map View</h3>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                        Map View
+                      </h3>
                       <p className="text-gray-600 max-w-md mx-auto">
-                        Interactive map showing {filteredResults.length} care providers in {location} will be displayed
-                        here.
+                        Interactive map showing {filteredResults.length} care
+                        providers in {location} will be displayed here.
                       </p>
                     </div>
 
@@ -810,8 +898,14 @@ const SearchCare = ({category = "all"}) => {
       {isMobile && isFiltersOpen && (
         <div className="fixed inset-0 z-50 overflow-y-auto">
           <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div className="fixed inset-0 transition-opacity" aria-hidden="true">
-              <div className="absolute inset-0 bg-gray-500 opacity-75" onClick={() => setIsFiltersOpen(false)}></div>
+            <div
+              className="fixed inset-0 transition-opacity"
+              aria-hidden="true"
+            >
+              <div
+                className="absolute inset-0 bg-gray-500 opacity-75"
+                onClick={() => setIsFiltersOpen(false)}
+              ></div>
             </div>
 
             <div className="inline-block align-bottom bg-white rounded-t-xl text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
@@ -819,7 +913,9 @@ const SearchCare = ({category = "all"}) => {
                 <div className="sm:flex sm:items-start">
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                     <div className="flex justify-between items-center mb-4">
-                      <h3 className="text-lg leading-6 font-medium text-gray-900">Filters</h3>
+                      <h3 className="text-lg leading-6 font-medium text-gray-900">
+                        Filters
+                      </h3>
                       <button
                         onClick={() => setIsFiltersOpen(false)}
                         className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none"
@@ -846,13 +942,15 @@ const SearchCare = ({category = "all"}) => {
                       <div className="space-y-6">
                         {/* Provider Type */}
                         <div>
-                          <h3 className="text-sm font-medium text-gray-900 mb-3">Provider Type</h3>
+                          <h3 className="text-sm font-medium text-gray-900 mb-3">
+                            Provider Type
+                          </h3>
                           <div className="space-y-2">
                             {Object.entries({
                               all: "All Types",
-                              care_home: "Care Homes",
+                              careHome: "Care Homes",
                               caregiver: "Caregivers",
-                              carenurse: "Carenurses",
+                              nurse: "Carenurses",
                               volunteer: "Volunteers",
                               transport: "Transport Services",
                               store: "Senior Stores",
@@ -914,78 +1012,78 @@ const SearchCare = ({category = "all"}) => {
 };
 
 // Mock data for care providers
-const CARE_PROVIDERS = [
-  {
-    id: 1,
-    name: "Golden Years Care Home",
-    type: "care_home",
-    rating: 4.8,
-    reviewCount: 124,
-    verified: true,
-    featured: true,
-    address: "ul. Krakowska 45, Kraków",
-    image: "/images/painting.jpeg?height=300&width=400",
-    price: "4500-6000 PLN/month",
-    availability: "3 spots available",
-    specializations: ["Dementia Care", "24/7 Medical Support", "Rehabilitation"],
-    description:
-      "A premium care facility with 24/7 medical support, comfortable private rooms, and a wide range of activities for seniors.",
-  },
-  {
-    id: 2,
-    name: "Anna Kowalska",
-    type: "caregiver",
-    rating: 4.9,
-    reviewCount: 56,
-    verified: true,
-    featured: false,
-    address: "Nowa Huta, Kraków",
-    image: "/images/medicalquest.jpeg?height=300&width=400",
-    price: "30-35 PLN/hour",
-    availability: "Available weekdays",
-    specializations: ["Elderly Care", "Medication Management", "Companionship"],
-    description:
-      "Experienced caregiver with 10+ years of experience and nursing background. Specializes in elderly care and companionship.",
-  },
-  {
-    id: 3,
-    name: "Sunshine Senior Residence",
-    type: "care_home",
-    rating: 4.5,
-    reviewCount: 89,
-    verified: true,
-    featured: false,
-    address: "ul. Długa 76, Kraków",
-    image: "/images/knitting.jpeg?height=300&width=400",
-    price: "3800-5200 PLN/month",
-    availability: "1 spot available",
-    specializations: ["Long-term Care", "Memory Care", "Physical Therapy"],
-    description:
-      "Comfortable living environment with specialized memory care units and regular physical therapy sessions.",
-  },
-  {
-    id: 4,
-    name: "MediTransport Senior",
-    type: "transport",
-    rating: 4.7,
-    reviewCount: 42,
-    verified: true,
-    featured: false,
-    address: "Serves all Kraków",
-    image: "/images/transport.jpeg?height=300&width=400",
-    price: "From 60 PLN/trip",
-    availability: "24/7 service",
-    specializations: ["Medical Transport", "Wheelchair Accessible", "Hospital Visits"],
-    description:
-      "Specialized transport service for seniors with medical needs. Wheelchair accessible vehicles and trained staff.",
-  },
-];
+// const CARE_PROVIDERS = [
+//   {
+//     id: 1,
+//     name: "Golden Years Care Home",
+//     type: "careHome",
+//     rating: 4.8,
+//     reviewCount: 124,
+//     verified: true,
+//     featured: true,
+//     address: "ul. Krakowska 45, Kraków",
+//     image: "/images/painting.jpeg?height=300&width=400",
+//     price: "4500-6000 PLN/month",
+//     availability: "3 spots available",
+//     specializations: ["Dementia Care", "24/7 Medical Support", "Rehabilitation"],
+//     description:
+//       "A premium care facility with 24/7 medical support, comfortable private rooms, and a wide range of activities for seniors.",
+//   },
+//   {
+//     id: 2,
+//     name: "Anna Kowalska",
+//     type: "caregiver",
+//     rating: 4.9,
+//     reviewCount: 56,
+//     verified: true,
+//     featured: false,
+//     address: "Nowa Huta, Kraków",
+//     image: "/images/medicalquest.jpeg?height=300&width=400",
+//     price: "30-35 PLN/hour",
+//     availability: "Available weekdays",
+//     specializations: ["Elderly Care", "Medication Management", "Companionship"],
+//     description:
+//       "Experienced caregiver with 10+ years of experience and nursing background. Specializes in elderly care and companionship.",
+//   },
+//   {
+//     id: 3,
+//     name: "Sunshine Senior Residence",
+//     type: "careHome",
+//     rating: 4.5,
+//     reviewCount: 89,
+//     verified: true,
+//     featured: false,
+//     address: "ul. Długa 76, Kraków",
+//     image: "/images/knitting.jpeg?height=300&width=400",
+//     price: "3800-5200 PLN/month",
+//     availability: "1 spot available",
+//     specializations: ["Long-term Care", "Memory Care", "Physical Therapy"],
+//     description:
+//       "Comfortable living environment with specialized memory care units and regular physical therapy sessions.",
+//   },
+//   {
+//     id: 4,
+//     name: "MediTransport Senior",
+//     type: "transport",
+//     rating: 4.7,
+//     reviewCount: 42,
+//     verified: true,
+//     featured: false,
+//     address: "Serves all Kraków",
+//     image: "/images/transport.jpeg?height=300&width=400",
+//     price: "From 60 PLN/trip",
+//     availability: "24/7 service",
+//     specializations: ["Medical Transport", "Wheelchair Accessible", "Hospital Visits"],
+//     description:
+//       "Specialized transport service for seniors with medical needs. Wheelchair accessible vehicles and trained staff.",
+//   },
+// ];
 
 // Icon mapping for provider types
 const typeIcons = {
-  care_home: "🏠",
+  careHome: "🏠",
   caregiver: "👨‍⚕️",
-  carenurse: "👨‍⚕️",
+  nurse: "👨‍⚕️",
   volunteer: "👨‍⚕️",
   transport: "🚑",
   store: "🛒",
@@ -994,9 +1092,9 @@ const typeIcons = {
 
 // Type names for display
 const typeNames = {
-  care_home: "Care Home",
+  careHome: "Care Home",
   caregiver: "Caregiver",
-  carenurse: "Carenurse",
+  nurse: "Carenurse",
   volunteer: "Volunteer",
   transport: "Transport",
   store: "Senior Store",
