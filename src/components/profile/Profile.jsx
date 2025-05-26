@@ -42,6 +42,7 @@ export default function ProfileComponent() {
         try {
           const userDocRef = doc(db, "lists", user.email);
           const userDocSnap = await getDoc(userDocRef);
+          console.log("User data fetched:", userDocSnap.data());
           if (userDocSnap.exists()) {
             setUserData(userDocSnap.data());
           }
@@ -117,6 +118,319 @@ export default function ProfileComponent() {
         }`}
       />
     ));
+
+  const renderDynamicContent = () => {
+    switch (userData.entryType) {
+      case "caregiver":
+      case "nurse":
+      case "volunteer":
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Award className="w-5 h-5 text-[#206645]" />
+                {messages["professionaldetailsTitle"]}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex items-center gap-3">
+                  <Calendar className="w-5 h-5 text-gray-400" />
+                  <div>
+                    <p className="text-sm text-gray-600">Experience</p>
+                    <p className="font-semibold">
+                      {userData[userData.entryType].experience} years
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <DollarSign className="w-5 h-5 text-gray-400" />
+                  <div>
+                    <p className="text-sm text-gray-600">Hourly Rate</p>
+                    <p className="font-semibold">
+                      ${userData[userData.entryType].hourlyRate}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Clock className="w-5 h-5 text-gray-400" />
+                  <div>
+                    <p className="text-sm text-gray-600">Availability</p>
+                    <p className="font-semibold">
+                      {userData[userData.entryType].availability}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <MessageCircle className="w-5 h-5 text-gray-400" />
+                  <div>
+                    <p className="text-sm text-gray-600">Contact</p>
+                    <a
+                      href={userData[userData.entryType].telegram}
+                      className="font-semibold text-[#206645] hover:underline"
+                    >
+                      Telegram
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <Separator />
+
+              <div>
+                <p className="text-sm text-gray-600 mb-2">Specializations</p>
+                <div className="flex flex-wrap gap-2">
+                  {userData[userData.entryType].specializations.map(
+                    (spec, index) => (
+                      <Badge
+                        key={index}
+                        variant="outline"
+                        className="border-[#206645]/30 text-[#206645]"
+                      >
+                        {spec}
+                      </Badge>
+                    )
+                  )}
+                </div>
+              </div>
+
+              <div>
+                <p className="text-sm text-gray-600 mb-2">Certifications</p>
+                <p className="font-medium">
+                  {userData[userData.entryType].certifications}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        );
+      case "careHome":
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Award className="w-5 h-5 text-[#206645]" />
+                {messages["professionaldetailsTitle"]}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex items-center gap-3">
+                  <Calendar className="w-5 h-5 text-gray-400" />
+                  <div>
+                    <p className="text-sm text-gray-600">Capacity</p>
+                    <p className="font-semibold">
+                      {userData[userData.entryType].capacity}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <DollarSign className="w-5 h-5 text-gray-400" />
+                  <div>
+                    <p className="text-sm text-gray-600">Monthly Pice</p>
+                    <p className="font-semibold">
+                      ${userData[userData.entryType].monthlyPrice}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Clock className="w-5 h-5 text-gray-400" />
+                  <div>
+                    <p className="text-sm text-gray-600">Specializations</p>
+                    <p className="font-semibold">
+                      {userData[userData.entryType].specializations}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <Separator />
+
+              <div>
+                <p className="text-sm text-gray-600 mb-2">Amenities</p>
+                <div className="flex flex-wrap gap-2">
+                  {userData[userData.entryType].amenities.map((spec, index) => (
+                    <Badge
+                      key={index}
+                      variant="outline"
+                      className="border-[#206645]/30 text-[#206645]"
+                    >
+                      {spec}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <p className="text-sm text-gray-600 mb-2">Map</p>
+                <p className="font-medium">
+                  {userData[userData.entryType].map}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        );
+      case "transport":
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Award className="w-5 h-5 text-[#206645]" />
+                {messages["professionaldetailsTitle"]}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex items-center gap-3">
+                  <Calendar className="w-5 h-5 text-gray-400" />
+                  <div>
+                    <p className="text-sm text-gray-600">Service Area</p>
+                    <p className="font-semibold">
+                      {userData[userData.entryType].serviceArea}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <DollarSign className="w-5 h-5 text-gray-400" />
+                  <div>
+                    <p className="text-sm text-gray-600">Hourly Rate</p>
+                    <p className="font-semibold">
+                      ${userData[userData.entryType].hourlyRate}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <Clock className="w-5 h-5 text-gray-400" />
+                  <div>
+                    <p className="text-sm text-gray-600">Availability</p>
+                    <p className="font-semibold">
+                      {userData[userData.entryType].availability}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <MessageCircle className="w-5 h-5 text-gray-400" />
+                  <div>
+                    <p className="text-sm text-gray-600">Contact</p>
+                    <a
+                      href={userData[userData.entryType].telegram}
+                      className="font-semibold text-[#206645] hover:underline"
+                    >
+                      Telegram
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <Separator />
+            </CardContent>
+          </Card>
+        );
+
+      case "store":
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Award className="w-5 h-5 text-[#206645]" />
+                {messages["professionaldetailsTitle"]}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex items-center gap-3">
+                  <Calendar className="w-5 h-5 text-gray-400" />
+                  <div>
+                    <p className="text-sm text-gray-600">Opening Hours</p>
+                    <p className="font-semibold">
+                      {userData[userData.entryType].openingHours}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <DollarSign className="w-5 h-5 text-gray-400" />
+                  <div>
+                    <p className="text-sm text-gray-600">Websie Url</p>
+                    <p className="font-semibold">
+                      ${userData[userData.entryType].websiteUrl}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <Separator />
+
+              <div>
+                <p className="text-sm text-gray-600 mb-2">Product Categories</p>
+                <div className="flex flex-wrap gap-2">
+                  {userData[userData.entryType].productCategories.map((spec, index) => (
+                    <Badge
+                      key={index}
+                      variant="outline"
+                      className="border-[#206645]/30 text-[#206645]"
+                    >
+                      {spec}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <p className="text-sm text-gray-600 mb-2">Map</p>
+                <p className="font-medium">
+                  {userData[userData.entryType].map}
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+          );
+
+        case "institution":
+        return (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Award className="w-5 h-5 text-[#206645]" />
+                {messages["professionaldetailsTitle"]}
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="flex items-center gap-3">
+                  <Calendar className="w-5 h-5 text-gray-400" />
+                  <div>
+                    <p className="text-sm text-gray-600">Category</p>
+                    <p className="font-semibold">
+                      {userData[userData.entryType].category}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-3">
+                  <DollarSign className="w-5 h-5 text-gray-400" />
+                  <div>
+                    <p className="text-sm text-gray-600">Websie Url</p>
+                    <p className="font-semibold">
+                      ${userData[userData.entryType].websiteUrl}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4">
@@ -223,85 +537,7 @@ export default function ProfileComponent() {
             </Card>
 
             {/* Professional Details */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Award className="w-5 h-5 text-[#206645]" />
-                  {messages["professionaldetailsTitle"]}
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center gap-3">
-                    <Calendar className="w-5 h-5 text-gray-400" />
-                    <div>
-                      <p className="text-sm text-gray-600">Experience</p>
-                      <p className="font-semibold">
-                        {userData.caregiver.experience} years
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <DollarSign className="w-5 h-5 text-gray-400" />
-                    <div>
-                      <p className="text-sm text-gray-600">Hourly Rate</p>
-                      <p className="font-semibold">
-                        ${userData.caregiver.hourlyRate}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <Clock className="w-5 h-5 text-gray-400" />
-                    <div>
-                      <p className="text-sm text-gray-600">Availability</p>
-                      <p className="font-semibold">
-                        {userData.caregiver.availability}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-3">
-                    <MessageCircle className="w-5 h-5 text-gray-400" />
-                    <div>
-                      <p className="text-sm text-gray-600">Contact</p>
-                      <a
-                        href={userData.caregiver.telegram}
-                        className="font-semibold text-[#206645] hover:underline"
-                      >
-                        Telegram
-                      </a>
-                    </div>
-                  </div>
-                </div>
-
-                <Separator />
-
-                <div>
-                  <p className="text-sm text-gray-600 mb-2">Specializations</p>
-                  <div className="flex flex-wrap gap-2">
-                    {userData.caregiver.specializations.map((spec, index) => (
-                      <Badge
-                        key={index}
-                        variant="outline"
-                        className="border-[#206645]/30 text-[#206645]"
-                      >
-                        {spec}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <p className="text-sm text-gray-600 mb-2">Certifications</p>
-                  <p className="font-medium">
-                    {userData.caregiver.certifications}
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-
+              {renderDynamicContent()}
             {/* Photo Gallery */}
             <Card>
               <CardHeader>
