@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useLang } from "@/contexts/LangContext";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase/firestore";
-import Loading from "@/app/loading";
 
 // SearchCare Component - A standalone component for searching care services
 const SearchCare = ({ category = "all" }) => {

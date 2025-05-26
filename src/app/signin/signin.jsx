@@ -59,6 +59,7 @@ const SignIn = () => {
           isAdministrator: false,
           setList: false,
           role: "",
+          status: "pending",
           username: user.displayName,
           userid: user.email,
         });

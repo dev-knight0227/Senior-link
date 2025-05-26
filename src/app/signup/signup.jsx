@@ -39,6 +39,7 @@ const SignUp = () => {
         isAdministrator: false,
         setList: false,
         role: "",
+        status: "pending",
         username: user.displayName,
         userid: user.email,
       });
@@ -68,6 +69,7 @@ const SignUp = () => {
           isAdministrator: false,
           setList: false,
           role: "",
+          status: "pending",
           username: user.displayName,
           userid: user.email,
         });
