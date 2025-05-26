@@ -51,6 +51,7 @@ const ManageListPage = () => {
             reviews: doc.data().reviews || [],
             mainData: doc.data()[doc.data().entryType] || {},
             photos: doc.data().photos,
+            avatar: doc.data().avatar,
             verified: true,
             createdAt: doc.data().createdAt.toDate().toISOString(),
           };
@@ -947,7 +948,7 @@ const ManageListPage = () => {
                           <div className="h-10 w-10 flex-shrink-0">
                             <Image
                               className="h-10 w-10 rounded-full object-cover"
-                              src={listing.photos[0] || "/placeholder.svg"}
+                              src={listing.photos[listing.avatar] || "/placeholder.svg"}
                               alt=""
                               height={40}
                               width={40}

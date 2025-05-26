@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "@/firebase/firestore";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLang } from "@/contexts/LangContext";
@@ -27,12 +27,13 @@ import {
   DollarSign,
   MessageCircle,
 } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function ProfileComponent() {
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const [isEditing, setIsEditing] = useState(false);
   const [userData, setUserData] = useState(null);
-  const { user, loading } = useAuth();
+  const { user, loading, switchAvatar } = useAuth();
   const { messages } = useLang();
   const router = useRouter();
 
@@ -66,6 +67,21 @@ export default function ProfileComponent() {
         <Loading />
       </>
     );
+
+    const updateAvatar = async (newAvatarIndex) => {    
+      try {
+        const userDocRef = doc(db, "lists", user.email);
+        await updateDoc(userDocRef, {
+          avatar: newAvatarIndex,
+        });
+        toast.success("Avatar updated successfully!");
+        switchAvatar(userData.photos[newAvatarIndex]);
+        console.log("Avatar updated successfully");
+      } catch (error) {
+        toast.error("Failed to update avatar.");
+        console.error("Error updating avatar:", error);
+      }
+    };
 
   const getTypeIcon = (type) => {
     switch (type) {
@@ -137,9 +153,12 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <Calendar className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">{messages['experienceTitle']}</p>
+                    <p className="text-sm text-gray-600">
+                      {messages["experienceTitle"]}
+                    </p>
                     <p className="font-semibold">
-                      {userData[userData.entryType].experience} {messages['yearsTitle']}
+                      {userData[userData.entryType].experience}{" "}
+                      {messages["yearsTitle"]}
                     </p>
                   </div>
                 </div>
@@ -147,7 +166,9 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <DollarSign className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">{messages['hourlyrateLabel']}</p>
+                    <p className="text-sm text-gray-600">
+                      {messages["hourlyrateLabel"]}
+                    </p>
                     <p className="font-semibold">
                       ${userData[userData.entryType].hourlyRate}
                     </p>
@@ -157,7 +178,9 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <Clock className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">{messages['availability']}</p>
+                    <p className="text-sm text-gray-600">
+                      {messages["availability"]}
+                    </p>
                     <p className="font-semibold">
                       {userData[userData.entryType].availability}
                     </p>
@@ -167,7 +190,9 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <MessageCircle className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">{messages['contactTitle']}</p>
+                    <p className="text-sm text-gray-600">
+                      {messages["contactTitle"]}
+                    </p>
                     <a
                       href={userData[userData.entryType].telegram}
                       className="font-semibold text-[#206645] hover:underline"
@@ -181,7 +206,9 @@ export default function ProfileComponent() {
               <Separator />
 
               <div>
-                <p className="text-sm text-gray-600 mb-2">{messages['filterspecializationsTitle']}</p>
+                <p className="text-sm text-gray-600 mb-2">
+                  {messages["filterspecializationsTitle"]}
+                </p>
                 <div className="flex flex-wrap gap-2">
                   {userData[userData.entryType].specializations.map(
                     (spec, index) => (
@@ -198,7 +225,9 @@ export default function ProfileComponent() {
               </div>
 
               <div>
-                <p className="text-sm text-gray-600 mb-2">{messages['certificationsLabel']}</p>
+                <p className="text-sm text-gray-600 mb-2">
+                  {messages["certificationsLabel"]}
+                </p>
                 <p className="font-medium">
                   {userData[userData.entryType].certifications}
                 </p>
@@ -220,7 +249,9 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <Calendar className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">{messages['capacityLabel']}</p>
+                    <p className="text-sm text-gray-600">
+                      {messages["capacityLabel"]}
+                    </p>
                     <p className="font-semibold">
                       {userData[userData.entryType].capacity}
                     </p>
@@ -230,7 +261,9 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <DollarSign className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">{messages['monthlypriceLabel']}</p>
+                    <p className="text-sm text-gray-600">
+                      {messages["monthlypriceLabel"]}
+                    </p>
                     <p className="font-semibold">
                       ${userData[userData.entryType].monthlyPrice}
                     </p>
@@ -240,7 +273,9 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <Clock className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">{messages['filterspecializationsTitle']}</p>
+                    <p className="text-sm text-gray-600">
+                      {messages["filterspecializationsTitle"]}
+                    </p>
                     <p className="font-semibold">
                       {userData[userData.entryType].specializations}
                     </p>
@@ -251,7 +286,9 @@ export default function ProfileComponent() {
               <Separator />
 
               <div>
-                <p className="text-sm text-gray-600 mb-2">{messages['amenitiesTitle']}</p>
+                <p className="text-sm text-gray-600 mb-2">
+                  {messages["amenitiesTitle"]}
+                </p>
                 <div className="flex flex-wrap gap-2">
                   {userData[userData.entryType].amenities.map((spec, index) => (
                     <Badge
@@ -266,7 +303,9 @@ export default function ProfileComponent() {
               </div>
 
               <div>
-                <p className="text-sm text-gray-600 mb-2">{messages['mapTitle']}</p>
+                <p className="text-sm text-gray-600 mb-2">
+                  {messages["mapTitle"]}
+                </p>
                 <p className="font-medium">
                   {userData[userData.entryType].map}
                 </p>
@@ -288,7 +327,9 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <Calendar className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">{messages['serviceareaLabel']}</p>
+                    <p className="text-sm text-gray-600">
+                      {messages["serviceareaLabel"]}
+                    </p>
                     <p className="font-semibold">
                       {userData[userData.entryType].serviceArea}
                     </p>
@@ -298,7 +339,9 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <DollarSign className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">{messages['hourlyrateLabel']}</p>
+                    <p className="text-sm text-gray-600">
+                      {messages["hourlyrateLabel"]}
+                    </p>
                     <p className="font-semibold">
                       ${userData[userData.entryType].hourlyRate}
                     </p>
@@ -308,7 +351,9 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <Clock className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">{messages['availability']}</p>
+                    <p className="text-sm text-gray-600">
+                      {messages["availability"]}
+                    </p>
                     <p className="font-semibold">
                       {userData[userData.entryType].availability}
                     </p>
@@ -318,7 +363,9 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <MessageCircle className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">{messages['contactTitle']}</p>
+                    <p className="text-sm text-gray-600">
+                      {messages["contactTitle"]}
+                    </p>
                     <a
                       href={userData[userData.entryType].telegram}
                       className="font-semibold text-[#206645] hover:underline"
@@ -348,7 +395,9 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <Calendar className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">{messages['openinghoursLabel']}</p>
+                    <p className="text-sm text-gray-600">
+                      {messages["openinghoursLabel"]}
+                    </p>
                     <p className="font-semibold">
                       {userData[userData.entryType].openingHours}
                     </p>
@@ -358,7 +407,9 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <DollarSign className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">{messages['websiteurlTitle']}</p>
+                    <p className="text-sm text-gray-600">
+                      {messages["websiteurlTitle"]}
+                    </p>
                     <p className="font-semibold">
                       ${userData[userData.entryType].websiteUrl}
                     </p>
@@ -369,31 +420,37 @@ export default function ProfileComponent() {
               <Separator />
 
               <div>
-                <p className="text-sm text-gray-600 mb-2">{messages['productcategoriesTitle']}</p>
+                <p className="text-sm text-gray-600 mb-2">
+                  {messages["productcategoriesTitle"]}
+                </p>
                 <div className="flex flex-wrap gap-2">
-                  {userData[userData.entryType].productCategories.map((spec, index) => (
-                    <Badge
-                      key={index}
-                      variant="outline"
-                      className="border-[#206645]/30 text-[#206645]"
-                    >
-                      {spec}
-                    </Badge>
-                  ))}
+                  {userData[userData.entryType].productCategories.map(
+                    (spec, index) => (
+                      <Badge
+                        key={index}
+                        variant="outline"
+                        className="border-[#206645]/30 text-[#206645]"
+                      >
+                        {spec}
+                      </Badge>
+                    )
+                  )}
                 </div>
               </div>
 
               <div>
-                <p className="text-sm text-gray-600 mb-2">{messages['mapTitle']}</p>
+                <p className="text-sm text-gray-600 mb-2">
+                  {messages["mapTitle"]}
+                </p>
                 <p className="font-medium">
                   {userData[userData.entryType].map}
                 </p>
               </div>
             </CardContent>
           </Card>
-          );
+        );
 
-        case "institution":
+      case "institution":
         return (
           <Card>
             <CardHeader>
@@ -407,7 +464,9 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <Calendar className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">{messages['categoryTitle']}</p>
+                    <p className="text-sm text-gray-600">
+                      {messages["categoryTitle"]}
+                    </p>
                     <p className="font-semibold">
                       {userData[userData.entryType].category}
                     </p>
@@ -417,7 +476,9 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <DollarSign className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">{messages['websiteurlTitle']}</p>
+                    <p className="text-sm text-gray-600">
+                      {messages["websiteurlTitle"]}
+                    </p>
                     <p className="font-semibold">
                       ${userData[userData.entryType].websiteUrl}
                     </p>
@@ -448,7 +509,9 @@ export default function ProfileComponent() {
               <div className="relative">
                 <Avatar className="w-36 h-36 border-4 border-white shadow-lg">
                   <AvatarImage
-                    src={userData.photos?.[0] || "/placeholder.svg"}
+                    src={
+                      userData.photos?.[userData.avatar] || "/placeholder.svg"
+                    }
                     alt={userData.name}
                   />
                   <AvatarFallback className="text-3xl bg-[#206645] text-white">
@@ -537,15 +600,30 @@ export default function ProfileComponent() {
             </Card>
 
             {/* Professional Details */}
-              {renderDynamicContent()}
+            {renderDynamicContent()}
             {/* Photo Gallery */}
-            <Card>
+            <Card className="relative">
+              {/* Set Avatar Button */}
+              <button
+                onClick={() => {
+                  updateAvatar(activePhotoIndex);
+                  setUserData((prev) => ({
+                    ...prev,
+                    avatar: activePhotoIndex,
+                  }));
+                }}
+                className="absolute top-4 right-4 z-10 bg-[#206645] text-white text-sm px-3 py-1 rounded-md shadow hover:bg-[#185536]"
+              >
+                {messages["setavatarTitle"]}
+              </button>
+
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Camera className="w-5 h-5 text-[#206645]" />
                   {messages["photogalleryTitle"]}
                 </CardTitle>
               </CardHeader>
+
               <CardContent>
                 <div className="space-y-4">
                   {/* Main Photo */}

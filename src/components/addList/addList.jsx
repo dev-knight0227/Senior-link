@@ -296,6 +296,7 @@ const AddListingPage = ({ category = "" }) => {
         const submissionData = {
           ...formData,
           photos: photoURLs,
+          avatar: 0,
           createdAt: serverTimestamp(),
         };
   

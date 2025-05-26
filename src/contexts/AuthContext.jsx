@@ -27,11 +27,15 @@ export const AuthProvider = ({ children }) => {
         const userDocRef = doc(db, "users", userEmail);
         const userSnap = await getDoc(userDocRef);
 
+        const listDocRef = doc(db, "lists", userEmail);
+        const listSnap = await getDoc(listDocRef);
+
         const userData = userSnap.exists() ? userSnap.data() : {};
         setUser({
           ...firebaseUser,
           setList: userData.setList || false, // default to false if not set
           role: userData.role || "", // default to empty string if not set
+          avatar: listSnap.exists() ? listSnap.data().photos[listSnap.data().avatar]: "/placeholder.svg", // default avatar if not set
         });
       } else {
         setUser(initUser);
@@ -56,8 +60,15 @@ export const AuthProvider = ({ children }) => {
     }));
   };
 
+  const switchAvatar = (newAvatar) => {
+    setUser((prevUser) => ({
+      ...prevUser,
+      avatar: newAvatar,
+    }));
+  };
+
   return (
-    <AuthContext.Provider value={{ user, loading, switchList, switchRole }}>
+    <AuthContext.Provider value={{ user, loading, switchList, switchRole, switchAvatar }}>
       {children}
     </AuthContext.Provider>
   );

@@ -13,6 +13,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "@/firebase/auth";
 import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "@/firebase/firestore";
+import Image from "next/image";
 
 const Header = () => {
   const { messages, switchLocale, locale } = useLang();
@@ -32,7 +33,6 @@ const Header = () => {
     };
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
-    
   }, []);
 
   useEffect(() => {
@@ -55,10 +55,9 @@ const Header = () => {
         setIsAdmin(false);
       }
     };
-  
+
     fetchAdminStatus();
   }, [user]);
-  
 
   const handleLogout = async () => {
     try {
@@ -92,8 +91,14 @@ const Header = () => {
                 onClick={() => setIsAvatarMenuOpen((prev) => !prev)}
                 className="flex items-center gap-2 rounded-full p-1 hover:bg-slate-100 dark:hover:bg-slate-700"
               >
-                <div className="h-9 w-9 rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center text-white">
-                  <User size={20} />
+                <div className="h-10 w-10 rounded-full flex items-center justify-center text-white">
+                  <Image
+                    className="h-10 w-10 rounded-full object-cover"
+                    src={user.avatar || "/placeholder.svg"}
+                    alt=""
+                    height={40}
+                    width={40}
+                  />
                 </div>
                 <ChevronDown
                   size={16}
@@ -116,27 +121,35 @@ const Header = () => {
 
                   {/* Navigation Links */}
                   <div className="py-1">
-                    {user.setList?<Link
-                      href="/profile"
-                      className="flex items-center gap-2 px-5 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
-                    >
-                      <User size={16} className="text-[#0077C8]" />
-                      <span>{messages["profileTitle"]}({user.role})</span>
-                    </Link>:<Link
-                      href="/add-list/caregiver"
-                      className="flex items-center gap-2 px-5 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
-                    >
-                      <FilePlus size={16} className="text-[#0077C8]" />
-                      <span>{messages["addlistTitle"]}</span>
-                    </Link>}
+                    {user.setList ? (
+                      <Link
+                        href="/profile"
+                        className="flex items-center gap-2 px-5 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
+                      >
+                        <User size={16} className="text-[#0077C8]" />
+                        <span>
+                          {messages["profileTitle"]}({user.role})
+                        </span>
+                      </Link>
+                    ) : (
+                      <Link
+                        href="/add-list/caregiver"
+                        className="flex items-center gap-2 px-5 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
+                      >
+                        <FilePlus size={16} className="text-[#0077C8]" />
+                        <span>{messages["addlistTitle"]}</span>
+                      </Link>
+                    )}
 
-                    {isAdmin && <Link
-                      href="/admin"
-                      className="flex items-center gap-2 px-5 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
-                    >
-                      <Users size={16} className="text-[#0077C8]" />
-                      <span>{messages["managelistTitle"]}</span>
-                    </Link>}
+                    {isAdmin && (
+                      <Link
+                        href="/admin"
+                        className="flex items-center gap-2 px-5 py-3 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-slate-700 transition-colors"
+                      >
+                        <Users size={16} className="text-[#0077C8]" />
+                        <span>{messages["managelistTitle"]}</span>
+                      </Link>
+                    )}
 
                     <button
                       onClick={handleLogout}
