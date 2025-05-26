@@ -49,9 +49,6 @@ const ServicesPageMainSection = () => {
           <div className="flex flex-wrap justify-center gap-4">
             {user.setList?<Link href="/profile" className="inline-flex items-center px-6 py-3 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
               {messages['profileTitle']}
-              <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
-              </svg>
             </Link>:
             <Link href="/add-list/caregiver" className="inline-flex items-center px-6 py-3 bg-[#206645] hover:bg-[#185536] text-white font-medium rounded-lg transition-colors duration-300">
               {messages['addlistingTitle']}

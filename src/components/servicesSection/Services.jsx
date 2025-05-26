@@ -131,7 +131,7 @@ const TargetAudienceSection = () => {
             className="flex flex-col items-center justify-center w-64 h-52 bg-[#f97316] hover:bg-[#ea580c] text-white font-semibold rounded-xl shadow-md transition-colors text-center p-6"
           >
             <UserPlus className="w-10 h-10 mb-3" />
-            <span className="text-lg">{messages["addprofileTitle"]}</span>
+            <span className="text-lg">{user.setList?messages['profileTitle']:messages["addprofileTitle"]}</span>
           </Link>
         </div>
 
