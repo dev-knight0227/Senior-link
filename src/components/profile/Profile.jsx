@@ -137,9 +137,9 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <Calendar className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">Experience</p>
+                    <p className="text-sm text-gray-600">{messages['experienceTitle']}</p>
                     <p className="font-semibold">
-                      {userData[userData.entryType].experience} years
+                      {userData[userData.entryType].experience} {messages['yearsTitle']}
                     </p>
                   </div>
                 </div>
@@ -147,7 +147,7 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <DollarSign className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">Hourly Rate</p>
+                    <p className="text-sm text-gray-600">{messages['hourlyrateLabel']}</p>
                     <p className="font-semibold">
                       ${userData[userData.entryType].hourlyRate}
                     </p>
@@ -157,7 +157,7 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <Clock className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">Availability</p>
+                    <p className="text-sm text-gray-600">{messages['availability']}</p>
                     <p className="font-semibold">
                       {userData[userData.entryType].availability}
                     </p>
@@ -167,7 +167,7 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <MessageCircle className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">Contact</p>
+                    <p className="text-sm text-gray-600">{messages['contactTitle']}</p>
                     <a
                       href={userData[userData.entryType].telegram}
                       className="font-semibold text-[#206645] hover:underline"
@@ -181,7 +181,7 @@ export default function ProfileComponent() {
               <Separator />
 
               <div>
-                <p className="text-sm text-gray-600 mb-2">Specializations</p>
+                <p className="text-sm text-gray-600 mb-2">{messages['filterspecializationsTitle']}</p>
                 <div className="flex flex-wrap gap-2">
                   {userData[userData.entryType].specializations.map(
                     (spec, index) => (
@@ -198,7 +198,7 @@ export default function ProfileComponent() {
               </div>
 
               <div>
-                <p className="text-sm text-gray-600 mb-2">Certifications</p>
+                <p className="text-sm text-gray-600 mb-2">{messages['certificationsLabel']}</p>
                 <p className="font-medium">
                   {userData[userData.entryType].certifications}
                 </p>
@@ -220,7 +220,7 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <Calendar className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">Capacity</p>
+                    <p className="text-sm text-gray-600">{messages['capacityLabel']}</p>
                     <p className="font-semibold">
                       {userData[userData.entryType].capacity}
                     </p>
@@ -230,7 +230,7 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <DollarSign className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">Monthly Pice</p>
+                    <p className="text-sm text-gray-600">{messages['monthlypriceLabel']}</p>
                     <p className="font-semibold">
                       ${userData[userData.entryType].monthlyPrice}
                     </p>
@@ -240,7 +240,7 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <Clock className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">Specializations</p>
+                    <p className="text-sm text-gray-600">{messages['filterspecializationsTitle']}</p>
                     <p className="font-semibold">
                       {userData[userData.entryType].specializations}
                     </p>
@@ -251,7 +251,7 @@ export default function ProfileComponent() {
               <Separator />
 
               <div>
-                <p className="text-sm text-gray-600 mb-2">Amenities</p>
+                <p className="text-sm text-gray-600 mb-2">{messages['amenitiesTitle']}</p>
                 <div className="flex flex-wrap gap-2">
                   {userData[userData.entryType].amenities.map((spec, index) => (
                     <Badge
@@ -266,7 +266,7 @@ export default function ProfileComponent() {
               </div>
 
               <div>
-                <p className="text-sm text-gray-600 mb-2">Map</p>
+                <p className="text-sm text-gray-600 mb-2">{messages['mapTitle']}</p>
                 <p className="font-medium">
                   {userData[userData.entryType].map}
                 </p>
@@ -288,7 +288,7 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <Calendar className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">Service Area</p>
+                    <p className="text-sm text-gray-600">{messages['serviceareaLabel']}</p>
                     <p className="font-semibold">
                       {userData[userData.entryType].serviceArea}
                     </p>
@@ -298,7 +298,7 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <DollarSign className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">Hourly Rate</p>
+                    <p className="text-sm text-gray-600">{messages['hourlyrateLabel']}</p>
                     <p className="font-semibold">
                       ${userData[userData.entryType].hourlyRate}
                     </p>
@@ -308,7 +308,7 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <Clock className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">Availability</p>
+                    <p className="text-sm text-gray-600">{messages['availability']}</p>
                     <p className="font-semibold">
                       {userData[userData.entryType].availability}
                     </p>
@@ -318,7 +318,7 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <MessageCircle className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">Contact</p>
+                    <p className="text-sm text-gray-600">{messages['contactTitle']}</p>
                     <a
                       href={userData[userData.entryType].telegram}
                       className="font-semibold text-[#206645] hover:underline"
@@ -348,7 +348,7 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <Calendar className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">Opening Hours</p>
+                    <p className="text-sm text-gray-600">{messages['openinghoursLabel']}</p>
                     <p className="font-semibold">
                       {userData[userData.entryType].openingHours}
                     </p>
@@ -358,7 +358,7 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <DollarSign className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">Websie Url</p>
+                    <p className="text-sm text-gray-600">{messages['websiteurlTitle']}</p>
                     <p className="font-semibold">
                       ${userData[userData.entryType].websiteUrl}
                     </p>
@@ -369,7 +369,7 @@ export default function ProfileComponent() {
               <Separator />
 
               <div>
-                <p className="text-sm text-gray-600 mb-2">Product Categories</p>
+                <p className="text-sm text-gray-600 mb-2">{messages['productcategoriesTitle']}</p>
                 <div className="flex flex-wrap gap-2">
                   {userData[userData.entryType].productCategories.map((spec, index) => (
                     <Badge
@@ -384,7 +384,7 @@ export default function ProfileComponent() {
               </div>
 
               <div>
-                <p className="text-sm text-gray-600 mb-2">Map</p>
+                <p className="text-sm text-gray-600 mb-2">{messages['mapTitle']}</p>
                 <p className="font-medium">
                   {userData[userData.entryType].map}
                 </p>
@@ -407,7 +407,7 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <Calendar className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">Category</p>
+                    <p className="text-sm text-gray-600">{messages['categoryTitle']}</p>
                     <p className="font-semibold">
                       {userData[userData.entryType].category}
                     </p>
@@ -417,7 +417,7 @@ export default function ProfileComponent() {
                 <div className="flex items-center gap-3">
                   <DollarSign className="w-5 h-5 text-gray-400" />
                   <div>
-                    <p className="text-sm text-gray-600">Websie Url</p>
+                    <p className="text-sm text-gray-600">{messages['websiteurlTitle']}</p>
                     <p className="font-semibold">
                       ${userData[userData.entryType].websiteUrl}
                     </p>

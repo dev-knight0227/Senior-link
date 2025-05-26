@@ -348,5 +348,7 @@
   "paginationshowingTitle4": "results",
   "transportserviceTitle": "Transport Service",
   "anyavailabilityTitle": "Any Availability",
-  "verifiedonlyTitle": "Verified Only"
+  "verifiedonlyTitle": "Verified Only",
+  "contactTitle": "Contact",
+  "websiteurlTitle": "Website URL"
 }
