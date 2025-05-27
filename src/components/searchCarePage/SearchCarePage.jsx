@@ -112,7 +112,7 @@ const SearchCare = ({ category = "all" }) => {
     // Filter by specializations
     if (specializations.length > 0) {
       results = results.filter((provider) =>
-        (provider.type==="nurse"||provider.type==="volunteer"||provider.type==="caregiver")&& specializations.some((spec) =>
+        (provider.type==="nurse"||provider.type==="volunteer"||provider.type==="caregiver")&& specializations.every((spec) =>
           provider.mainData.specializations.some((providerSpec) => providerSpec.toLowerCase().includes(spec.toLowerCase()))
         )
       );
