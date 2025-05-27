@@ -352,5 +352,9 @@
   "contactTitle": "Kontakt",
   "websiteurlTitle": "Adres strony internetowej",
   "setavatarTitle": "Ustaw awatar",
-  "resultsfoundTitle": "Znaleziono wyniki"
+  "resultsfoundTitle": "Znaleziono wyniki",
+  "listTitle": "Lista",
+  "mapTitle": "Mapa",
+  "viewdetailsTitle": "Zobacz szczegóły",
+  "nextTitle": "Następny"
 }

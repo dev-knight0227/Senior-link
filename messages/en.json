@@ -352,5 +352,9 @@
   "contactTitle": "Contact",
   "websiteurlTitle": "Website URL",
   "setavatarTitle": "Set Avatar",
-  "resultsfoundTitle": "results found"
+  "resultsfoundTitle": "results found",
+  "listTitle": "List",
+  "mapTitle": "Map",
+  "viewdetailsTitle": "View Details",
+  "nextTitle": "Next"
 }

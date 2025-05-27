@@ -49,7 +49,6 @@ const SearchCare = ({ category = "all" }) => {
       } catch (error) {
         console.error("Error fetching listings:", error);
       } finally {
-        
         setIsLoading(false);
       }
     };
@@ -89,16 +88,15 @@ const SearchCare = ({ category = "all" }) => {
           provider.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
           provider.description.toLowerCase().includes(searchQuery.toLowerCase())
       );
-      console.log(searchQuery, results)
+      console.log(searchQuery, results);
     }
 
     // Filter by location
     if (location) {
-      results = results.filter(
-        (provider) =>
-          provider.address.toLowerCase().includes(location.toLowerCase())
+      results = results.filter((provider) =>
+        provider.address.toLowerCase().includes(location.toLowerCase())
       );
-      console.log(location, results)
+      console.log(location, results);
     }
 
     // Filter by provider type
@@ -112,20 +110,20 @@ const SearchCare = ({ category = "all" }) => {
     }
 
     // Filter by specializations
-    // if (specializations.length > 0) {
-    //   results = results.filter((provider) =>
-    //     specializations.some((spec) =>
-    //       provider.specializations.some((providerSpec) => providerSpec.toLowerCase().includes(spec.toLowerCase()))
-    //     )
-    //   );
-    // }
+    if (specializations.length > 0) {
+      results = results.filter((provider) =>
+        (provider.type==="nurse"||provider.type==="volunteer"||provider.type==="caregiver")&& specializations.some((spec) =>
+          provider.mainData.specializations.some((providerSpec) => providerSpec.toLowerCase().includes(spec.toLowerCase()))
+        )
+      );
+    }
 
     // Filter by availability
-    // if (availability !== "any") {
-    //   results = results.filter((provider) =>
-    //     provider.availability.toLowerCase().includes(availability.toLowerCase())
-    //   );
-    // }
+    if (availability !== "any") {
+      results = results.filter((provider) =>
+        (provider.type==="nurse"||provider.type==="volunteer"||provider.type==="caregiver"||provider.type==="transport")&&provider.mainData.availability.toLowerCase().includes(availability.toLowerCase())
+      );
+    }
 
     // Sort results
     // switch (sortBy) {
@@ -334,14 +332,14 @@ const SearchCare = ({ category = "all" }) => {
                     </h3>
                     <div className="space-y-2">
                       {Object.entries({
-                        all: messages['alltypesTitle'],
-                        careHome: messages['carehomesTitle'],
-                        caregiver: messages['caregiversTitle'],
-                        nurse: messages['nursesTitle'],
-                        volunteer: messages['findvolunteerTitle'],
-                        transport: messages['transportserviceTitle'],
-                        store: messages['seniorstoresTitle'],
-                        institution: messages['institutionsTitle'],
+                        all: messages["alltypesTitle"],
+                        careHome: messages["carehomesTitle"],
+                        caregiver: messages["caregiversTitle"],
+                        nurse: messages["nursesTitle"],
+                        volunteer: messages["findvolunteerTitle"],
+                        transport: messages["transportserviceTitle"],
+                        store: messages["seniorstoresTitle"],
+                        institution: messages["institutionsTitle"],
                       }).map(([value, label]) => (
                         <div key={value} className="flex items-center">
                           <input
@@ -370,13 +368,7 @@ const SearchCare = ({ category = "all" }) => {
                       {messages["filterspecializationsTitle"]}
                     </h3>
                     <div className="space-y-2">
-                      {[
-                        "Dementia Care",
-                        "Alzheimer's Care",
-                        "Rehabilitation",
-                        "Palliative Care",
-                        "Mobility Assistance",
-                      ].map((spec) => (
+                      {messages["caregiverSpecializations"].map((spec) => (
                         <div key={spec} className="flex items-center">
                           <input
                             type="checkbox"
@@ -406,11 +398,25 @@ const SearchCare = ({ category = "all" }) => {
                       onChange={(e) => setAvailability(e.target.value)}
                       className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#206645] focus:border-[#206645] text-sm"
                     >
-                      <option value="any">{messages['anyavailabilityTitle']}</option>
-                      <option value="available">Currently available</option>
-                      <option value="weekday">Weekdays</option>
-                      <option value="weekend">Weekends</option>
-                      <option value="24/7">24/7 service</option>
+                      <option value="">
+                        {messages["availabilityPlaceholder"]}
+                      </option>
+                      <option value="Weekdays">
+                        {messages["weekdaysTitle"]}
+                      </option>
+                      <option value="Weekends">
+                        {messages["weekendsTitle"]}
+                      </option>
+                      <option value="Evenings">
+                        {messages["eveningsTitle"]}
+                      </option>
+                      <option value="Mornings">
+                        {messages["morningsTitle"]}
+                      </option>
+                      <option value="24/7">24/7</option>
+                      <option value="Flexible">
+                        {messages["flexibleTitle"]}
+                      </option>
                     </select>
                   </div>
 
@@ -419,7 +425,7 @@ const SearchCare = ({ category = "all" }) => {
                     <input
                       type="checkbox"
                       id="verified"
-                      checked={verifiedOnly}
+                      checked={true}
                       onChange={(e) => setVerifiedOnly(e.target.checked)}
                       className="h-4 w-4 text-[#206645] focus:ring-[#206645] border-gray-300 rounded"
                     />
@@ -427,7 +433,7 @@ const SearchCare = ({ category = "all" }) => {
                       htmlFor="verified"
                       className="ml-2 text-sm text-gray-700 cursor-pointer"
                     >
-                      {messages['verifiedonlyTitle']}
+                      {messages["verifiedonlyTitle"]}
                     </label>
                   </div>
                 </div>
@@ -442,7 +448,7 @@ const SearchCare = ({ category = "all" }) => {
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                   <h2 className="text-lg font-semibold text-gray-900">
-                    {filteredResults.length} {messages['resultsfoundTitle']}
+                    {filteredResults.length} {messages["resultsfoundTitle"]}
                   </h2>
                   {(providerType !== "all" ||
                     specializations.length > 0 ||
@@ -561,13 +567,13 @@ const SearchCare = ({ category = "all" }) => {
                   )}
 
                   {/* Sort Dropdown */}
-                  <div className="flex-grow sm:flex-grow-0">
+                  {/* <div className="flex-grow sm:flex-grow-0">
                     <select
                       value={sortBy}
                       onChange={(e) => setSortBy(e.target.value)}
                       className="w-full sm:w-[180px] px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-[#206645] focus:border-[#206645] text-sm"
                     >
-                      <option value="relevance">Sort by: Relevance</option>
+                      <option value="relevance">{messages['sortbyrelavanceTitle']}</option>
                       <option value="rating">Sort by: Highest Rating</option>
                       <option value="price_low">
                         Sort by: Price: Low to High
@@ -576,7 +582,7 @@ const SearchCare = ({ category = "all" }) => {
                         Sort by: Price: High to Low
                       </option>
                     </select>
-                  </div>
+                  </div> */}
 
                   {/* View Toggle */}
                   <div className="hidden sm:block">
@@ -589,7 +595,7 @@ const SearchCare = ({ category = "all" }) => {
                             : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                         }`}
                       >
-                        List
+                        {messages['listTitle']}
                       </button>
                       <button
                         onClick={() => setViewMode("map")}
@@ -599,7 +605,7 @@ const SearchCare = ({ category = "all" }) => {
                             : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                         }`}
                       >
-                        Map
+                        {messages['mapTitle']}
                       </button>
                     </div>
                   </div>
@@ -682,7 +688,7 @@ const SearchCare = ({ category = "all" }) => {
                                             d="M5 13l4 4L19 7"
                                           />
                                         </svg>
-                                        Verified
+                                        {messages['verifiedTitle']}
                                       </div>
                                     )}
                                   </div>
@@ -734,60 +740,78 @@ const SearchCare = ({ category = "all" }) => {
                                 {provider.description}
                               </p>
 
-                              {(provider.type==="nurse"||provider.type==="caregiver"||provider.type==="volunteer") && <div className="flex flex-wrap gap-2 mb-4">
-                                {provider.mainData.specializations.slice(0, 3).map((spec, index) => (
-                                  <span
-                                    key={index}
-                                    className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-50 text-gray-700"
-                                  >
-                                    {spec}
-                                  </span>
-                                ))}
-                                {provider.mainData.specializations.length > 3 && (
-                                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-50 text-gray-700">
-                                    +{provider.mainData.specializations.length - 3} more
-                                  </span>
-                                )}
-                              </div>}
-                              {(provider.type==="careHome") && <div className="flex flex-wrap gap-2 mb-4">
-                                {provider.mainData.amenities.slice(0, 3).map((spec, index) => (
-                                  <span
-                                    key={index}
-                                    className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-50 text-gray-700"
-                                  >
-                                    {spec}
-                                  </span>
-                                ))}
-                                {provider.mainData.amenities.length > 3 && (
-                                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-50 text-gray-700">
-                                    +{provider.mainData.amenities.length - 3} more
-                                  </span>
-                                )}
-                              </div>}
+                              {(provider.type === "nurse" ||
+                                provider.type === "caregiver" ||
+                                provider.type === "volunteer") && (
+                                <div className="flex flex-wrap gap-2 mb-4">
+                                  {provider.mainData.specializations
+                                    .slice(0, 3)
+                                    .map((spec, index) => (
+                                      <span
+                                        key={index}
+                                        className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-50 text-gray-700"
+                                      >
+                                        {spec}
+                                      </span>
+                                    ))}
+                                  {provider.mainData.specializations.length >
+                                    3 && (
+                                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-50 text-gray-700">
+                                      +
+                                      {provider.mainData.specializations
+                                        .length - 3}{" "}
+                                      more
+                                    </span>
+                                  )}
+                                </div>
+                              )}
+                              {provider.type === "careHome" && (
+                                <div className="flex flex-wrap gap-2 mb-4">
+                                  {provider.mainData.amenities
+                                    .slice(0, 3)
+                                    .map((spec, index) => (
+                                      <span
+                                        key={index}
+                                        className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-50 text-gray-700"
+                                      >
+                                        {spec}
+                                      </span>
+                                    ))}
+                                  {provider.mainData.amenities.length > 3 && (
+                                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-50 text-gray-700">
+                                      +{provider.mainData.amenities.length - 3}{" "}
+                                      more
+                                    </span>
+                                  )}
+                                </div>
+                              )}
                             </div>
 
                             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pt-4 border-t border-gray-100">
                               <div className="mb-3 sm:mb-0">
                                 <div className="text-[#206645] font-semibold">
-                                  {provider.mainData.hourlyRate||provider.mainData.monthlyPrice}
+                                  {provider.mainData.hourlyRate ||
+                                    provider.mainData.monthlyPrice}
                                 </div>
-                                {provider.type!=="careHome"&&<div className="flex items-center text-sm text-gray-500">
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="h-4 w-4 mr-1"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      strokeWidth={2}
-                                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                                    />
-                                  </svg>
-                                  {provider.mainData.availability}
-                                </div>}
+                                {provider.type !== "careHome" && (
+                                  <div className="flex items-center text-sm text-gray-500">
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      className="h-4 w-4 mr-1"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      stroke="currentColor"
+                                    >
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth={2}
+                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                                      />
+                                    </svg>
+                                    {provider.mainData.availability}
+                                  </div>
+                                )}
                               </div>
                               <div className="flex gap-3 w-full sm:w-auto">
                                 <button className="flex-1 sm:flex-initial px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#206645]">
@@ -805,10 +829,10 @@ const SearchCare = ({ category = "all" }) => {
                                       d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                                     />
                                   </svg>
-                                  Contact
+                                  {messages['contactTitle']}
                                 </button>
                                 <button className="flex-1 sm:flex-initial px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#206645] hover:bg-[#185536] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#206645]">
-                                  View Details
+                                  {messages['viewdetailsTitle']}
                                 </button>
                               </div>
                             </div>
@@ -898,7 +922,7 @@ const SearchCare = ({ category = "all" }) => {
                     disabled
                     className="px-3 py-1 border border-gray-300 rounded-md text-sm font-medium text-gray-500 bg-white cursor-not-allowed"
                   >
-                    Previous
+                    {messages['previousTitle']}
                   </button>
                   <button className="px-3 py-1 border border-[#206645] rounded-md text-sm font-medium text-white bg-[#206645]">
                     1
@@ -911,7 +935,7 @@ const SearchCare = ({ category = "all" }) => {
                   </button>
                   <span className="px-2 text-gray-500">...</span>
                   <button className="px-3 py-1 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
-                    Next
+                    {messages['nextTitle']}
                   </button>
                 </nav>
               </div>
