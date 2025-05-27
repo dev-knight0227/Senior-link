@@ -125,40 +125,6 @@ const SearchCare = ({ category = "all" }) => {
       );
     }
 
-    // Sort results
-    // switch (sortBy) {
-    //   case "rating":
-    //     results.sort((a, b) => b.rating - a.rating);
-    //     break;
-    //   case "price_low":
-    //     // This is a simplified sort for the mock data
-    //     results.sort((a, b) => {
-    //       const aPrice = a.price.includes("PLN/hour")
-    //         ? parseFloat(a.price.split("-")[0]) * 160 // Assuming 160 hours per month
-    //         : parseFloat(a.price.split("-")[0]);
-    //       const bPrice = b.price.includes("PLN/hour")
-    //         ? parseFloat(b.price.split("-")[0]) * 160
-    //         : parseFloat(b.price.split("-")[0]);
-    //       return aPrice - bPrice;
-    //     });
-    //     break;
-    //   case "price_high":
-    //     results.sort((a, b) => {
-    //       const aPrice = a.price.includes("PLN/hour")
-    //         ? parseFloat(a.price.split("-")[0]) * 160
-    //         : parseFloat(a.price.split("-")[0]);
-    //       const bPrice = b.price.includes("PLN/hour")
-    //         ? parseFloat(b.price.split("-")[0]) * 160
-    //         : parseFloat(b.price.split("-")[0]);
-    //       return bPrice - aPrice;
-    //     });
-    //     break;
-    //   default:
-    //     // For relevance, show featured first
-    //     results.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
-    //     break;
-    // }
-
     setFilteredResults(results);
   }, [
     searchQuery,
