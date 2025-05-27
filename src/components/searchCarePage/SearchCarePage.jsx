@@ -10,7 +10,7 @@ const SearchCare = ({ category = "all" }) => {
   // State for search and filters
   const { messages } = useLang();
   const [searchQuery, setSearchQuery] = useState("");
-  const [location, setLocation] = useState("Kraków");
+  const [location, setLocation] = useState("");
   const [providerType, setProviderType] = useState(category);
   const [sortBy, setSortBy] = useState("relevance");
   const [viewMode, setViewMode] = useState("list");
@@ -88,8 +88,17 @@ const SearchCare = ({ category = "all" }) => {
         (provider) =>
           provider.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
           provider.description.toLowerCase().includes(searchQuery.toLowerCase())
-        // provider.specializations.some((spec) => spec.toLowerCase().includes(searchQuery.toLowerCase()))
       );
+      console.log(searchQuery, results)
+    }
+
+    // Filter by location
+    if (location) {
+      results = results.filter(
+        (provider) =>
+          provider.address.toLowerCase().includes(location.toLowerCase())
+      );
+      console.log(location, results)
     }
 
     // Filter by provider type
@@ -155,6 +164,7 @@ const SearchCare = ({ category = "all" }) => {
     setFilteredResults(results);
   }, [
     searchQuery,
+    location,
     providerType,
     sortBy,
     verifiedOnly,
@@ -1011,74 +1021,6 @@ const SearchCare = ({ category = "all" }) => {
     </div>
   );
 };
-
-// Mock data for care providers
-// const CARE_PROVIDERS = [
-//   {
-//     id: 1,
-//     name: "Golden Years Care Home",
-//     type: "careHome",
-//     rating: 4.8,
-//     reviewCount: 124,
-//     verified: true,
-//     featured: true,
-//     address: "ul. Krakowska 45, Kraków",
-//     image: "/images/painting.jpeg?height=300&width=400",
-//     price: "4500-6000 PLN/month",
-//     availability: "3 spots available",
-//     specializations: ["Dementia Care", "24/7 Medical Support", "Rehabilitation"],
-//     description:
-//       "A premium care facility with 24/7 medical support, comfortable private rooms, and a wide range of activities for seniors.",
-//   },
-//   {
-//     id: 2,
-//     name: "Anna Kowalska",
-//     type: "caregiver",
-//     rating: 4.9,
-//     reviewCount: 56,
-//     verified: true,
-//     featured: false,
-//     address: "Nowa Huta, Kraków",
-//     image: "/images/medicalquest.jpeg?height=300&width=400",
-//     price: "30-35 PLN/hour",
-//     availability: "Available weekdays",
-//     specializations: ["Elderly Care", "Medication Management", "Companionship"],
-//     description:
-//       "Experienced caregiver with 10+ years of experience and nursing background. Specializes in elderly care and companionship.",
-//   },
-//   {
-//     id: 3,
-//     name: "Sunshine Senior Residence",
-//     type: "careHome",
-//     rating: 4.5,
-//     reviewCount: 89,
-//     verified: true,
-//     featured: false,
-//     address: "ul. Długa 76, Kraków",
-//     image: "/images/knitting.jpeg?height=300&width=400",
-//     price: "3800-5200 PLN/month",
-//     availability: "1 spot available",
-//     specializations: ["Long-term Care", "Memory Care", "Physical Therapy"],
-//     description:
-//       "Comfortable living environment with specialized memory care units and regular physical therapy sessions.",
-//   },
-//   {
-//     id: 4,
-//     name: "MediTransport Senior",
-//     type: "transport",
-//     rating: 4.7,
-//     reviewCount: 42,
-//     verified: true,
-//     featured: false,
-//     address: "Serves all Kraków",
-//     image: "/images/transport.jpeg?height=300&width=400",
-//     price: "From 60 PLN/trip",
-//     availability: "24/7 service",
-//     specializations: ["Medical Transport", "Wheelchair Accessible", "Hospital Visits"],
-//     description:
-//       "Specialized transport service for seniors with medical needs. Wheelchair accessible vehicles and trained staff.",
-//   },
-// ];
 
 // Icon mapping for provider types
 const typeIcons = {
