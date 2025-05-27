@@ -442,7 +442,7 @@ const SearchCare = ({ category = "all" }) => {
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
                   <h2 className="text-lg font-semibold text-gray-900">
-                    {filteredResults.length} results found
+                    {filteredResults.length} {messages['resultsfoundTitle']}
                   </h2>
                   {(providerType !== "all" ||
                     specializations.length > 0 ||
@@ -687,7 +687,7 @@ const SearchCare = ({ category = "all" }) => {
                                     )}
                                   </div>
                                 </div>
-                                <div className="flex items-center">
+                                {/* <div className="flex items-center">
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-5 w-5 text-yellow-400 mr-1"
@@ -702,7 +702,7 @@ const SearchCare = ({ category = "all" }) => {
                                   <span className="text-gray-500 text-sm ml-1">
                                     ({provider.reviewCount})
                                   </span>
-                                </div>
+                                </div> */}
                               </div>
 
                               <div className="flex items-center text-gray-500 text-sm mb-3">
@@ -734,8 +734,8 @@ const SearchCare = ({ category = "all" }) => {
                                 {provider.description}
                               </p>
 
-                              {/* <div className="flex flex-wrap gap-2 mb-4">
-                                {provider.specializations.slice(0, 3).map((spec, index) => (
+                              {(provider.type==="nurse"||provider.type==="caregiver"||provider.type==="volunteer") && <div className="flex flex-wrap gap-2 mb-4">
+                                {provider.mainData.specializations.slice(0, 3).map((spec, index) => (
                                   <span
                                     key={index}
                                     className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-50 text-gray-700"
@@ -743,20 +743,35 @@ const SearchCare = ({ category = "all" }) => {
                                     {spec}
                                   </span>
                                 ))}
-                                {provider.specializations.length > 3 && (
+                                {provider.mainData.specializations.length > 3 && (
                                   <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-50 text-gray-700">
-                                    +{provider.specializations.length - 3} more
+                                    +{provider.mainData.specializations.length - 3} more
                                   </span>
                                 )}
-                              </div> */}
+                              </div>}
+                              {(provider.type==="careHome") && <div className="flex flex-wrap gap-2 mb-4">
+                                {provider.mainData.amenities.slice(0, 3).map((spec, index) => (
+                                  <span
+                                    key={index}
+                                    className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-50 text-gray-700"
+                                  >
+                                    {spec}
+                                  </span>
+                                ))}
+                                {provider.mainData.amenities.length > 3 && (
+                                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-50 text-gray-700">
+                                    +{provider.mainData.amenities.length - 3} more
+                                  </span>
+                                )}
+                              </div>}
                             </div>
 
                             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pt-4 border-t border-gray-100">
                               <div className="mb-3 sm:mb-0">
                                 <div className="text-[#206645] font-semibold">
-                                  {provider.price}
+                                  {provider.mainData.hourlyRate||provider.mainData.monthlyPrice}
                                 </div>
-                                <div className="flex items-center text-sm text-gray-500">
+                                {provider.type!=="careHome"&&<div className="flex items-center text-sm text-gray-500">
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-4 w-4 mr-1"
@@ -771,8 +786,8 @@ const SearchCare = ({ category = "all" }) => {
                                       d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                                     />
                                   </svg>
-                                  {provider.availability}
-                                </div>
+                                  {provider.mainData.availability}
+                                </div>}
                               </div>
                               <div className="flex gap-3 w-full sm:w-auto">
                                 <button className="flex-1 sm:flex-initial px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#206645]">
