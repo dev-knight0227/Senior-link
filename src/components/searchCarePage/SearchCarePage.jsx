@@ -1040,7 +1040,7 @@ const SearchCare = ({ category = "all" }) => {
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#206645] text-base font-medium text-white hover:bg-[#185536] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#206645] sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={() => setIsFiltersOpen(false)}
                 >
-                  Apply Filters
+                  {messages['applyfiltersTitle']}
                 </button>
                 <button
                   type="button"
@@ -1050,7 +1050,7 @@ const SearchCare = ({ category = "all" }) => {
                     setIsFiltersOpen(false);
                   }}
                 >
-                  Reset
+                  {messages['resetTitle']}
                 </button>
               </div>
             </div>

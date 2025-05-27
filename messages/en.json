@@ -356,5 +356,7 @@
   "listTitle": "List",
   "mapTitle": "Map",
   "viewdetailsTitle": "View Details",
-  "nextTitle": "Next"
+  "nextTitle": "Next",
+  "resetTitle": "Reset",
+  "applyfiltersTitle": "Apply Filters"
 }

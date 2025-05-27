@@ -356,5 +356,7 @@
   "listTitle": "Lista",
   "mapTitle": "Mapa",
   "viewdetailsTitle": "Zobacz szczegóły",
-  "nextTitle": "Następny"
+  "nextTitle": "Następny",
+  "resetTitle": "Resetuj",
+  "applyfiltersTitle": "Zastosuj filtry"
 }
