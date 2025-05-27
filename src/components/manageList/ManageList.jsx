@@ -371,42 +371,34 @@ const ManageListPage = () => {
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <h4 className="text-sm font-medium text-gray-500">
-                Vehicle Type
+                {messages['serviceareaLabel']}
               </h4>
               <p className="mt-1 text-sm text-gray-900">
-                {listing.transport.vehicleType}
+                {listing.mainData.serviceArea}
               </p>
             </div>
             <div>
               <h4 className="text-sm font-medium text-gray-500">
-                Service Area
+                {messages['hourlyrateLabel']}
               </h4>
               <p className="mt-1 text-sm text-gray-900">
-                {listing.transport.serviceArea}
+                {listing.mainData.hourlyRate} PLN
               </p>
             </div>
             <div>
               <h4 className="text-sm font-medium text-gray-500">
-                Price per km
+                {messages['availability']}
               </h4>
               <p className="mt-1 text-sm text-gray-900">
-                {listing.transport.pricePerKm} PLN
+                {listing.mainData.availability}
               </p>
             </div>
             <div>
               <h4 className="text-sm font-medium text-gray-500">
-                Operating Hours
+                Telegram
               </h4>
               <p className="mt-1 text-sm text-gray-900">
-                {listing.transport.operatingHours}
-              </p>
-            </div>
-            <div>
-              <h4 className="text-sm font-medium text-gray-500">
-                Wheelchair Accessible
-              </h4>
-              <p className="mt-1 text-sm text-gray-900">
-                {listing.transport.wheelchairAccessible ? "Yes" : "No"}
+                {listing.mainData.telegram}
               </p>
             </div>
           </div>
