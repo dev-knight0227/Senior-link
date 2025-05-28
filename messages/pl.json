@@ -358,5 +358,8 @@
   "viewdetailsTitle": "Zobacz szczegóły",
   "nextTitle": "Następny",
   "resetTitle": "Resetuj",
-  "applyfiltersTitle": "Zastosuj filtry"
+  "applyfiltersTitle": "Zastosuj filtry",
+  "editlistingTitle": "Edytuj ogłoszenie",
+  "closeTitle": "Zamknij",
+  "savechangesTitle": "Zapisz zmiany"
 }

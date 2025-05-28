@@ -4,12 +4,14 @@ import Image from "next/image";
 import { useLang } from "@/contexts/LangContext";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@/firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const ManageListPage = () => {
   // State for listings data
-  const {messages} = useLang();
+  const { messages } = useLang();
   const [listings, setListings] = useState([]);
   const [filteredListings, setFilteredListings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -79,17 +81,6 @@ const ManageListPage = () => {
     }
   }, [user, loading, router]);
 
-  // Fetch listings data
-  // useEffect(() => {
-  //   // Simulating API call to fetch listings
-  //   setIsLoading(true);
-  //   setTimeout(() => {
-  //     setListings(MOCK_LISTINGS);
-  //     setFilteredListings(MOCK_LISTINGS);
-  //     setIsLoading(false);
-  //   }, 800);
-  // }, []);
-
   // Apply filters
   useEffect(() => {
     let results = [...listings];
@@ -133,10 +124,16 @@ const ManageListPage = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   // Handle status change
-  const handleStatusChange = (listingId, newStatus) => {
+  const handleStatusChange = async (listingId, newStatus) => {
     const updatedListings = listings.map((listing) =>
       listing.id === listingId ? { ...listing, status: newStatus } : listing
     );
+
+    const userDocRef = doc(db, "users", listingId);
+    await updateDoc(userDocRef, {
+      status: newStatus,
+    });
+    toast.success(`${listingId} ${newStatus}!`);
 
     setListings(updatedListings);
 
@@ -146,7 +143,6 @@ const ManageListPage = () => {
     setIsDeleteModalOpen(false);
 
     // Show success message
-    alert(`Listing #${listingId} has been ${getStatusActionName(newStatus)}`);
   };
 
   // Get action name based on status
@@ -259,13 +255,13 @@ const ManageListPage = () => {
     };
 
     const typeNames = {
-      careHome: messages['carehomeTitle'],
-      caregiver: messages['caregiverTitle'],
-      nurse: messages['nurseTitle'],
-      volunteer: messages['volunteerTitle'],
-      transport: messages['transportTitle'],
-      store: messages['seniorstoreTitle'],
-      institution: messages['findinstitutionTitle'],
+      careHome: messages["carehomeTitle"],
+      caregiver: messages["caregiverTitle"],
+      nurse: messages["nurseTitle"],
+      volunteer: messages["volunteerTitle"],
+      transport: messages["transportTitle"],
+      store: messages["seniorstoreTitle"],
+      institution: messages["findinstitutionTitle"],
     };
 
     return (
@@ -296,21 +292,25 @@ const ManageListPage = () => {
         return (
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <h4 className="text-sm font-medium text-gray-500">{messages['capacityTitle']}</h4>
+              <h4 className="text-sm font-medium text-gray-500">
+                {messages["capacityTitle"]}
+              </h4>
               <p className="mt-1 text-sm text-gray-900">
-                {listing.mainData.capacity} {messages['residentsTitle']}
+                {listing.mainData.capacity} {messages["residentsTitle"]}
               </p>
             </div>
             <div>
               <h4 className="text-sm font-medium text-gray-500">
-                {messages['monthlypriceLabel']}
+                {messages["monthlypriceLabel"]}
               </h4>
               <p className="mt-1 text-sm text-gray-900">
                 {listing.mainData.monthlyPrice} PLN
               </p>
             </div>
             <div className="sm:col-span-2">
-              <h4 className="text-sm font-medium text-gray-500">{messages['amenitiesTitle']}</h4>
+              <h4 className="text-sm font-medium text-gray-500">
+                {messages["amenitiesTitle"]}
+              </h4>
               <div className="mt-1 flex flex-wrap gap-1">
                 {listing.mainData.amenities.map((amenity, index) => (
                   <span
@@ -329,20 +329,24 @@ const ManageListPage = () => {
         return (
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
-              <h4 className="text-sm font-medium text-gray-500">{messages['experienceTitle']}</h4>
+              <h4 className="text-sm font-medium text-gray-500">
+                {messages["experienceTitle"]}
+              </h4>
               <p className="mt-1 text-sm text-gray-900">
-                {listing.mainData.experience} {messages['yearsTitle']}
+                {listing.mainData.experience} {messages["yearsTitle"]}
               </p>
             </div>
             <div>
-              <h4 className="text-sm font-medium text-gray-500">{messages['hourlyrateLabel']}</h4>
+              <h4 className="text-sm font-medium text-gray-500">
+                {messages["hourlyrateLabel"]}
+              </h4>
               <p className="mt-1 text-sm text-gray-900">
                 {listing.mainData.hourlyRate}
               </p>
             </div>
             <div className="sm:col-span-2">
               <h4 className="text-sm font-medium text-gray-500">
-                {messages['specializationsLabel']}
+                {messages["specializationsLabel"]}
               </h4>
               <div className="mt-1 flex flex-wrap gap-1">
                 {listing.mainData.specializations.map((spec, index) => (
@@ -357,7 +361,7 @@ const ManageListPage = () => {
             </div>
             <div>
               <h4 className="text-sm font-medium text-gray-500">
-                {messages['availability']}
+                {messages["availability"]}
               </h4>
               <p className="mt-1 text-sm text-gray-900">
                 {listing.mainData.availability}
@@ -371,7 +375,7 @@ const ManageListPage = () => {
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <h4 className="text-sm font-medium text-gray-500">
-                {messages['serviceareaLabel']}
+                {messages["serviceareaLabel"]}
               </h4>
               <p className="mt-1 text-sm text-gray-900">
                 {listing.mainData.serviceArea}
@@ -379,7 +383,7 @@ const ManageListPage = () => {
             </div>
             <div>
               <h4 className="text-sm font-medium text-gray-500">
-                {messages['hourlyrateLabel']}
+                {messages["hourlyrateLabel"]}
               </h4>
               <p className="mt-1 text-sm text-gray-900">
                 {listing.mainData.hourlyRate} PLN
@@ -387,16 +391,14 @@ const ManageListPage = () => {
             </div>
             <div>
               <h4 className="text-sm font-medium text-gray-500">
-                {messages['availability']}
+                {messages["availability"]}
               </h4>
               <p className="mt-1 text-sm text-gray-900">
                 {listing.mainData.availability}
               </p>
             </div>
             <div>
-              <h4 className="text-sm font-medium text-gray-500">
-                Telegram
-              </h4>
+              <h4 className="text-sm font-medium text-gray-500">Telegram</h4>
               <p className="mt-1 text-sm text-gray-900">
                 {listing.mainData.telegram}
               </p>
@@ -409,7 +411,7 @@ const ManageListPage = () => {
           <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="sm:col-span-2">
               <h4 className="text-sm font-medium text-gray-500">
-                {messages['productcategoriesTitle']}
+                {messages["productcategoriesTitle"]}
               </h4>
               <div className="mt-1 flex flex-wrap gap-1">
                 {listing.mainData.productCategories.map((category, index) => (
@@ -424,14 +426,16 @@ const ManageListPage = () => {
             </div>
             <div>
               <h4 className="text-sm font-medium text-gray-500">
-                {messages['openinghoursTitle']}
+                {messages["openinghoursTitle"]}
               </h4>
               <p className="mt-1 text-sm text-gray-900">
                 {listing.mainData.openingHours}
               </p>
             </div>
             <div>
-              <h4 className="text-sm font-medium text-gray-500">{messages['websiteTitle']}</h4>
+              <h4 className="text-sm font-medium text-gray-500">
+                {messages["websiteTitle"]}
+              </h4>
               <p className="mt-1 text-sm text-gray-900">
                 {listing.mainData.websiteUrl ? (
                   <a
@@ -463,7 +467,7 @@ const ManageListPage = () => {
         <div className="space-y-6">
           <div>
             <h3 className="text-lg font-medium text-gray-900">
-              {messages['basicinformationTitle']}
+              {messages["basicinformationTitle"]}
             </h3>
             <div className="mt-4 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
               <div className="sm:col-span-2">
@@ -471,7 +475,7 @@ const ManageListPage = () => {
                   htmlFor="name"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  {messages['businessnameLabel']}
+                  {messages["businessnameLabel"]}
                 </label>
                 <input
                   type="text"
@@ -505,7 +509,7 @@ const ManageListPage = () => {
                   htmlFor="contactPhone"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  {messages['phoneTitle']}
+                  {messages["phoneTitle"]}
                 </label>
                 <input
                   type="text"
@@ -522,7 +526,7 @@ const ManageListPage = () => {
                   htmlFor="address"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  {messages['addressLabel']}
+                  {messages["addressLabel"]}
                 </label>
                 <input
                   type="text"
@@ -539,7 +543,7 @@ const ManageListPage = () => {
                   htmlFor="city"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  {messages['cityLabel']}
+                  {messages["cityLabel"]}
                 </label>
                 <input
                   type="text"
@@ -556,7 +560,7 @@ const ManageListPage = () => {
                   htmlFor="status"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  {messages['statusLabel']}
+                  {messages["statusLabel"]}
                 </label>
                 <select
                   id="status"
@@ -565,10 +569,10 @@ const ManageListPage = () => {
                   onChange={handleEditFormChange}
                   className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#206645] focus:ring-[#206645]"
                 >
-                  <option value="pending">{messages['pendingTitle']}</option>
-                  <option value="approved">{messages['approvedTitle']}</option>
-                  <option value="hidden">{messages['hiddenTitle']}</option>
-                  <option value="rejected">{messages['rejectedTitle']}</option>
+                  <option value="pending">{messages["pendingTitle"]}</option>
+                  <option value="approved">{messages["approvedTitle"]}</option>
+                  <option value="hidden">{messages["hiddenTitle"]}</option>
+                  <option value="rejected">{messages["rejectedTitle"]}</option>
                 </select>
               </div>
             </div>
@@ -579,7 +583,7 @@ const ManageListPage = () => {
               htmlFor="description"
               className="block text-sm font-medium text-gray-700"
             >
-              {messages['descriptionTitle']}
+              {messages["descriptionTitle"]}
             </label>
             <textarea
               id="description"
@@ -595,7 +599,7 @@ const ManageListPage = () => {
           {editFormData.type === "careHome" && (
             <div>
               <h3 className="text-lg font-medium text-gray-900">
-                {messages['carehomeinputTitle']}
+                {messages["carehomeinputTitle"]}
               </h3>
               <div className="mt-4 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                 <div>
@@ -603,7 +607,7 @@ const ManageListPage = () => {
                     htmlFor="careHome.capacity"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    {messages['capacityTitle']}
+                    {messages["capacityTitle"]}
                   </label>
                   <input
                     type="number"
@@ -620,7 +624,7 @@ const ManageListPage = () => {
                     htmlFor="careHome.monthlyPrice"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    {messages['monthlypriceLabel']}
+                    {messages["monthlypriceLabel"]}
                   </label>
                   <input
                     type="text"
@@ -631,44 +635,6 @@ const ManageListPage = () => {
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-[#206645] focus:ring-[#206645]"
                   />
                 </div>
-
-                {/* <div className="sm:col-span-2">
-                  <div className="flex items-center">
-                    <input
-                      id="careHome.medicalSupport"
-                      name="careHome.medicalSupport"
-                      type="checkbox"
-                      checked={editFormData.mainData.medicalSupport}
-                      onChange={handleEditFormChange}
-                      className="h-4 w-4 text-[#206645] focus:ring-[#206645] border-gray-300 rounded"
-                    />
-                    <label
-                      htmlFor="careHome.medicalSupport"
-                      className="ml-2 block text-sm text-gray-700"
-                    >
-                      24/7 Medical Support
-                    </label>
-                  </div>
-                </div> */}
-
-                {/* <div className="sm:col-span-2">
-                  <div className="flex items-center">
-                    <input
-                      id="careHome.acceptsInsurance"
-                      name="careHome.acceptsInsurance"
-                      type="checkbox"
-                      checked={editFormData.mainData.acceptsInsurance}
-                      onChange={handleEditFormChange}
-                      className="h-4 w-4 text-[#206645] focus:ring-[#206645] border-gray-300 rounded"
-                    />
-                    <label
-                      htmlFor="careHome.acceptsInsurance"
-                      className="ml-2 block text-sm text-gray-700"
-                    >
-                      Accepts Insurance
-                    </label>
-                  </div>
-                </div> */}
               </div>
             </div>
           )}
@@ -676,7 +642,7 @@ const ManageListPage = () => {
           {editFormData.type === "caregiver" && (
             <div>
               <h3 className="text-lg font-medium text-gray-900">
-                {messages['caregiverdetailsTitle']}
+                {messages["caregiverdetailsTitle"]}
               </h3>
               <div className="mt-4 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                 <div>
@@ -684,7 +650,7 @@ const ManageListPage = () => {
                     htmlFor="caregiver.experience"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    {messages['experienceLabel']}
+                    {messages["experienceLabel"]}
                   </label>
                   <input
                     type="number"
@@ -701,7 +667,7 @@ const ManageListPage = () => {
                     htmlFor="caregiver.hourlyRate"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    {messages['hourlyrateLabel']}
+                    {messages["hourlyrateLabel"]}
                   </label>
                   <input
                     type="text"
@@ -718,7 +684,7 @@ const ManageListPage = () => {
                     htmlFor="caregiver.availability"
                     className="block text-sm font-medium text-gray-700"
                   >
-                    {messages['availability']}
+                    {messages["availability"]}
                   </label>
                   <input
                     type="text"
@@ -744,10 +710,12 @@ const ManageListPage = () => {
       {/* Header */}
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-900">{messages['managelistingsTitle']}</h1>
+          <h1 className="text-2xl font-bold text-gray-900">
+            {messages["managelistingsTitle"]}
+          </h1>
           <div className="flex items-center space-x-4">
             <span className="text-sm text-gray-500">
-              {filteredListings.length} {messages['listingsTitle']}
+              {filteredListings.length} {messages["listingsTitle"]}
             </span>
             <div className="relative">
               <span className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -767,7 +735,7 @@ const ManageListPage = () => {
               </span>
               <input
                 type="text"
-                placeholder={messages['searchlistingsPlaceholder']}
+                placeholder={messages["searchlistingsPlaceholder"]}
                 className="pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-[#206645] focus:border-[#206645] sm:text-sm"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -789,7 +757,7 @@ const ManageListPage = () => {
                     htmlFor="status-filter"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    {messages['statusLabel']}
+                    {messages["statusLabel"]}
                   </label>
                   <select
                     id="status-filter"
@@ -797,11 +765,15 @@ const ManageListPage = () => {
                     value={statusFilter}
                     onChange={(e) => setStatusFilter(e.target.value)}
                   >
-                    <option value="all">{messages['allstatusesTitle']}</option>
-                    <option value="pending">{messages['pendingTitle']}</option>
-                    <option value="approved">{messages['approvedTitle']}</option>
-                    <option value="hidden">{messages['hiddenTitle']}</option>
-                    <option value="rejected">{messages['rejectedTitle']}</option>
+                    <option value="all">{messages["allstatusesTitle"]}</option>
+                    <option value="pending">{messages["pendingTitle"]}</option>
+                    <option value="approved">
+                      {messages["approvedTitle"]}
+                    </option>
+                    <option value="hidden">{messages["hiddenTitle"]}</option>
+                    <option value="rejected">
+                      {messages["rejectedTitle"]}
+                    </option>
                   </select>
                 </div>
 
@@ -810,7 +782,7 @@ const ManageListPage = () => {
                     htmlFor="type-filter"
                     className="block text-sm font-medium text-gray-700 mb-1"
                   >
-                    {messages['typeTitle']}
+                    {messages["typeTitle"]}
                   </label>
                   <select
                     id="type-filter"
@@ -818,14 +790,26 @@ const ManageListPage = () => {
                     value={typeFilter}
                     onChange={(e) => setTypeFilter(e.target.value)}
                   >
-                    <option value="all">{messages['alltypesTitle']}</option>
-                    <option value="careHome">{messages['carehomeTitle']}</option>
-                    <option value="caregiver">{messages['caregiverTitle']}</option>
-                    <option value="nurse">{messages['nurseTitle']}</option>
-                    <option value="volunteer">{messages['volunteerTitle']}</option>
-                    <option value="transport">{messages['transportTitle']}</option>
-                    <option value="store">{messages['seniorstoreTitle']}</option>
-                    <option value="institution">{messages['findinstitutionTitle']}</option>
+                    <option value="all">{messages["alltypesTitle"]}</option>
+                    <option value="careHome">
+                      {messages["carehomeTitle"]}
+                    </option>
+                    <option value="caregiver">
+                      {messages["caregiverTitle"]}
+                    </option>
+                    <option value="nurse">{messages["nurseTitle"]}</option>
+                    <option value="volunteer">
+                      {messages["volunteerTitle"]}
+                    </option>
+                    <option value="transport">
+                      {messages["transportTitle"]}
+                    </option>
+                    <option value="store">
+                      {messages["seniorstoreTitle"]}
+                    </option>
+                    <option value="institution">
+                      {messages["findinstitutionTitle"]}
+                    </option>
                   </select>
                 </div>
               </div>
@@ -840,7 +824,7 @@ const ManageListPage = () => {
                   }}
                   className="inline-flex items-center px-3 py-2 border border-gray-300 shadow-sm text-sm leading-4 font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#206645]"
                 >
-                  {messages['clearfiltersTitle']}
+                  {messages["clearfiltersTitle"]}
                 </button>
 
                 <button
@@ -848,7 +832,7 @@ const ManageListPage = () => {
                   onClick={() => setStatusFilter("pending")}
                   className="inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-[#206645] hover:bg-[#185536] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#206645]"
                 >
-                  {messages['viewpendingsTitle']}
+                  {messages["viewpendingsTitle"]}
                   <span className="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white text-[#206645]">
                     {
                       listings.filter((listing) => listing.status === "pending")
@@ -884,10 +868,10 @@ const ManageListPage = () => {
                 />
               </svg>
               <h3 className="mt-2 text-sm font-medium text-gray-900">
-                {messages['nolistingsfoundTitle']}
+                {messages["nolistingsfoundTitle"]}
               </h3>
               <p className="mt-1 text-sm text-gray-500">
-                {messages['nolistingsfoundContent']}
+                {messages["nolistingsfoundContent"]}
               </p>
             </div>
           ) : (
@@ -905,37 +889,37 @@ const ManageListPage = () => {
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      {messages['nameTitle']}
+                      {messages["nameTitle"]}
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      {messages['phoneTitle']}
+                      {messages["phoneTitle"]}
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      {messages['typeTitle']}
+                      {messages["typeTitle"]}
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      {messages['statusLabel']}
+                      {messages["statusLabel"]}
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      {messages['submittedTitle']}
+                      {messages["submittedTitle"]}
                     </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      {messages['actionsTitle']}
+                      {messages["actionsTitle"]}
                     </th>
                   </tr>
                 </thead>
@@ -950,7 +934,10 @@ const ManageListPage = () => {
                           <div className="h-10 w-10 flex-shrink-0">
                             <Image
                               className="h-10 w-10 rounded-full object-cover"
-                              src={listing.photos[listing.avatar] || "/placeholder.svg"}
+                              src={
+                                listing.photos[listing.avatar] ||
+                                "/placeholder.svg"
+                              }
                               alt=""
                               height={40}
                               width={40}
@@ -1168,17 +1155,17 @@ const ManageListPage = () => {
               <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <div>
                   <p className="text-sm text-gray-700">
-                   {messages['paginationshowingTitle1']}{" "}
+                    {messages["paginationshowingTitle1"]}{" "}
                     <span className="font-medium">{indexOfFirstItem + 1}</span>{" "}
-                    {messages['paginationshowingTitle2']}{" "}
+                    {messages["paginationshowingTitle2"]}{" "}
                     <span className="font-medium">
                       {Math.min(indexOfLastItem, filteredListings.length)}
                     </span>{" "}
-                    {messages['paginationshowingTitle3']}{" "}
+                    {messages["paginationshowingTitle3"]}{" "}
                     <span className="font-medium">
                       {filteredListings.length}
                     </span>{" "}
-                    {messages['paginationshowingTitle4']}
+                    {messages["paginationshowingTitle4"]}
                   </p>
                 </div>
                 <div>
@@ -1195,7 +1182,9 @@ const ManageListPage = () => {
                           : "text-gray-500 hover:bg-gray-50"
                       }`}
                     >
-                      <span className="sr-only">{messages['previousTitle']}</span>
+                      <span className="sr-only">
+                        {messages["previousTitle"]}
+                      </span>
                       <svg
                         className="h-5 w-5"
                         xmlns="http://www.w3.org/2000/svg"
@@ -1554,14 +1543,14 @@ const ManageListPage = () => {
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                       <div className="flex justify-between items-start">
                         <h3 className="text-lg leading-6 font-medium text-gray-900">
-                          Edit Listing
+                          {messages['editlistingTitle']}
                         </h3>
                         <button
                           type="button"
                           onClick={() => setIsEditModalOpen(false)}
                           className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none"
                         >
-                          <span className="sr-only">Close</span>
+                          <span className="sr-only">{messages['closeTitle']}</span>
                           <svg
                             className="h-6 w-6"
                             xmlns="http://www.w3.org/2000/svg"
@@ -1591,14 +1580,14 @@ const ManageListPage = () => {
                     type="submit"
                     className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#206645] text-base font-medium text-white hover:bg-[#185536] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#206645] sm:ml-3 sm:w-auto sm:text-sm"
                   >
-                    Save Changes
+                    {messages['savechangesTitle']}
                   </button>
                   <button
                     type="button"
                     onClick={() => setIsEditModalOpen(false)}
                     className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#206645] sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                   >
-                    Cancel
+                    {messages['cancelTitle']}
                   </button>
                 </div>
               </form>

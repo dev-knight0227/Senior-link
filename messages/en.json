@@ -358,5 +358,8 @@
   "viewdetailsTitle": "View Details",
   "nextTitle": "Next",
   "resetTitle": "Reset",
-  "applyfiltersTitle": "Apply Filters"
+  "applyfiltersTitle": "Apply Filters",
+  "editlistingTitle": "Edit Listing",
+  "closeTitle": "Close",
+  "savechangesTitle": "Save Changes"
 }
