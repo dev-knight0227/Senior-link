@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useLang } from "@/contexts/LangContext";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc, query, where } from "firebase/firestore";
 import { db } from "@/firebase/firestore";
 
 // SearchCare Component - A standalone component for searching care services
@@ -27,21 +27,35 @@ const SearchCare = ({ category = "all" }) => {
     const fetchListings = async () => {
       try {
         setIsLoading(true);
-        const querySnapshot = await getDocs(collection(db, "lists"));
-        const data = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          type: doc.data().entryType,
-          name: doc.data().name,
-          email: doc.data().email,
-          phone: doc.data().phone,
-          address: doc.data().address + ", " + doc.data().city,
-          description: doc.data().description,
-          reviews: doc.data().reviews || [],
-          mainData: doc.data()[doc.data().entryType] || {},
-          image: doc.data().photos[doc.data().avatar] || "",
-          verified: true,
-          // ...doc.data(),
-        }));
+        const usersRef = collection(db, "users");
+        const q = query(usersRef, where("status", "==", "approved"));
+        const querySnapshotUser = await getDocs(q);
+        
+        // Get document references for each approved user
+        const docRefs = querySnapshotUser.docs.map((userdoc) => doc(db, "lists", userdoc.id));
+        
+        // Fetch all documents data
+        const docSnaps = await Promise.all(docRefs.map(docRef => getDoc(docRef)));
+        console.log("Document Snapshots", docSnaps);
+        
+        const data = docSnaps.map((docSnap) => {
+          if (!docSnap.exists()) return null;
+          const docData = docSnap.data();
+          return {
+            id: docSnap.id,
+            type: docData.entryType,
+            name: docData.name,
+            email: docData.email,
+            phone: docData.phone,
+            address: docData.address + ", " + docData.city,
+            description: docData.description,
+            reviews: docData.reviews || [],
+            mainData: docData[docData.entryType] || {},
+            image: docData.photos[docData.avatar] || "",
+            verified: true,
+            // ...docData,
+          };
+        }).filter(item => item !== null);
         console.log(data);
         // setFilteredResults(data);
         resetFilters();
@@ -111,17 +125,30 @@ const SearchCare = ({ category = "all" }) => {
 
     // Filter by specializations
     if (specializations.length > 0) {
-      results = results.filter((provider) =>
-        (provider.type==="nurse"||provider.type==="volunteer"||provider.type==="caregiver")&& specializations.every((spec) =>
-          provider.mainData.specializations.some((providerSpec) => providerSpec.toLowerCase().includes(spec.toLowerCase()))
-        )
+      results = results.filter(
+        (provider) =>
+          (provider.type === "nurse" ||
+            provider.type === "volunteer" ||
+            provider.type === "caregiver") &&
+          specializations.every((spec) =>
+            provider.mainData.specializations.some((providerSpec) =>
+              providerSpec.toLowerCase().includes(spec.toLowerCase())
+            )
+          )
       );
     }
 
     // Filter by availability
     if (availability !== "any") {
-      results = results.filter((provider) =>
-        (provider.type==="nurse"||provider.type==="volunteer"||provider.type==="caregiver"||provider.type==="transport")&&provider.mainData.availability.toLowerCase().includes(availability.toLowerCase())
+      results = results.filter(
+        (provider) =>
+          (provider.type === "nurse" ||
+            provider.type === "volunteer" ||
+            provider.type === "caregiver" ||
+            provider.type === "transport") &&
+          provider.mainData.availability
+            .toLowerCase()
+            .includes(availability.toLowerCase())
       );
     }
 
@@ -561,7 +588,7 @@ const SearchCare = ({ category = "all" }) => {
                             : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                         }`}
                       >
-                        {messages['listTitle']}
+                        {messages["listTitle"]}
                       </button>
                       <button
                         onClick={() => setViewMode("map")}
@@ -571,7 +598,7 @@ const SearchCare = ({ category = "all" }) => {
                             : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                         }`}
                       >
-                        {messages['mapTitle']}
+                        {messages["mapTitle"]}
                       </button>
                     </div>
                   </div>
@@ -654,7 +681,7 @@ const SearchCare = ({ category = "all" }) => {
                                             d="M5 13l4 4L19 7"
                                           />
                                         </svg>
-                                        {messages['verifiedTitle']}
+                                        {messages["verifiedTitle"]}
                                       </div>
                                     )}
                                   </div>
@@ -757,7 +784,7 @@ const SearchCare = ({ category = "all" }) => {
                               <div className="mb-3 sm:mb-0">
                                 <div className="text-[#206645] font-semibold">
                                   {provider.mainData.hourlyRate ||
-                                    provider.mainData.monthlyPrice}
+                                    provider.mainData.monthlyPrice} PLN
                                 </div>
                                 {provider.type !== "careHome" && (
                                   <div className="flex items-center text-sm text-gray-500">
@@ -795,10 +822,10 @@ const SearchCare = ({ category = "all" }) => {
                                       d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                                     />
                                   </svg>
-                                  {messages['contactTitle']}
+                                  {messages["contactTitle"]}
                                 </button>
                                 <button className="flex-1 sm:flex-initial px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#206645] hover:bg-[#185536] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#206645]">
-                                  {messages['viewdetailsTitle']}
+                                  {messages["viewdetailsTitle"]}
                                 </button>
                               </div>
                             </div>
@@ -888,7 +915,7 @@ const SearchCare = ({ category = "all" }) => {
                     disabled
                     className="px-3 py-1 border border-gray-300 rounded-md text-sm font-medium text-gray-500 bg-white cursor-not-allowed"
                   >
-                    {messages['previousTitle']}
+                    {messages["previousTitle"]}
                   </button>
                   <button className="px-3 py-1 border border-[#206645] rounded-md text-sm font-medium text-white bg-[#206645]">
                     1
@@ -901,7 +928,7 @@ const SearchCare = ({ category = "all" }) => {
                   </button>
                   <span className="px-2 text-gray-500">...</span>
                   <button className="px-3 py-1 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
-                    {messages['nextTitle']}
+                    {messages["nextTitle"]}
                   </button>
                 </nav>
               </div>
@@ -1006,7 +1033,7 @@ const SearchCare = ({ category = "all" }) => {
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#206645] text-base font-medium text-white hover:bg-[#185536] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#206645] sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={() => setIsFiltersOpen(false)}
                 >
-                  {messages['applyfiltersTitle']}
+                  {messages["applyfiltersTitle"]}
                 </button>
                 <button
                   type="button"
@@ -1016,7 +1043,7 @@ const SearchCare = ({ category = "all" }) => {
                     setIsFiltersOpen(false);
                   }}
                 >
-                  {messages['resetTitle']}
+                  {messages["resetTitle"]}
                 </button>
               </div>
             </div>

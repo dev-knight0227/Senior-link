@@ -16,6 +16,7 @@ export const AuthProvider = ({ children }) => {
     photoURL: null,
     role: "",
     setList: false, // default value for setList
+    status: "", // default status
   }
   const [user, setUser] = useState(initUser); // stores Firebase user + custom data
   const [loading, setLoading] = useState(true); // loading state
@@ -35,6 +36,7 @@ export const AuthProvider = ({ children }) => {
           ...firebaseUser,
           setList: userData.setList || false, // default to false if not set
           role: userData.role || "", // default to empty string if not set
+          status: userData.status || "", // default status
           avatar: listSnap.exists() ? listSnap.data().photos[listSnap.data().avatar]: "/placeholder.svg", // default avatar if not set
         });
       } else {
