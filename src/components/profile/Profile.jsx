@@ -13,6 +13,7 @@ import { db } from "@/firebase/firestore";
 import { useAuth } from "@/contexts/AuthContext";
 import { useLang } from "@/contexts/LangContext";
 import Loading from "@/app/loading";
+import Link from "next/link";
 import {
   MapPin,
   Phone,
@@ -68,20 +69,20 @@ export default function ProfileComponent() {
       </>
     );
 
-    const updateAvatar = async (newAvatarIndex) => {    
-      try {
-        const userDocRef = doc(db, "lists", user.email);
-        await updateDoc(userDocRef, {
-          avatar: newAvatarIndex,
-        });
-        toast.success("Avatar updated successfully!");
-        switchAvatar(userData.photos[newAvatarIndex]);
-        console.log("Avatar updated successfully");
-      } catch (error) {
-        toast.error("Failed to update avatar.");
-        console.error("Error updating avatar:", error);
-      }
-    };
+  const updateAvatar = async (newAvatarIndex) => {
+    try {
+      const userDocRef = doc(db, "lists", user.email);
+      await updateDoc(userDocRef, {
+        avatar: newAvatarIndex,
+      });
+      toast.success("Avatar updated successfully!");
+      switchAvatar(userData.photos[newAvatarIndex]);
+      console.log("Avatar updated successfully");
+    } catch (error) {
+      toast.error("Failed to update avatar.");
+      console.error("Error updating avatar:", error);
+    }
+  };
 
   const getTypeIcon = (type) => {
     switch (type) {
@@ -543,14 +544,15 @@ export default function ProfileComponent() {
                       {getTypeLabel(userData.entryType)}
                     </Badge>
                   </div>
-                  <Button
-                    size="lg"
-                    className="bg-[#206645] text-white hover:bg-[#185536] font-semibold shadow-md mt-4 md:mt-0"
-                    onClick={() => setIsEditing(!isEditing)}
-                  >
-                    <Edit className="w-5 h-5 mr-2" />
-                    {messages["editprofileTitle"]}
-                  </Button>
+                  <Link href="/edit-profile" passHref>
+                    <Button
+                      size="lg"
+                      className="bg-[#206645] text-white hover:bg-[#185536] font-semibold shadow-md mt-4 md:mt-0"
+                    >
+                      <Edit className="w-5 h-5 mr-2" />
+                      {messages["editprofileTitle"]}
+                    </Button>
+                  </Link>
                 </div>
 
                 <div className="flex flex-wrap gap-4 text-base text-gray-700">
@@ -669,12 +671,12 @@ export default function ProfileComponent() {
           {/* Right Column */}
           <div className="space-y-6">
             {/* Quick Actions */}
-            <Card>
+            {userData[userData.entryType].telegram && <Card>
               <CardHeader>
                 <CardTitle>{messages["quickactionsTitle"]}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <Button className="w-full bg-[#206645] hover:bg-[#185536]">
+                {/* <Button className="w-full bg-[#206645] hover:bg-[#185536]">
                   <Phone className="w-4 h-4 mr-2" />
                   {messages["callnowTitle"]}
                 </Button>
@@ -684,13 +686,15 @@ export default function ProfileComponent() {
                 >
                   <Mail className="w-4 h-4 mr-2" />
                   {messages["sendmessageTitle"]}
-                </Button>
+                </Button> */}
+                <a href={userData[userData.entryType].telegram|| "#"} target="_blank" rel="noopener noreferrer">
                 <Button variant="outline" className="w-full">
                   <MessageCircle className="w-4 h-4 mr-2" />
                   {messages["contactviatelegramTitle"]}
                 </Button>
+                </a>
               </CardContent>
-            </Card>
+            </Card>}
 
             {/* Reviews */}
             <Card>
@@ -723,23 +727,6 @@ export default function ProfileComponent() {
                 >
                   {messages["viewallreviewsTitle"]}
                 </Button>
-              </CardContent>
-            </Card>
-
-            {/* Verification Status */}
-            <Card>
-              <CardHeader>
-                <CardTitle>{messages["verificationstatusTitle"]}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-sm">
-                    {messages["identityverifiedTitle"]}
-                  </span>
-                  <Badge className="bg-green-100 text-green-800">
-                    ✓ {messages["verifiedTitle"]}
-                  </Badge>
-                </div>
               </CardContent>
             </Card>
           </div>
