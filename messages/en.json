@@ -361,5 +361,11 @@
   "applyfiltersTitle": "Apply Filters",
   "editlistingTitle": "Edit Listing",
   "closeTitle": "Close",
-  "savechangesTitle": "Save Changes"
+  "savechangesTitle": "Save Changes",
+  "viewTitle": "View",
+  "editTitle": "Edit",
+  "approveTitle": "Approve",
+  "hideTitle": "Hide",
+  "showTitle": "Show",
+  "rejectTitle": "Reject"
 }

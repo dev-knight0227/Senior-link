@@ -361,5 +361,11 @@
   "applyfiltersTitle": "Zastosuj filtry",
   "editlistingTitle": "Edytuj ogłoszenie",
   "closeTitle": "Zamknij",
-  "savechangesTitle": "Zapisz zmiany"
+  "savechangesTitle": "Zapisz zmiany",
+  "viewTitle": "Widok",
+  "editTitle": "Edytuj",
+  "approveTitle": "Zatwierdź",
+  "hideTitle": "Ukryj",
+  "showTitle": "Pokaż",
+  "rejectTitle": "Odrzuć"
 }

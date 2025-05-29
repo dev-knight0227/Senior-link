@@ -231,6 +231,7 @@ const ManageListPage = () => {
       approved: "bg-green-100 text-green-800",
       hidden: "bg-gray-100 text-gray-800",
       rejected: "bg-red-100 text-red-800",
+      deleted: "bg-red-100 text-red-800",
     };
 
     return (
@@ -966,10 +967,10 @@ const ManageListPage = () => {
                         {formatDate(listing.createdAt)}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <div className="flex justify-end space-x-2">
+                        <div className="flex justify-end space-x-4 items-center">
                           <button
                             onClick={() => openViewModal(listing)}
-                            className="text-gray-600 hover:text-gray-900"
+                            className="flex items-center space-x-1 text-gray-600 hover:text-gray-900"
                             title="View"
                           >
                             <svg
@@ -992,11 +993,12 @@ const ManageListPage = () => {
                                 d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                               />
                             </svg>
+                            <span>{messages['viewTitle']}</span>
                           </button>
 
                           <button
                             onClick={() => openEditModal(listing)}
-                            className="text-blue-600 hover:text-blue-900"
+                            className="flex items-center space-x-1 text-blue-600 hover:text-blue-900"
                             title="Edit"
                           >
                             <svg
@@ -1013,6 +1015,7 @@ const ManageListPage = () => {
                                 d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
                               />
                             </svg>
+                            <span>{messages['editTitle']}</span>
                           </button>
 
                           {listing.status === "pending" && (
@@ -1020,7 +1023,7 @@ const ManageListPage = () => {
                               onClick={() =>
                                 handleStatusChange(listing.id, "approved")
                               }
-                              className="text-green-600 hover:text-green-900"
+                              className="flex items-center space-x-1 text-green-600 hover:text-green-900"
                               title="Approve"
                             >
                               <svg
@@ -1037,6 +1040,7 @@ const ManageListPage = () => {
                                   d="M5 13l4 4L19 7"
                                 />
                               </svg>
+                              <span>{messages['approveTitle']}</span>
                             </button>
                           )}
 
@@ -1045,7 +1049,7 @@ const ManageListPage = () => {
                               onClick={() =>
                                 handleStatusChange(listing.id, "hidden")
                               }
-                              className="text-gray-600 hover:text-gray-900"
+                              className="flex items-center space-x-1 text-gray-600 hover:text-gray-900"
                               title="Hide"
                             >
                               <svg
@@ -1062,6 +1066,7 @@ const ManageListPage = () => {
                                   d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"
                                 />
                               </svg>
+                              <span>{messages['hideTitle']}</span>
                             </button>
                           ) : (
                             listing.status === "hidden" && (
@@ -1069,7 +1074,7 @@ const ManageListPage = () => {
                                 onClick={() =>
                                   handleStatusChange(listing.id, "approved")
                                 }
-                                className="text-gray-600 hover:text-gray-900"
+                                className="flex items-center space-x-1 text-gray-600 hover:text-gray-900"
                                 title="Show"
                               >
                                 <svg
@@ -1092,6 +1097,7 @@ const ManageListPage = () => {
                                     d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
                                   />
                                 </svg>
+                                <span>{messages['showTitle']}</span>
                               </button>
                             )
                           )}
@@ -1101,7 +1107,7 @@ const ManageListPage = () => {
                               onClick={() =>
                                 handleStatusChange(listing.id, "rejected")
                               }
-                              className="text-red-600 hover:text-red-900"
+                              className="flex items-center space-x-1 text-red-600 hover:text-red-900"
                               title="Reject"
                             >
                               <svg
@@ -1118,12 +1124,13 @@ const ManageListPage = () => {
                                   d="M6 18L18 6M6 6l12 12"
                                 />
                               </svg>
+                              <span>{messages['rejectTitle']}</span>
                             </button>
                           )}
 
-                          <button
+                          {listing.status !== "deleted" && <button
                             onClick={() => openDeleteModal(listing)}
-                            className="text-red-600 hover:text-red-900"
+                            className="flex items-center space-x-1 text-red-600 hover:text-red-900"
                             title="Delete"
                           >
                             <svg
@@ -1140,7 +1147,8 @@ const ManageListPage = () => {
                                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                               />
                             </svg>
-                          </button>
+                            <span>{messages['deleteTitle']}</span>
+                          </button>}
                         </div>
                       </td>
                     </tr>
@@ -1543,14 +1551,16 @@ const ManageListPage = () => {
                     <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                       <div className="flex justify-between items-start">
                         <h3 className="text-lg leading-6 font-medium text-gray-900">
-                          {messages['editlistingTitle']}
+                          {messages["editlistingTitle"]}
                         </h3>
                         <button
                           type="button"
                           onClick={() => setIsEditModalOpen(false)}
                           className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none"
                         >
-                          <span className="sr-only">{messages['closeTitle']}</span>
+                          <span className="sr-only">
+                            {messages["closeTitle"]}
+                          </span>
                           <svg
                             className="h-6 w-6"
                             xmlns="http://www.w3.org/2000/svg"
@@ -1580,14 +1590,14 @@ const ManageListPage = () => {
                     type="submit"
                     className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-[#206645] text-base font-medium text-white hover:bg-[#185536] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#206645] sm:ml-3 sm:w-auto sm:text-sm"
                   >
-                    {messages['savechangesTitle']}
+                    {messages["savechangesTitle"]}
                   </button>
                   <button
                     type="button"
                     onClick={() => setIsEditModalOpen(false)}
                     className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#206645] sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                   >
-                    {messages['cancelTitle']}
+                    {messages["cancelTitle"]}
                   </button>
                 </div>
               </form>
@@ -1653,7 +1663,7 @@ const ManageListPage = () => {
               <div className="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                 <button
                   type="button"
-                  onClick={() => handleDelete(selectedListing.id)}
+                  onClick={() => handleStatusChange(selectedListing.id, "deleted")}
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
                 >
                   Delete

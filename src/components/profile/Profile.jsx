@@ -544,15 +544,13 @@ export default function ProfileComponent() {
                       {getTypeLabel(userData.entryType)}
                     </Badge>
                   </div>
-                  <Link href="/edit-profile" passHref>
-                    <Button
-                      size="lg"
-                      className="bg-[#206645] text-white hover:bg-[#185536] font-semibold shadow-md mt-4 md:mt-0"
-                    >
-                      <Edit className="w-5 h-5 mr-2" />
-                      {messages["editprofileTitle"]}
-                    </Button>
-                  </Link>
+                  <Button
+                    size="lg"
+                    className="bg-[#206645] text-white hover:bg-[#185536] font-semibold shadow-md mt-4 md:mt-0"
+                  >
+                    <Edit className="w-5 h-5 mr-2" />
+                    {messages["editprofileTitle"]}
+                  </Button>
                 </div>
 
                 <div className="flex flex-wrap gap-4 text-base text-gray-700">
@@ -671,12 +669,13 @@ export default function ProfileComponent() {
           {/* Right Column */}
           <div className="space-y-6">
             {/* Quick Actions */}
-            {userData[userData.entryType].telegram && <Card>
-              <CardHeader>
-                <CardTitle>{messages["quickactionsTitle"]}</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {/* <Button className="w-full bg-[#206645] hover:bg-[#185536]">
+            {userData[userData.entryType].telegram && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>{messages["quickactionsTitle"]}</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {/* <Button className="w-full bg-[#206645] hover:bg-[#185536]">
                   <Phone className="w-4 h-4 mr-2" />
                   {messages["callnowTitle"]}
                 </Button>
@@ -687,14 +686,19 @@ export default function ProfileComponent() {
                   <Mail className="w-4 h-4 mr-2" />
                   {messages["sendmessageTitle"]}
                 </Button> */}
-                <a href={userData[userData.entryType].telegram|| "#"} target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" className="w-full">
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  {messages["contactviatelegramTitle"]}
-                </Button>
-                </a>
-              </CardContent>
-            </Card>}
+                  <a
+                    href={userData[userData.entryType].telegram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Button variant="outline" className="w-full">
+                      <MessageCircle className="w-4 h-4 mr-2" />
+                      {messages["contactviatelegramTitle"]}
+                    </Button>
+                  </a>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Reviews */}
             <Card>
