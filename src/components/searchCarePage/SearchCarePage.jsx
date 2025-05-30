@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "@/firebase/firestore";
 import ContactModal from "./ContactModal";
+import DetailsModal from "./DetailsModal";
 
 // SearchCare Component - A standalone component for searching care services
 const SearchCare = ({ category = "all" }) => {
@@ -34,7 +35,10 @@ const SearchCare = ({ category = "all" }) => {
   const [selectedContact, setSelectedContact] = useState({
     phone: "",
     email: "",
+    telegram: "",
   });
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [selectedDetails, setSelectedDetails] = useState(null);
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -203,6 +207,11 @@ const SearchCare = ({ category = "all" }) => {
   const openContactModal = (phone, email, telegram) => {
     setSelectedContact({ phone, email, telegram });
     setIsContactModalOpen(true);
+  };
+
+  const openDetailsModal = (item) => {
+    setSelectedDetails(item);
+    setIsDetailsModalOpen(true);
   };
 
   // Render provider type badge
@@ -843,7 +852,7 @@ const SearchCare = ({ category = "all" }) => {
                                     openContactModal(
                                       provider.phone,
                                       provider.email,
-                                      provider.mainData.telegram||""
+                                      provider.mainData.telegram || ""
                                     )
                                   }
                                 >
@@ -863,7 +872,10 @@ const SearchCare = ({ category = "all" }) => {
                                   </svg>
                                   {messages["contactTitle"]}
                                 </button>
-                                <button className="flex-1 sm:flex-initial px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#206645] hover:bg-[#185536] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#206645]">
+                                <button
+                                  className="flex-1 sm:flex-initial px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#206645] hover:bg-[#185536] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#206645]"
+                                  onClick={() => openDetailsModal(provider)}
+                                >
                                   {messages["viewdetailsTitle"]}
                                 </button>
                                 <ContactModal
@@ -872,6 +884,12 @@ const SearchCare = ({ category = "all" }) => {
                                   phone={selectedContact.phone}
                                   email={selectedContact.email}
                                   telegram={selectedContact.telegram}
+                                />
+                                <DetailsModal
+                                  isOpen={isDetailsModalOpen}
+                                  onClose={() => setIsDetailsModalOpen(false)}
+                                  item={selectedDetails}
+                                  title={messages['providerdetailsTitle']}
                                 />
                               </div>
                             </div>

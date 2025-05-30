@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useLang } from "@/contexts/LangContext";
 
 export default function ContactModal({ isOpen, onClose, phone, email, telegram }) {
   const [copiedField, setCopiedField] = useState(null);
+  const {messages} = useLang();
 
   if (!isOpen) return null;
 
@@ -22,7 +24,7 @@ export default function ContactModal({ isOpen, onClose, phone, email, telegram }
         className="bg-white rounded-lg p-6 max-w-sm w-full relative"
         onClick={(e) => e.stopPropagation()}
       >
-        <h2 className="text-xl font-semibold mb-4">Contact Information</h2>
+        <h2 className="text-xl font-semibold mb-4">{messages['contactinformationTitle']}</h2>
 
         <p
           className="mb-2 cursor-pointer select-all"
@@ -31,7 +33,7 @@ export default function ContactModal({ isOpen, onClose, phone, email, telegram }
         >
           <strong>Phone:</strong> {phone}
           {copiedField === "phone" && (
-            <span className="ml-2 text-green-600 font-semibold">Copied!</span>
+            <span className="ml-2 text-green-600 font-semibold">{messages['copiedTitle']}!</span>
           )}
         </p>
 
@@ -42,7 +44,7 @@ export default function ContactModal({ isOpen, onClose, phone, email, telegram }
         >
           <strong>Email:</strong> {email}
           {copiedField === "email" && (
-            <span className="ml-2 text-green-600 font-semibold">Copied!</span>
+            <span className="ml-2 text-green-600 font-semibold">{messages['contactinformationTitle']}!</span>
           )}
         </p>
 
@@ -59,7 +61,7 @@ export default function ContactModal({ isOpen, onClose, phone, email, telegram }
           onClick={onClose}
           className="mt-2 px-4 py-2 bg-[#206645] text-white rounded hover:bg-[#185536] focus:outline-none"
         >
-          Close
+          {messages['closeTitle']}
         </button>
       </div>
     </div>

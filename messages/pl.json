@@ -367,5 +367,7 @@
   "approveTitle": "Zatwierdź",
   "hideTitle": "Ukryj",
   "showTitle": "Pokaż",
-  "rejectTitle": "Odrzuć"
+  "rejectTitle": "Odrzuć",
+  "copiedTitle": "Skopiowano",
+  "providerdetailsTitle": "Informacje o usługodawcy"
 }

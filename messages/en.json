@@ -367,5 +367,7 @@
   "approveTitle": "Approve",
   "hideTitle": "Hide",
   "showTitle": "Show",
-  "rejectTitle": "Reject"
+  "rejectTitle": "Reject",
+  "copiedTitle": "Copied",
+  "providerdetailsTitle": "Provider Details"
 }
