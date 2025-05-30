@@ -28,6 +28,8 @@ import {
   DollarSign,
   MessageCircle,
   Pencil,
+  Tag,
+  Tags,
 } from "lucide-react";
 import toast from "react-hot-toast";
 
@@ -165,7 +167,7 @@ export default function ProfileComponent() {
                     {messages["hourlyrateLabel"]}
                   </p>
                   <p className="font-semibold">
-                    ${userData[userData.entryType].hourlyRate}
+                    {userData[userData.entryType].hourlyRate}
                   </p>
                 </div>
               </div>
@@ -234,7 +236,7 @@ export default function ProfileComponent() {
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex items-center gap-3">
-                <Calendar className="w-5 h-5 text-gray-400" />
+                <Users className="w-5 h-5 text-gray-400" />
                 <div>
                   <p className="text-sm text-gray-600">
                     {messages["capacityLabel"]}
@@ -252,7 +254,7 @@ export default function ProfileComponent() {
                     {messages["monthlypriceLabel"]}
                   </p>
                   <p className="font-semibold">
-                    ${userData[userData.entryType].monthlyPrice}
+                    {userData[userData.entryType].monthlyPrice}
                   </p>
                 </div>
               </div>
@@ -302,7 +304,7 @@ export default function ProfileComponent() {
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex items-center gap-3">
-                <Calendar className="w-5 h-5 text-gray-400" />
+                <Tags className="w-5 h-5 text-gray-400" />
                 <div>
                   <p className="text-sm text-gray-600">
                     {messages["serviceareaLabel"]}
@@ -320,7 +322,7 @@ export default function ProfileComponent() {
                     {messages["hourlyrateLabel"]}
                   </p>
                   <p className="font-semibold">
-                    ${userData[userData.entryType].hourlyRate}
+                    {userData[userData.entryType].hourlyRate}
                   </p>
                 </div>
               </div>
@@ -362,7 +364,7 @@ export default function ProfileComponent() {
           <CardContent className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="flex items-center gap-3">
-                <Calendar className="w-5 h-5 text-gray-400" />
+                <Clock className="w-5 h-5 text-gray-400" />
                 <div>
                   <p className="text-sm text-gray-600">
                     {messages["openinghoursLabel"]}
@@ -374,13 +376,13 @@ export default function ProfileComponent() {
               </div>
 
               <div className="flex items-center gap-3">
-                <DollarSign className="w-5 h-5 text-gray-400" />
+                <Tag className="w-5 h-5 text-gray-400" />
                 <div>
                   <p className="text-sm text-gray-600">
                     {messages["websiteurlTitle"]}
                   </p>
                   <p className="font-semibold">
-                    ${userData[userData.entryType].websiteUrl}
+                    {userData[userData.entryType].websiteUrl}
                   </p>
                 </div>
               </div>
@@ -433,13 +435,13 @@ export default function ProfileComponent() {
               </div>
 
               <div className="flex items-center gap-3">
-                <DollarSign className="w-5 h-5 text-gray-400" />
+                <Tag className="w-5 h-5 text-gray-400" />
                 <div>
                   <p className="text-sm text-gray-600">
                     {messages["websiteurlTitle"]}
                   </p>
                   <p className="font-semibold">
-                    ${userData[userData.entryType].websiteUrl}
+                    {userData[userData.entryType].websiteUrl}
                   </p>
                 </div>
               </div>
@@ -551,7 +553,7 @@ export default function ProfileComponent() {
                   </CardTitle>
                   <button
                     type="button"
-                    className="p-2 rounded hover:bg-gray-100"
+                    className="p-2 rounded bg-gray-300 hover:bg-gray-100"
                     aria-label="Edit"
                     // onClick={handleEdit}
                   >
@@ -576,7 +578,7 @@ export default function ProfileComponent() {
                   </CardTitle>
                   <button
                     type="button"
-                    className="p-2 rounded hover:bg-gray-100"
+                    className="p-2 rounded bg-gray-300 hover:bg-gray-100"
                     aria-label="Edit"
                     // onClick={handleEdit} // Replace with your edit handler
                   >
@@ -685,7 +687,7 @@ export default function ProfileComponent() {
                   </CardTitle>
                   <button
                     type="button"
-                    className="p-2 rounded hover:bg-gray-100"
+                    className="p-2 rounded bg-gray-300 hover:bg-gray-100"
                     aria-label="Edit"
                     // onClick={handleEdit} // Replace with your edit handler
                   >
