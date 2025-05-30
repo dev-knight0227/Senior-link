@@ -440,12 +440,12 @@ const ManageListPage = () => {
               <p className="mt-1 text-sm text-gray-900">
                 {listing.mainData.websiteUrl ? (
                   <a
-                    href={listing.store.websiteUrl}
+                    href={listing.mainData.websiteUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-[#206645] hover:underline"
                   >
-                    {listing.store.websiteUrl}
+                    {listing.mainData.websiteUrl}
                   </a>
                 ) : (
                   "Not provided"

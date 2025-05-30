@@ -2,8 +2,16 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useLang } from "@/contexts/LangContext";
-import { collection, getDocs, getDoc, doc, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  getDoc,
+  doc,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "@/firebase/firestore";
+import ContactModal from "./ContactModal";
 
 // SearchCare Component - A standalone component for searching care services
 const SearchCare = ({ category = "all" }) => {
@@ -22,6 +30,11 @@ const SearchCare = ({ category = "all" }) => {
   const [filteredResults, setFilteredResults] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [listings, setListings] = useState([]);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [selectedContact, setSelectedContact] = useState({
+    phone: "",
+    email: "",
+  });
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -30,32 +43,38 @@ const SearchCare = ({ category = "all" }) => {
         const usersRef = collection(db, "users");
         const q = query(usersRef, where("status", "==", "approved"));
         const querySnapshotUser = await getDocs(q);
-        
+
         // Get document references for each approved user
-        const docRefs = querySnapshotUser.docs.map((userdoc) => doc(db, "lists", userdoc.id));
-        
+        const docRefs = querySnapshotUser.docs.map((userdoc) =>
+          doc(db, "lists", userdoc.id)
+        );
+
         // Fetch all documents data
-        const docSnaps = await Promise.all(docRefs.map(docRef => getDoc(docRef)));
+        const docSnaps = await Promise.all(
+          docRefs.map((docRef) => getDoc(docRef))
+        );
         console.log("Document Snapshots", docSnaps);
-        
-        const data = docSnaps.map((docSnap) => {
-          if (!docSnap.exists()) return null;
-          const docData = docSnap.data();
-          return {
-            id: docSnap.id,
-            type: docData.entryType,
-            name: docData.name,
-            email: docData.email,
-            phone: docData.phone,
-            address: docData.address + ", " + docData.city,
-            description: docData.description,
-            reviews: docData.reviews || [],
-            mainData: docData[docData.entryType] || {},
-            image: docData.photos[docData.avatar] || "",
-            verified: true,
-            // ...docData,
-          };
-        }).filter(item => item !== null);
+
+        const data = docSnaps
+          .map((docSnap) => {
+            if (!docSnap.exists()) return null;
+            const docData = docSnap.data();
+            return {
+              id: docSnap.id,
+              type: docData.entryType,
+              name: docData.name,
+              email: docData.email,
+              phone: docData.phone,
+              address: docData.address + ", " + docData.city,
+              description: docData.description,
+              reviews: docData.reviews || [],
+              mainData: docData[docData.entryType] || {},
+              image: docData.photos[docData.avatar] || "",
+              verified: true,
+              // ...docData,
+            };
+          })
+          .filter((item) => item !== null);
         console.log(data);
         // setFilteredResults(data);
         resetFilters();
@@ -179,6 +198,11 @@ const SearchCare = ({ category = "all" }) => {
     setSpecializations((prev) =>
       prev.includes(spec) ? prev.filter((s) => s !== spec) : [...prev, spec]
     );
+  };
+
+  const openContactModal = (phone, email, telegram) => {
+    setSelectedContact({ phone, email, telegram });
+    setIsContactModalOpen(true);
   };
 
   // Render provider type badge
@@ -781,33 +805,48 @@ const SearchCare = ({ category = "all" }) => {
                             </div>
 
                             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center pt-4 border-t border-gray-100">
-                              <div className="mb-3 sm:mb-0">
-                                <div className="text-[#206645] font-semibold">
-                                  {provider.mainData.hourlyRate ||
-                                    provider.mainData.monthlyPrice} PLN
-                                </div>
-                                {provider.type !== "careHome" && (
-                                  <div className="flex items-center text-sm text-gray-500">
-                                    <svg
-                                      xmlns="http://www.w3.org/2000/svg"
-                                      className="h-4 w-4 mr-1"
-                                      fill="none"
-                                      viewBox="0 0 24 24"
-                                      stroke="currentColor"
-                                    >
-                                      <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                                      />
-                                    </svg>
-                                    {provider.mainData.availability}
+                              {provider.type !== "store" &&
+                              provider.type !== "institution" ? (
+                                <div className="mb-3 sm:mb-0">
+                                  <div className="text-[#206645] font-semibold">
+                                    {provider.mainData.hourlyRate ||
+                                      provider.mainData.monthlyPrice}{" "}
+                                    PLN
                                   </div>
-                                )}
-                              </div>
+                                  {provider.type !== "careHome" && (
+                                    <div className="flex items-center text-sm text-gray-500">
+                                      <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        className="h-4 w-4 mr-1"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                      >
+                                        <path
+                                          strokeLinecap="round"
+                                          strokeLinejoin="round"
+                                          strokeWidth={2}
+                                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                                        />
+                                      </svg>
+                                      {provider.mainData.availability}
+                                    </div>
+                                  )}
+                                </div>
+                              ) : (
+                                <div className="mb-3 sm:mb-0"></div>
+                              )}
                               <div className="flex gap-3 w-full sm:w-auto">
-                                <button className="flex-1 sm:flex-initial px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#206645]">
+                                <button
+                                  className="flex-1 sm:flex-initial px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#206645]"
+                                  onClick={() =>
+                                    openContactModal(
+                                      provider.phone,
+                                      provider.email,
+                                      provider.mainData.telegram||""
+                                    )
+                                  }
+                                >
                                   <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     className="h-4 w-4 mr-2 inline-block"
@@ -827,6 +866,13 @@ const SearchCare = ({ category = "all" }) => {
                                 <button className="flex-1 sm:flex-initial px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-[#206645] hover:bg-[#185536] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#206645]">
                                   {messages["viewdetailsTitle"]}
                                 </button>
+                                <ContactModal
+                                  isOpen={isContactModalOpen}
+                                  onClose={() => setIsContactModalOpen(false)}
+                                  phone={selectedContact.phone}
+                                  email={selectedContact.email}
+                                  telegram={selectedContact.telegram}
+                                />
                               </div>
                             </div>
                           </div>
